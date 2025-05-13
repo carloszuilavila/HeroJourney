@@ -10,8 +10,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import dev.carloszuil.herojourney.databinding.FragmentHomeBinding
-import dev.carloszuil.herojourney.Tarea
-import dev.carloszuil.herojourney.TareaAdapter
+import dev.carloszuil.herojourney.model.Tarea
+import dev.carloszuil.herojourney.adapter.TareaAdapter
 import dev.carloszuil.herojourney.ui.viewmodel.SharedViewModel
 
 class HomeFragment : Fragment() {

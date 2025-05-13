@@ -7,8 +7,23 @@
         android:title="@string/title_home" />
 
     <item
+        android:id="@+id/questsFragment"
+        android:icon="@drawable/ic_notifications_black_24dp"
+        android:title="Quests" />
+
+    <item
         android:id="@+id/journeyFragment"
         android:icon="@drawable/ic_notifications_black_24dp"
         android:title="Viaje" />
+
+    <item
+        android:id="@+id/valuesFragment"
+        android:icon="@drawable/ic_notifications_black_24dp"
+        android:title="Values" />
+
+    <item
+        android:id="@+id/heroFragment"
+        android:icon="@drawable/ic_notifications_black_24dp"
+        android:title="Hero" />
 
 </menu>

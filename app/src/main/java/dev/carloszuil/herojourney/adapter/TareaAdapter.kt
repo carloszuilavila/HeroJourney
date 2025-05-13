@@ -1,4 +1,4 @@
-package dev.carloszuil.herojourney
+package dev.carloszuil.herojourney.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,6 +6,8 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import dev.carloszuil.herojourney.R
+import dev.carloszuil.herojourney.model.Tarea
 
 class TareaAdapter(
     private val tareas: List<Tarea>,

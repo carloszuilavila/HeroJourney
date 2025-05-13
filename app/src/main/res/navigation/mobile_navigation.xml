@@ -12,9 +12,27 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
+        android:id="@+id/questsFragment"
+        android:name="dev.carloszuil.herojourney.ui.quests.QuestsFragment"
+        android:label="Quests"
+        tools:layout="@layout/fragment_quests" />
+
+    <fragment
         android:id="@+id/journeyFragment"
         android:name="dev.carloszuil.herojourney.ui.journey.JourneyFragment"
         android:label="Viaje del Héroe"
         tools:layout="@layout/fragment_journey" />
+
+    <fragment
+        android:id="@+id/valuesFragment"
+        android:name="dev.carloszuil.herojourney.ui.values.ValuesFragment"
+        android:label="Values"
+        tools:layout="@layout/fragment_values" />
+
+    <fragment
+        android:id="@+id/heroFragment"
+        android:name="dev.carloszuil.herojourney.ui.hero.HeroFragment"
+        android:label="Hero"
+        tools:layout="@layout/fragment_hero" />
 
 </navigation>

@@ -1,4 +1,4 @@
-package dev.carloszuil.herojourney
+package dev.carloszuil.herojourney.model
 
 data class Tarea(
     val nombre: String,
