@@ -6,20 +6,23 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import dev.carloszuil.herojourney.R
 import dev.carloszuil.herojourney.model.Quest
 import dev.carloszuil.herojourney.model.QuestState
 
 class QuestAdapter(
-    private val quests: MutableList<Quest>,
+    initialList: List<Quest>,  // Cambiar para recibir una lista inmutable
     private val onQuestChecked: (Quest, Boolean) -> Unit
 ) : RecyclerView.Adapter<QuestAdapter.QuestViewHolder>() {
+
+    // Crear una lista mutable interna
+    private val quests = mutableListOf<Quest>().apply { addAll(initialList) }
 
     class QuestViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val questNombre: TextView = itemView.findViewById(R.id.questText)
         val questCheckBox: CheckBox = itemView.findViewById(R.id.questCheckbox)
-        val cardView: CardView = itemView.findViewById(R.id.questCardView)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): QuestViewHolder {
@@ -30,20 +33,25 @@ class QuestAdapter(
     override fun onBindViewHolder(holder: QuestViewHolder, position: Int) {
         val quest = quests[position]
         holder.questNombre.text = quest.nombre
-        holder.questCheckBox.isChecked = quest.estado == QuestState.CONGELADA
 
+        // Quitar listener antes de actualizar el checkbox
+        holder.questCheckBox.setOnCheckedChangeListener(null)
+
+        // Mostrar marcado solo si está COMPLETADA
+        holder.questCheckBox.isChecked = quest.estado == QuestState.COMPLETADA
+
+        // Reasignar listener
         holder.questCheckBox.setOnCheckedChangeListener { _, isChecked ->
             onQuestChecked(quest, isChecked)
         }
     }
 
-    override fun getItemCount(): Int {
-        return quests.size
-    }
+    override fun getItemCount(): Int = quests.size
 
     fun updateList(newList: List<Quest>) {
+        val diffResult = DiffUtil.calculateDiff(QuestDiffCallback(quests, newList))
         quests.clear()
         quests.addAll(newList)
-        notifyDataSetChanged()
+        diffResult.dispatchUpdatesTo(this)
     }
 }
