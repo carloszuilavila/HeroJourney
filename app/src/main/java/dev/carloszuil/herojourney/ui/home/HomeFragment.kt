@@ -10,8 +10,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import dev.carloszuil.herojourney.databinding.FragmentHomeBinding
-import dev.carloszuil.herojourney.model.Tarea
-import dev.carloszuil.herojourney.adapter.TareaAdapter
+import dev.carloszuil.herojourney.model.Habit
+import dev.carloszuil.herojourney.adapter.HabitAdapter
 import dev.carloszuil.herojourney.ui.viewmodel.SharedViewModel
 
 class HomeFragment : Fragment() {
@@ -19,13 +19,13 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var tareaAdapter: TareaAdapter
-    private val listaTareas = mutableListOf(
-        Tarea("Planchar"),
-        Tarea("Lavar los platos"),
-        Tarea("Sacar la basura"),
-        Tarea("Hacer ejercicio"),
-        Tarea("Leer 10 páginas")
+    private lateinit var habitAdapter: HabitAdapter
+    private val habitsList = mutableListOf(
+        Habit("Planchar"),
+        Habit("Lavar los platos"),
+        Habit("Sacar la basura"),
+        Habit("Hacer ejercicio"),
+        Habit("Leer 10 páginas")
     )
 
     // Obtener la instancia del ViewModel compartido
@@ -46,12 +46,12 @@ class HomeFragment : Fragment() {
         sharedViewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
 
         // Adaptador con callback
-        tareaAdapter = TareaAdapter(listaTareas) {
+        habitAdapter = HabitAdapter(habitsList) {
             actualizarProgreso()
         }
 
-        binding.recyclerTareas.layoutManager = LinearLayoutManager(requireContext())
-        binding.recyclerTareas.adapter = tareaAdapter
+        binding.recyclerHabits.layoutManager = LinearLayoutManager(requireContext())
+        binding.recyclerHabits.adapter = habitAdapter
 
         // Inicializar barra
         binding.barraProgreso.max = 3
@@ -61,7 +61,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun actualizarProgreso() {
-        val completadas = listaTareas.count { it.completada }
+        val completadas = habitsList.count { it.completada }
         val requeridas = 3
 
         // Limita el progreso visual, pero muestra el total real
