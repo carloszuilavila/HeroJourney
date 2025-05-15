@@ -56,12 +56,13 @@ class QuestsFragment : Fragment() {
         inicializarQuestsDeEjemplo()
         _binding = FragmentQuestsBinding.inflate(inflater, container, false)
 
-        // Cambiar para pasar listas inmutables al adaptador
+        // Inicializar adaptadores con listas inmutables
         adapterPendientes = getGenericQuestAdapter(pendientes.toList())
         adapterEnProgreso = getGenericQuestAdapter(enProgreso.toList())
         adapterCongeladas = getGenericQuestAdapter(congeladas.toList())
         adapterCompletadas = getGenericQuestAdapter(completadas.toList())
 
+        // Asignar RecyclerViews
         binding.recyclerPendientes.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerPendientes.adapter = adapterPendientes
 
@@ -74,8 +75,24 @@ class QuestsFragment : Fragment() {
         binding.recyclerCompletadas.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerCompletadas.adapter = adapterCompletadas
 
+        // Calcula el ancho disponible
+        val screenWidth = resources.displayMetrics.widthPixels
+        val factor = 0.8f  // 90% del ancho de la pantalla
+        val columnWidth = (screenWidth * factor).toInt()
+
+        binding.columnaPendientes.layoutParams.width = columnWidth
+        binding.columnaProgreso.layoutParams.width = columnWidth
+        binding.columnaCongeladas.layoutParams.width = columnWidth
+        binding.columnaCompletadas.layoutParams.width = columnWidth
+
+        binding.columnaPendientes.requestLayout()
+        binding.columnaProgreso.requestLayout()
+        binding.columnaCongeladas.requestLayout()
+        binding.columnaCompletadas.requestLayout()
+
         return binding.root
     }
+
 
     private fun getGenericQuestAdapter(list: List<Quest>): QuestAdapter {
         return QuestAdapter(list) { quest, isChecked ->
