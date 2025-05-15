@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import dev.carloszuil.herojourney.databinding.FragmentQuestsBinding
@@ -95,17 +96,23 @@ class QuestsFragment : Fragment() {
 
 
     private fun getGenericQuestAdapter(list: List<Quest>): QuestAdapter {
-        return QuestAdapter(list) { quest, isChecked ->
-            if (isChecked && quest.estado != QuestState.COMPLETADA) {
-                changeQuestState(quest, QuestState.COMPLETADA)
-            } else if (!isChecked && quest.estado == QuestState.COMPLETADA) {
-                // Comprobamos explícitamente si estadoAnterior no es nulo
-                quest.estadoAnterior?.let {
-                    changeQuestState(quest, it)
+        return QuestAdapter(
+            list,
+            onQuestChecked = { quest, isChecked ->
+                if (isChecked && quest.estado != QuestState.COMPLETADA) {
+                    changeQuestState(quest, QuestState.COMPLETADA)
+                } else if (!isChecked && quest.estado == QuestState.COMPLETADA) {
+                    quest.estadoAnterior?.let {
+                        changeQuestState(quest, it)
+                    }
                 }
+            },
+            onMoveClicked = { quest ->
+                mostrarDialogoMoverQuest(quest)
             }
-        }
+        )
     }
+
 
     private fun changeQuestState(quest: Quest, newState: QuestState) {
         // Eliminar de su lista actual
@@ -134,6 +141,26 @@ class QuestsFragment : Fragment() {
 
         updateAdapters()
     }
+
+    private fun mostrarDialogoMoverQuest(quest: Quest) {
+        val opciones = QuestState.values()
+            .filter { it != quest.estado } // Excluir el estado actual
+            .map { it.name.replace("_", " ").capitalize() }
+            .toTypedArray()
+
+        val estadosDisponibles = QuestState.values()
+            .filter { it != quest.estado }
+
+        AlertDialog.Builder(requireContext())
+            .setTitle("Mover a:")
+            .setItems(opciones) { _, which ->
+                val nuevoEstado = estadosDisponibles[which]
+                changeQuestState(quest, nuevoEstado)
+            }
+            .setNegativeButton("Cancelar", null)
+            .show()
+    }
+
 
     private fun updateAdapters() {
         // Actualizar las listas en los adaptadores con las nuevas listas inmutables

@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.DiffUtil
@@ -14,7 +15,8 @@ import dev.carloszuil.herojourney.model.QuestState
 
 class QuestAdapter(
     initialList: List<Quest>,  // Cambiar para recibir una lista inmutable
-    private val onQuestChecked: (Quest, Boolean) -> Unit
+    private val onQuestChecked: (Quest, Boolean) -> Unit,
+    private val onMoveClicked: (Quest) -> Unit
 ) : RecyclerView.Adapter<QuestAdapter.QuestViewHolder>() {
 
     // Crear una lista mutable interna
@@ -23,6 +25,7 @@ class QuestAdapter(
     class QuestViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val questNombre: TextView = itemView.findViewById(R.id.questText)
         val questCheckBox: CheckBox = itemView.findViewById(R.id.questCheckbox)
+        val btnMove: ImageButton = itemView.findViewById(R.id.btnMoveQuest)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): QuestViewHolder {
@@ -43,6 +46,10 @@ class QuestAdapter(
         // Reasignar listener
         holder.questCheckBox.setOnCheckedChangeListener { _, isChecked ->
             onQuestChecked(quest, isChecked)
+        }
+
+        holder.btnMove.setOnClickListener {
+            onMoveClicked(quest)
         }
     }
 
