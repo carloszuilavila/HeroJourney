@@ -9,11 +9,11 @@
 
     <!-- Título -->
     <TextView
-        android:id="@+id/tituloTareas"
+        android:id="@+id/habitsTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Habits"
-        android:textSize="24sp"
+        android:textSize="30sp"
         android:textStyle="bold"
         android:layout_marginTop="16dp"
         app:layout_constraintTop_toTopOf="parent"
@@ -25,18 +25,20 @@
         android:id="@+id/labelNextAdventure"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
         android:text="Next Adventure:"
         android:textSize="16sp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@id/tituloTareas"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/habitsTitle" />
 
     <!-- Contenedor de la barra de progreso con texto superpuesto -->
     <FrameLayout
         android:id="@+id/contenedorProgreso"
         android:layout_width="0dp"
-        android:layout_height="24dp"
-        android:layout_marginTop="4dp"
+        android:layout_height="28dp"
+        android:layout_marginTop="8dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         app:layout_constraintTop_toBottomOf="@id/labelNextAdventure"
@@ -49,9 +51,10 @@
             style="@android:style/Widget.ProgressBar.Horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:progress="0"
             android:max="3"
-            android:progressDrawable="@drawable/progress_bar_custom" />
+            android:progress="0"
+            android:progressDrawable="@drawable/progress_bar_custom"
+            android:progressTint="#FFA827" />
 
         <!-- Texto centrado dentro de la barra -->
         <TextView
@@ -60,8 +63,9 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:text="0/3"
+            android:textColor="?attr/colorControlNormal"
             android:textSize="16sp"
-            android:textColor="@android:color/white" />
+            android:textStyle="bold" />
     </FrameLayout>
 
     <!-- Lista de tareas -->
