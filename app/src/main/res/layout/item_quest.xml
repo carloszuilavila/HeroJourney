@@ -14,12 +14,14 @@
         android:padding="16dp"
         android:gravity="center_vertical">
 
-        <CheckBox
-            android:id="@+id/questCheckbox"
-            style="@style/Widget.AppCompat.CompoundButton.CheckBox"
+        <ImageButton
+            android:id="@+id/btnMoveQuest"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:button="?android:attr/listChoiceIndicatorSingle" />
+            android:src="@drawable/ic_dashboard_black_24dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/move_quest"
+            android:padding="8dp" />
 
         <TextView
             android:id="@+id/questText"
@@ -31,14 +33,12 @@
             android:text="Tarea de ejemplo"
             android:textSize="18sp" />
 
-        <ImageButton
-            android:id="@+id/btnMoveQuest"
+        <CheckBox
+            android:id="@+id/questCheckbox"
+            style="@style/Widget.AppCompat.CompoundButton.CheckBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_dashboard_black_24dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="@string/move_quest"
-            android:padding="8dp" />
+            android:button="?android:attr/listChoiceIndicatorSingle" />
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>
