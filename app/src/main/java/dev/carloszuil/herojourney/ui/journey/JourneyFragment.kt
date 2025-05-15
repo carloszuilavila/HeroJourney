@@ -33,8 +33,17 @@ class JourneyFragment : Fragment() {
         sharedViewModel.tareasCompletadas.observe(viewLifecycleOwner, Observer { completadas ->
             if (completadas >= 3) {
                 binding.textoEstadoHeroe.text = "El héroe está en el viaje"
+                // Imagen en color normal
+                binding.imageBackground.clearColorFilter()
+                binding.imageBackground.alpha = 1.0f
             } else {
                 binding.textoEstadoHeroe.text = "El héroe está descansando"
+                // Aplicar filtro gris y opacidad
+                binding.imageBackground.setColorFilter(
+                    android.graphics.Color.parseColor("#80000000"), // Gris oscuro semitransparente
+                    android.graphics.PorterDuff.Mode.SRC_OVER
+                )
+                binding.imageBackground.alpha = 0.7f
             }
         })
 

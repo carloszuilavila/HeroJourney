@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -105,22 +106,14 @@ class HomeFragment : Fragment() {
     }
 
     private fun mostrarDialogo() {
-        val builder = AlertDialog.Builder(requireContext())
-        builder.setTitle("¡Felicidades!")
-        builder.setMessage("Has completado las tareas necesarias para que el héroe inicie su viaje.")
-        /*
-        builder.setPositiveButton("¡Comenzar viaje!") { dialog, _ ->
-            // Aquí puedes iniciar el viaje, por ejemplo:
-            iniciarViajeDelHeroe()
-            dialog.dismiss()
-        }
-        builder.setNegativeButton("Cerrar") { dialog, _ ->
-            dialog.dismiss()
-        }
-        */
-        builder.show()
+        Toast.makeText(
+            requireContext(),
+            "El Viaje del Héroe continúa...",
+            Toast.LENGTH_LONG
+        ).show()
     }
 
+    /*
     private fun iniciarViajeDelHeroe() {
         // Lógica para iniciar el viaje del héroe
         val builder = AlertDialog.Builder(requireContext())
@@ -128,6 +121,7 @@ class HomeFragment : Fragment() {
         builder.setMessage("¡Tu aventura continúa!")
         builder.show()
     }
+     */
 
     override fun onDestroyView() {
         super.onDestroyView()
