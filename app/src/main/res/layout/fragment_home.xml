@@ -4,14 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.home.HomeFragment">
+    tools:context=".ui.home.HomeFragment"
+    android:padding="18dp">
 
     <!-- Título -->
     <TextView
         android:id="@+id/tituloTareas"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Mis Tareas"
+        android:text="Habits"
         android:textSize="24sp"
         android:textStyle="bold"
         android:layout_marginTop="16dp"
@@ -19,16 +20,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Contenedor de la barra de progreso -->
-    <LinearLayout
+    <!-- Etiqueta superior "Next Adventure:" -->
+    <TextView
+        android:id="@+id/labelNextAdventure"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Next Adventure:"
+        android:textSize="16sp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/tituloTareas"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- Contenedor de la barra de progreso con texto superpuesto -->
+    <FrameLayout
         android:id="@+id/contenedorProgreso"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="8dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="4dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        app:layout_constraintTop_toBottomOf="@id/tituloTareas"
+        app:layout_constraintTop_toBottomOf="@id/labelNextAdventure"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
@@ -36,30 +47,29 @@
         <ProgressBar
             android:id="@+id/barraProgreso"
             style="@android:style/Widget.ProgressBar.Horizontal"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="24dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:progress="0"
             android:max="3"
             android:progressDrawable="@drawable/progress_bar_custom" />
 
-        <!-- Texto con progreso -->
+        <!-- Texto centrado dentro de la barra -->
         <TextView
             android:id="@+id/textoProgreso"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="8dp"
-            android:gravity="center_vertical"
+            android:gravity="center"
             android:text="0/3"
-            android:textSize="16sp" />
-    </LinearLayout>
+            android:textSize="16sp"
+            android:textColor="@android:color/white" />
+    </FrameLayout>
 
     <!-- Lista de tareas -->
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerTareas"
+        android:id="@+id/recyclerHabits"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintTop_toBottomOf="@id/contenedorProgreso"
         app:layout_constraintBottom_toBottomOf="parent"
