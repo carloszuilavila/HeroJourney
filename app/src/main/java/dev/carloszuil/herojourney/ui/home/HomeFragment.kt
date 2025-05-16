@@ -23,11 +23,11 @@ class HomeFragment : Fragment() {
     private lateinit var sharedViewModel: SharedViewModel
 
     private val habitsList = mutableListOf(
-        Habit("Planchar"),
-        Habit("Lavar los platos"),
-        Habit("Sacar la basura"),
-        Habit("Hacer ejercicio"),
-        Habit("Leer 10 páginas")
+        Habit("Elaborar pociones"),
+        Habit("Afilar la espada"),
+        Habit("Meditar"),
+        Habit("Entrenar el cuerpo"),
+        Habit("Encontrar un herrero")
     )
 
     private var pendientesExpandido = true
