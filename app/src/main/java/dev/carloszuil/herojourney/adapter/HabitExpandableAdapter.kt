@@ -93,7 +93,6 @@ class HabitExpandableAdapter(
                 header.isExpanded = !header.isExpanded
                 sectionExpandedState[header.title] = header.isExpanded
                 rebuildItems()
-                onHabitToggled()
             }
         }
     }
