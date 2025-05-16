@@ -14,16 +14,18 @@ import dev.carloszuil.herojourney.R
 import dev.carloszuil.herojourney.model.Habit
 
 class HabitExpandableAdapter(
-    private val onHabitToggled: () -> Unit
+    private val onHabitToggled: () -> Unit,
+    private val onSectionToggled: (String, Boolean) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val items = mutableListOf<HabitListItem>()
     private val sectionExpandedState = mutableMapOf<String, Boolean>()
-
     private var allHabits = listOf<Habit>()
 
-    fun submitHabits(habits: List<Habit>) {
+    fun submitHabits(habits: List<Habit>, pendExpanded: Boolean, compExpanded: Boolean) {
         allHabits = habits
+        sectionExpandedState["📌 Pendientes"] = pendExpanded
+        sectionExpandedState["✅ Completadas"] = compExpanded
         rebuildItems()
     }
 
@@ -32,29 +34,30 @@ class HabitExpandableAdapter(
         val completadas = allHabits.filter { it.completada }
 
         items.clear()
+        val pendExp = sectionExpandedState.getOrDefault("📌 Pendientes", true)
+        items.add(HabitListItem.SectionHeader("📌 Pendientes", pendExp))
+        if (pendExp) items += pendientes.map { HabitListItem.HabitItem(it) }
 
-        val pendientesExpanded = sectionExpandedState.getOrDefault("📌 Pendientes", true)
-        items.add(HabitListItem.SectionHeader("📌 Pendientes", pendientesExpanded))
-        if (pendientesExpanded) items.addAll(pendientes.map { HabitListItem.HabitItem(it) })
-
-        val completadasExpanded = sectionExpandedState.getOrDefault("✅ Completadas", false)
-        items.add(HabitListItem.SectionHeader("✅ Completadas", completadasExpanded))
-        if (completadasExpanded) items.addAll(completadas.map { HabitListItem.HabitItem(it) })
+        val compExp = sectionExpandedState.getOrDefault("✅ Completadas", false)
+        items.add(HabitListItem.SectionHeader("✅ Completadas", compExp))
+        if (compExp) items += completadas.map { HabitListItem.HabitItem(it) }
 
         notifyDataSetChanged()
     }
 
-    override fun getItemViewType(position: Int): Int = when (items[position]) {
+    override fun getItemViewType(position: Int): Int = when(items[position]) {
         is HabitListItem.SectionHeader -> 0
         is HabitListItem.HabitItem -> 1
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType == 0) {
-            val view = LayoutInflater.from(parent.context).inflate(R.layout.item_section_header, parent, false)
+            val view = LayoutInflater.from(parent.context)
+                .inflate(R.layout.item_section_header, parent, false)
             SectionViewHolder(view)
         } else {
-            val view = LayoutInflater.from(parent.context).inflate(R.layout.item_habit, parent, false)
+            val view = LayoutInflater.from(parent.context)
+                .inflate(R.layout.item_habit, parent, false)
             HabitViewHolder(view)
         }
     }
@@ -62,19 +65,19 @@ class HabitExpandableAdapter(
     override fun getItemCount(): Int = items.size
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        when (val item = items[position]) {
+        when(val item = items[position]) {
             is HabitListItem.SectionHeader -> (holder as SectionViewHolder).bind(item)
             is HabitListItem.HabitItem -> (holder as HabitViewHolder).bind(item.habit)
         }
     }
 
-    inner class SectionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val sectionTitle: TextView = itemView.findViewById(R.id.sectionTitle)
-        private val expandSwitcher: ImageSwitcher = itemView.findViewById(R.id.expandSwitcher)
+    inner class SectionViewHolder(view: View): RecyclerView.ViewHolder(view) {
+        private val title: TextView = view.findViewById(R.id.sectionTitle)
+        private val switcher: ImageSwitcher = view.findViewById(R.id.expandSwitcher)
 
         init {
-            expandSwitcher.setFactory {
-                ImageView(itemView.context).apply {
+            switcher.setFactory {
+                ImageView(view.context).apply {
                     layoutParams = FrameLayout.LayoutParams(
                         ViewGroup.LayoutParams.WRAP_CONTENT,
                         ViewGroup.LayoutParams.WRAP_CONTENT
@@ -85,31 +88,30 @@ class HabitExpandableAdapter(
         }
 
         fun bind(header: HabitListItem.SectionHeader) {
-            sectionTitle.text = header.title
-            val iconRes = if (header.isExpanded) R.drawable.ic_expand_less else R.drawable.ic_expand_more
-            expandSwitcher.setImageResource(iconRes)
-
+            title.text = header.title
+            val icon = if (header.isExpanded) R.drawable.ic_expand_less else R.drawable.ic_expand_more
+            switcher.setImageResource(icon)
             itemView.setOnClickListener {
                 header.isExpanded = !header.isExpanded
                 sectionExpandedState[header.title] = header.isExpanded
                 rebuildItems()
+                onSectionToggled(header.title, header.isExpanded)
             }
         }
     }
 
-
-    inner class HabitViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val checkBox: CheckBox = itemView.findViewById(R.id.checkboxTarea)
-        private val textoTarea: TextView = itemView.findViewById(R.id.textoTarea)  // <--- nuevo
+    inner class HabitViewHolder(view: View): RecyclerView.ViewHolder(view) {
+        private val check: CheckBox = view.findViewById(R.id.checkboxTarea)
+        private val text: TextView = view.findViewById(R.id.textoTarea)
 
         fun bind(habit: Habit) {
-            textoTarea.text = habit.nombre  // <--- asignar texto al TextView
-            checkBox.setOnCheckedChangeListener(null)
-            checkBox.isChecked = habit.completada
-            checkBox.setOnCheckedChangeListener { _, isChecked ->
+            text.text = habit.nombre
+            check.setOnCheckedChangeListener(null)
+            check.isChecked = habit.completada
+            check.setOnCheckedChangeListener { _, isChecked ->
                 habit.completada = isChecked
-                onHabitToggled()
                 rebuildItems()
+                onHabitToggled()
             }
         }
     }
