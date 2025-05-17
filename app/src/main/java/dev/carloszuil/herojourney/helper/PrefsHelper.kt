@@ -1,6 +1,7 @@
 package dev.carloszuil.herojourney.helper
 
 import android.content.Context
+import dev.carloszuil.herojourney.model.Habit
 
 object PrefsHelper {
     private const val NAME = "hero_journey_prefs"
@@ -13,15 +14,20 @@ object PrefsHelper {
         context.getSharedPreferences(NAME, Context.MODE_PRIVATE)
 
     // Guardar lista de nombres de tareas
-    fun saveHabits(context: Context, habits: List<String>) {
-        prefs(context).edit()
-            .putStringSet(KEY_HABITS, habits.toSet())
-            .apply()
+    fun saveHabits(context: Context, habits: List<Habit>) {
+        val serialized = habits.map { "${it.nombre}|${it.descripcion}" }.toSet()
+        context.getSharedPreferences("prefs", Context.MODE_PRIVATE)
+            .edit().putStringSet("habits", serialized).apply()
     }
 
-    fun loadHabits(context: Context): MutableList<String> {
-        val set = prefs(context).getStringSet(KEY_HABITS, null)
-        return if (set != null) set.toMutableList() else mutableListOf()
+
+    fun loadHabits(context: Context): MutableList<Habit> {
+        val set = context.getSharedPreferences("prefs", Context.MODE_PRIVATE)
+            .getStringSet("habits", emptySet()) ?: emptySet()
+        return set.map {
+            val parts = it.split("|")
+            Habit(parts[0], parts.getOrElse(1) { "" })
+        }.toMutableList()
     }
 
     fun saveCompletedHabits(context: Context, completed: Set<String>) {

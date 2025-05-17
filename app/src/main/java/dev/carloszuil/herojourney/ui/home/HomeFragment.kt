@@ -10,6 +10,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import dev.carloszuil.herojourney.R
 import dev.carloszuil.herojourney.adapter.HabitExpandableAdapter
 import dev.carloszuil.herojourney.adapter.HabitListItem
 import dev.carloszuil.herojourney.databinding.FragmentHomeBinding
@@ -43,18 +44,24 @@ class HomeFragment : Fragment() {
         habitsList.clear()
 
         // Cargar nombres guardados o preset si vacío
-        val names = PrefsHelper.loadHabits(requireContext())
-        if (names.isEmpty()) {
-            names.addAll(listOf(
-                "Elaborar pociones", "Afilar la espada", "Meditar",
-                "Entrenar el cuerpo", "Encontrar un herrero"
+        val habits = PrefsHelper.loadHabits(requireContext())
+        if (habits.isEmpty()) {
+            habits.addAll(listOf(
+                Habit("Elaborar pociones"),
+                Habit("Afilar la espada"),
+                Habit("Meditar"),
+                Habit("Entrenar el cuerpo"),
+                Habit("Encontrar un herrero")
             ))
+            PrefsHelper.saveHabits(requireContext(), habits) // Guarda la lista inicial
         }
         // Cargar completadas y crear objetos Habit
         val completedSet = PrefsHelper.loadCompletedHabits(requireContext())
-        names.forEach { name ->
-            habitsList.add(Habit(name).apply { completada = completedSet.contains(name) })
+        habits.forEach { habit ->
+            habit.completada = completedSet.contains(habit.nombre)
         }
+        habitsList.addAll(habits)
+
 
         // Cargar estados de secciones y flag
         val (pendSaved, compSaved) = PrefsHelper.loadSectionsExpanded(requireContext())
@@ -78,31 +85,28 @@ class HomeFragment : Fragment() {
     }
 
     private fun showAddHabitDialog() {
-        val input = EditText(requireContext()).apply {
-            hint = "Nombre de la nueva tarea"
-        }
+        val inflater = LayoutInflater.from(requireContext())
+        val dialogView = inflater.inflate(R.layout.dialog_add_habit, null)
+        val inputName = dialogView.findViewById<EditText>(R.id.inputHabitName)
+        val inputDesc = dialogView.findViewById<EditText>(R.id.inputHabitDesc)
+
         AlertDialog.Builder(requireContext())
             .setTitle("Añadir tarea")
-            .setView(input)
+            .setView(dialogView)
             .setPositiveButton("Guardar") { dialog, _ ->
-                val name = input.text.toString().trim()
+                val name = inputName.text.toString().trim()
+                val desc = inputDesc.text.toString().trim()
                 if (name.isNotEmpty() && habitsList.none { it.nombre == name }) {
-                    habitsList.add(Habit(name))
-                    // Persistir la lista completa de nombres
-                    PrefsHelper.saveHabits(
-                        requireContext(), habitsList.map { it.nombre }
-                    )
-                    habitAdapter.submitHabits(
-                        habitsList, pendientesExpandido, completadasExpandido
-                    )
+                    habitsList.add(Habit(name, desc))
+                    PrefsHelper.saveHabits(requireContext(), habitsList)
+                    habitAdapter.submitHabits(habitsList, pendientesExpandido, completadasExpandido)
                 }
                 dialog.dismiss()
             }
-            .setNegativeButton("Cancelar") { dialog, _ ->
-                dialog.dismiss()
-            }
+            .setNegativeButton("Cancelar") { dialog, _ -> dialog.dismiss() }
             .show()
     }
+
 
     private fun onHabitCheckToggled() {
         val completedNames = habitsList.filter { it.completada }.map { it.nombre }.toSet()
