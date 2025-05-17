@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
@@ -12,7 +13,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import dev.carloszuil.herojourney.R
 import dev.carloszuil.herojourney.adapter.HabitExpandableAdapter
-import dev.carloszuil.herojourney.adapter.HabitListItem
 import dev.carloszuil.herojourney.databinding.FragmentHomeBinding
 import dev.carloszuil.herojourney.helper.PrefsHelper
 import dev.carloszuil.herojourney.model.Habit
@@ -70,7 +70,8 @@ class HomeFragment : Fragment() {
 
         habitAdapter = HabitExpandableAdapter(
             onHabitToggled = { onHabitCheckToggled() },
-            onSectionToggled = { title, expanded -> onSectionToggled(title, expanded) }
+            onSectionToggled = { title, expanded -> onSectionToggled(title, expanded) },
+            onHabitClicked = { habit -> showDetailHabit(habit) }
         )
         binding.recyclerHabits.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerHabits.adapter = habitAdapter
@@ -83,6 +84,50 @@ class HomeFragment : Fragment() {
         actualizarListaYProgreso()
         return binding.root
     }
+
+    private fun removeHabit(habit: Habit) {
+        val updatedList = habitsList.filter { it != habit }
+        habitsList.clear()
+        habitsList.addAll(updatedList)
+        PrefsHelper.saveHabits(requireContext(), habitsList)
+        habitAdapter.submitHabits(habitsList, pendExpanded = true, compExpanded = false)
+    }
+
+
+    private fun showDetailHabit(habit: Habit) {
+        val dialogView = LayoutInflater.from(requireContext())
+            .inflate(R.layout.dialog_habit_detail, null)
+
+        val titleView = dialogView.findViewById<TextView>(R.id.dialogTitle)
+        val descView = dialogView.findViewById<TextView>(R.id.dialogDescription)
+
+        titleView.text = habit.nombre
+        descView.text = habit.descripcion
+
+        val dialog = AlertDialog.Builder(requireContext())
+            .setView(dialogView)
+            .create()
+
+        // Elimina el fondo predeterminado (gris) del AlertDialog
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+
+        // Configura botones dentro del layout personalizado, si es que los tienes allí
+        val deleteButton = dialogView.findViewById<View>(R.id.btnDelete)
+        val closeButton = dialogView.findViewById<View>(R.id.btnClose)
+
+        deleteButton?.setOnClickListener {
+            removeHabit(habit)
+            dialog.dismiss()
+        }
+
+        closeButton?.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.show()
+    }
+
+
 
     private fun showAddHabitDialog() {
         val inflater = LayoutInflater.from(requireContext())

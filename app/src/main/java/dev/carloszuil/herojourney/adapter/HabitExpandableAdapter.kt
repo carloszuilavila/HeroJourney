@@ -15,7 +15,8 @@ import dev.carloszuil.herojourney.model.Habit
 
 class HabitExpandableAdapter(
     private val onHabitToggled: () -> Unit,
-    private val onSectionToggled: (String, Boolean) -> Unit
+    private val onSectionToggled: (String, Boolean) -> Unit,
+    private val onHabitClicked: (Habit) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val items = mutableListOf<HabitListItem>()
@@ -65,7 +66,7 @@ class HabitExpandableAdapter(
     override fun getItemCount(): Int = items.size
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        when(val item = items[position]) {
+        when (val item = items[position]) {
             is HabitListItem.SectionHeader -> (holder as SectionViewHolder).bind(item)
             is HabitListItem.HabitItem -> (holder as HabitViewHolder).bind(item.habit)
         }
@@ -112,6 +113,9 @@ class HabitExpandableAdapter(
                 habit.completada = isChecked
                 rebuildItems()
                 onHabitToggled()
+            }
+            itemView.setOnClickListener {
+                onHabitClicked(habit)
             }
         }
     }
