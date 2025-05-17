@@ -14,5 +14,9 @@
         <!-- Customize your theme here. -->
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+
+        <item name="android:fontFamily">@font/imfellenglishregular</item>
+        <item name="android:windowBackground">@color/fondo_rpg</item>
+
     </style>
 </resources>
