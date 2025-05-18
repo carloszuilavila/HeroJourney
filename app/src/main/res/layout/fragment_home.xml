@@ -63,28 +63,31 @@
             android:textStyle="bold" />
     </FrameLayout>
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/buttonAddHabit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="18dp"
-        android:text="New Habit"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/contenedorProgreso"
-        android:background="@drawable/btn_habit_rpg"/>
-
     <!-- Lista de tareas -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerHabits"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="18dp"
-        app:layout_constraintTop_toBottomOf="@id/buttonAddHabit"
-        android:layout_marginBottom="50dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="18dp"
+        app:layout_constraintTop_toBottomOf="@id/contenedorProgreso"
+        app:layout_constraintBottom_toTopOf="@id/buttonAddHabit"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Botón al fondo -->
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/buttonAddHabit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/btn_habit_rpg"
+        android:text="New Habit"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="60dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
