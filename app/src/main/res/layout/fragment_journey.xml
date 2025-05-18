@@ -13,7 +13,7 @@
 
     <!-- Botón superpuesto en la esquina superior derecha -->
     <ImageButton
-        android:id="@+id/btnAccionHeroe"
+        android:id="@+id/btnConcentration"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_margin="25dp"
@@ -21,6 +21,20 @@
         android:background="?android:selectableItemBackgroundBorderless"
         android:contentDescription="Concentración"
         android:src="@drawable/rest" />
+
+    <TextView
+        android:id="@+id/text_timer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="00:00"
+        android:textSize="24sp"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:layout_gravity="top|start"
+        android:padding="16dp"
+        android:layout_margin="16dp"
+        android:background="@color/beige_dorado"/>
+
 
     <!-- Contenido encima de la imagen -->
     <LinearLayout

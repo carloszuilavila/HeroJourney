@@ -178,10 +178,15 @@ class HomeFragment : Fragment() {
         sharedViewModel.actualizarTareasCompletadas(completadasCount)
 
         if (!goalReached && completadasCount >= requeridas) {
+            PrefsHelper.saveJourneyStartTime(requireContext(), System.currentTimeMillis())
+            PrefsHelper.saveIsTraveling(requireContext(), true)
             Toast.makeText(requireContext(), "El Viaje del Héroe continúa...", Toast.LENGTH_LONG).show()
             goalReached = true
         }
-        if (completadasCount < requeridas) goalReached = false
+        if (completadasCount < requeridas) {
+            goalReached = false
+            PrefsHelper.saveIsTraveling(requireContext(), false)
+        }
     }
 
     private fun actualizarListaYProgreso() {

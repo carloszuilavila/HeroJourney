@@ -5,10 +5,41 @@ import dev.carloszuil.herojourney.model.Habit
 
 object PrefsHelper {
     private const val NAME = "hero_journey_prefs"
-    private const val KEY_HABITS = "key_habits_list"
     private const val KEY_COMPLETADAS = "key_habits_completed"
     private const val KEY_EXPAND_PENDIENTES = "key_expand_pendientes"
     private const val KEY_EXPAND_COMPLETADAS = "key_expand_completadas"
+
+    private const val KEY_IS_TRAVELING = "key_is_traveling"
+
+    private const val KEY_JOURNEY_START = "key_journey_start"
+
+    fun saveIsTraveling(context: Context, isTraveling: Boolean) {
+        prefs(context).edit()
+            .putBoolean(KEY_IS_TRAVELING, isTraveling)
+            .apply()
+    }
+
+    fun loadIsTraveling(context: Context): Boolean {
+        return prefs(context).getBoolean(KEY_IS_TRAVELING, false)
+    }
+
+    // Llama a esto justo cuando el usuario alcanza la meta y empieza el viaje:
+    fun saveJourneyStartTime(context: Context, timestamp: Long) {
+        prefs(context).edit()
+            .putLong(KEY_JOURNEY_START, timestamp)
+            .apply()
+    }
+
+    // Devuelve la hora guardada, o 0 si no existe:
+    fun loadJourneyStartTime(context: Context): Long =
+        prefs(context).getLong(KEY_JOURNEY_START, 0L)
+
+    // Limpia el timestamp (cuando finalice el viaje):
+    fun clearJourneyStartTime(context: Context) {
+        prefs(context).edit()
+            .remove(KEY_JOURNEY_START)
+            .apply()
+    }
 
     private fun prefs(context: Context) =
         context.getSharedPreferences(NAME, Context.MODE_PRIVATE)
