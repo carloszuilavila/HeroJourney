@@ -1,7 +1,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
     <!-- ImageSwitcher para mostrar al héroe (reposo o caminando) -->
     <ImageSwitcher
@@ -11,12 +11,23 @@
         android:inAnimation="@android:anim/fade_in"
         android:outAnimation="@android:anim/fade_out" />
 
+    <!-- Botón superpuesto en la esquina superior derecha -->
+    <ImageButton
+        android:id="@+id/btnAccionHeroe"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_margin="25dp"
+        android:layout_gravity="top|end"
+        android:background="?android:selectableItemBackgroundBorderless"
+        android:contentDescription="Concentración"
+        android:src="@drawable/rest" />
+
     <!-- Contenido encima de la imagen -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:gravity="center"
-        android:padding="16dp"/>
+        android:padding="16dp" />
 
 </FrameLayout>
