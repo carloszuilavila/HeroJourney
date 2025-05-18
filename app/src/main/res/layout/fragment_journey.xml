@@ -3,36 +3,20 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <!-- Imagen de fondo -->
-    <ImageView
-        android:id="@+id/imageBackground"
+    <!-- ImageSwitcher para mostrar al héroe (reposo o caminando) -->
+    <ImageSwitcher
+        android:id="@+id/imageSwitcher"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:src="@raw/warrior"
-        android:alpha="0.5" /> <!-- Puedes ajustar esto si quieres un efecto inicial -->
+        android:inAnimation="@android:anim/fade_in"
+        android:outAnimation="@android:anim/fade_out" />
 
-    <!-- Resto del contenido -->
+    <!-- Contenido encima de la imagen -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:gravity="center"
-        android:padding="16dp">
-
-        <TextView
-            android:id="@+id/textoEstadoHeroe"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Estado del héroe"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_marginTop="32dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-    </LinearLayout>
+        android:padding="16dp"/>
 
 </FrameLayout>
-
