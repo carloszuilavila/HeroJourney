@@ -10,7 +10,7 @@
         android:id="@+id/textoEstadoHeroe"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Estado del héroe"
+        android:text="Some goblins are working on this..."
         android:textSize="18sp"
         android:textStyle="bold"
         android:layout_marginTop="32dp"
