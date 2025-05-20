@@ -3,36 +3,44 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/section_rpg_bg"
     android:layout_margin="8dp"
     card_view:cardElevation="4dp"
     card_view:cardCornerRadius="8dp">
 
-    <androidx.cardview.widget.CardView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/questCardView"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        card_view:cardElevation="4dp"
-        card_view:cardCornerRadius="8dp">
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:gravity="center_vertical">
 
-        <!-- El resto del contenido -->
-        <CheckBox
-            android:id="@+id/questCheckbox"
-            style="@style/Widget.AppCompat.CompoundButton.CheckBox"
+        <ImageButton
+            android:id="@+id/btnMoveQuest"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_dashboard_black_24dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/move_quest"
+            android:padding="8dp" />
 
         <TextView
             android:id="@+id/questText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
             android:layout_weight="1"
-            android:text="Quest de ejemplo"
-            android:textSize="18sp" />
-    </androidx.cardview.widget.CardView>
+            android:text="Tarea de ejemplo"
+            android:textSize="22sp"
+            android:textStyle="bold" />
 
+        <CheckBox
+            android:id="@+id/questCheckbox"
+            style="@style/Widget.AppCompat.CompoundButton.CheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="?android:attr/listChoiceIndicatorSingle" />
+    </LinearLayout>
 
 </androidx.cardview.widget.CardView>

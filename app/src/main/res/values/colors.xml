@@ -7,4 +7,15 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="oscuro_medieval">#1B1A1A</color>
+    <color name="marron_tierra_medieval">#2E1F14</color>
+    <color name="bronce_claro">#8B5E3C</color>
+    <color name="beige_pergamino">#E0C097</color>
+    <color name="dorado_suave">#FFD700</color>
+    <color name="beige_claro">#EFEFE7</color>
+    <color name="beige_oscuro">#D2B48C</color>
+    <color name="beige_amarillento">#F0E68C</color>
+    <color name="beige_grisaceo">#CFCFC4</color>
+    <color name="beige_dorado">#E6D8AD</color>
+    <color name="beige_terroso">#BFA76F</color>
 </resources>

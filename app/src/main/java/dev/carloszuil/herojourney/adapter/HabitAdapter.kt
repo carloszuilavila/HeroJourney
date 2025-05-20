@@ -7,12 +7,12 @@ import android.widget.CheckBox
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import dev.carloszuil.herojourney.R
-import dev.carloszuil.herojourney.model.Tarea
+import dev.carloszuil.herojourney.model.Habit
 
-class TareaAdapter(
-    private val tareas: List<Tarea>,
+class HabitAdapter(
+    private val habits: List<Habit>,
     private val onTareaCambiada: () -> Unit // nuevo callback
-) : RecyclerView.Adapter<TareaAdapter.TareaViewHolder>() {
+) : RecyclerView.Adapter<HabitAdapter.TareaViewHolder>() {
 
     class TareaViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val checkBox: CheckBox = view.findViewById(R.id.checkboxTarea)
@@ -21,12 +21,12 @@ class TareaAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TareaViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_tarea, parent, false)
+            .inflate(R.layout.item_habit, parent, false)
         return TareaViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: TareaViewHolder, position: Int) {
-        val tarea = tareas[position]
+        val tarea = habits[position]
         holder.texto.text = tarea.nombre
         holder.checkBox.isChecked = tarea.completada
 
@@ -39,5 +39,5 @@ class TareaAdapter(
         }
     }
 
-    override fun getItemCount(): Int = tareas.size
+    override fun getItemCount(): Int = habits.size
 }

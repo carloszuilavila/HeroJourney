@@ -1,6 +1,7 @@
 package dev.carloszuil.herojourney.model
 
-data class Tarea(
+data class Habit(
     val nombre: String,
+    var descripcion: String = "",
     var completada: Boolean = false
 )
