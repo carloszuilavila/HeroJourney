@@ -75,7 +75,7 @@ public class QuestAdapter extends RecyclerView.Adapter<QuestAdapter.QuestViewHol
         holder.questCheckBox.setOnCheckedChangeListener(null);
 
         // Sólo marcado si está COMPLETADA
-        holder.questCheckBox.setChecked(quest.getEstado() == QuestState.COMPLETADA);
+        holder.questCheckBox.setChecked(quest.getEstado() == QuestState.QUEST_BOARD_4);
 
         // Reasignar listener
         holder.questCheckBox.setOnCheckedChangeListener((buttonView, isChecked) -> {

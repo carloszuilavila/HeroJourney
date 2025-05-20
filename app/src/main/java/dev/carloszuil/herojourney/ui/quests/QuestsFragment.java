@@ -26,41 +26,41 @@ public class QuestsFragment extends Fragment {
     private FragmentQuestsBinding binding;
 
     private final List<Quest> exampleQuests = new ArrayList<Quest>() {{
-        add(new Quest(0, "Derrotar al dragón", QuestState.PENDIENTE));
-        add(new Quest(1, "Recolectar hierbas", QuestState.PENDIENTE));
-        add(new Quest(2, "Construir el refugio", QuestState.EN_PROGRESO));
-        add(new Quest(3, "Aprender hechizo de fuego", QuestState.CONGELADA));
-        add(new Quest(4, "Rescatar al sabio", QuestState.COMPLETADA));
+        add(new Quest(0, "Derrotar al dragón", QuestState.QUEST_BOARD_1));
+        add(new Quest(1, "Recolectar hierbas", QuestState.QUEST_BOARD_1));
+        add(new Quest(2, "Construir el refugio", QuestState.QUEST_BOARD_2));
+        add(new Quest(3, "Aprender hechizo de fuego", QuestState.QUEST_BOARD_3));
+        add(new Quest(4, "Rescatar al sabio", QuestState.QUEST_BOARD_4));
     }};
 
-    private final List<Quest> pendientes = new ArrayList<>();
-    private final List<Quest> enProgreso = new ArrayList<>();
-    private final List<Quest> congeladas = new ArrayList<>();
-    private final List<Quest> completadas = new ArrayList<>();
+    private final List<Quest> questBoard1 = new ArrayList<>();
+    private final List<Quest> questBoard2 = new ArrayList<>();
+    private final List<Quest> questBoard3 = new ArrayList<>();
+    private final List<Quest> questBoard4 = new ArrayList<>();
 
-    private QuestAdapter adapterPendientes;
-    private QuestAdapter adapterEnProgreso;
-    private QuestAdapter adapterCongeladas;
-    private QuestAdapter adapterCompletadas;
+    private QuestAdapter adapterBoard1;
+    private QuestAdapter adapterBoard2;
+    private QuestAdapter adapterBoard3;
+    private QuestAdapter adapterBoard4;
 
     private void inicializarQuestsDeEjemplo() {
-        pendientes.clear();
-        enProgreso.clear();
-        congeladas.clear();
-        completadas.clear();
+        questBoard1.clear();
+        questBoard2.clear();
+        questBoard3.clear();
+        questBoard4.clear();
         for (Quest q : exampleQuests) {
             switch (q.getEstado()) {
-                case PENDIENTE:
-                    pendientes.add(q);
+                case QUEST_BOARD_1:
+                    questBoard1.add(q);
                     break;
-                case EN_PROGRESO:
-                    enProgreso.add(q);
+                case QUEST_BOARD_2:
+                    questBoard2.add(q);
                     break;
-                case CONGELADA:
-                    congeladas.add(q);
+                case QUEST_BOARD_3:
+                    questBoard3.add(q);
                     break;
-                case COMPLETADA:
-                    completadas.add(q);
+                case QUEST_BOARD_4:
+                    questBoard4.add(q);
                     break;
             }
         }
@@ -75,36 +75,36 @@ public class QuestsFragment extends Fragment {
         binding = FragmentQuestsBinding.inflate(inflater, container, false);
 
         // Adaptadores con listas inmutables
-        adapterPendientes  = getGenericQuestAdapter(new ArrayList<>(pendientes));
-        adapterEnProgreso  = getGenericQuestAdapter(new ArrayList<>(enProgreso));
-        adapterCongeladas  = getGenericQuestAdapter(new ArrayList<>(congeladas));
-        adapterCompletadas = getGenericQuestAdapter(new ArrayList<>(completadas));
+        adapterBoard1 = getGenericQuestAdapter(new ArrayList<>(questBoard1));
+        adapterBoard2 = getGenericQuestAdapter(new ArrayList<>(questBoard2));
+        adapterBoard3 = getGenericQuestAdapter(new ArrayList<>(questBoard3));
+        adapterBoard4 = getGenericQuestAdapter(new ArrayList<>(questBoard4));
 
         // RecyclerViews
-        binding.recyclerPendientes.setLayoutManager(new LinearLayoutManager(requireContext()));
-        binding.recyclerPendientes.setAdapter(adapterPendientes);
+        binding.recyclerBoard1.setLayoutManager(new LinearLayoutManager(requireContext()));
+        binding.recyclerBoard1.setAdapter(adapterBoard1);
 
-        binding.recyclerProgreso .setLayoutManager(new LinearLayoutManager(requireContext()));
-        binding.recyclerProgreso .setAdapter(adapterEnProgreso);
+        binding.recyclerBoard2.setLayoutManager(new LinearLayoutManager(requireContext()));
+        binding.recyclerBoard2.setAdapter(adapterBoard2);
 
-        binding.recyclerCongeladas .setLayoutManager(new LinearLayoutManager(requireContext()));
-        binding.recyclerCongeladas .setAdapter(adapterCongeladas);
+        binding.recyclerBoard3.setLayoutManager(new LinearLayoutManager(requireContext()));
+        binding.recyclerBoard3.setAdapter(adapterBoard3);
 
-        binding.recyclerCompletadas .setLayoutManager(new LinearLayoutManager(requireContext()));
-        binding.recyclerCompletadas .setAdapter(adapterCompletadas);
+        binding.recyclerBoard4.setLayoutManager(new LinearLayoutManager(requireContext()));
+        binding.recyclerBoard4.setAdapter(adapterBoard4);
 
         // Ajustar ancho de columnas
         DisplayMetrics dm = getResources().getDisplayMetrics();
         int screenWidth = dm.widthPixels;
         int columnWidth = (int) (screenWidth * 0.8f);
-        binding.columnaPendientes .getLayoutParams().width = columnWidth;
-        binding.columnaProgreso   .getLayoutParams().width = columnWidth;
-        binding.columnaCongeladas .getLayoutParams().width = columnWidth;
-        binding.columnaCompletadas.getLayoutParams().width = columnWidth;
-        binding.columnaPendientes .requestLayout();
-        binding.columnaProgreso   .requestLayout();
-        binding.columnaCongeladas .requestLayout();
-        binding.columnaCompletadas.requestLayout();
+        binding.questBoard1 .getLayoutParams().width = columnWidth;
+        binding.questBoard2   .getLayoutParams().width = columnWidth;
+        binding.questBoard3 .getLayoutParams().width = columnWidth;
+        binding.questBoard4.getLayoutParams().width = columnWidth;
+        binding.questBoard1 .requestLayout();
+        binding.questBoard2   .requestLayout();
+        binding.questBoard3 .requestLayout();
+        binding.questBoard4.requestLayout();
 
         return binding.getRoot();
     }
@@ -113,9 +113,9 @@ public class QuestsFragment extends Fragment {
         return new QuestAdapter(
                 list,
                 (quest, isChecked) -> {
-                    if (isChecked && quest.getEstado() != QuestState.COMPLETADA) {
-                        changeQuestState(quest, QuestState.COMPLETADA);
-                    } else if (!isChecked && quest.getEstado() == QuestState.COMPLETADA) {
+                    if (isChecked && quest.getEstado() != QuestState.QUEST_BOARD_4) {
+                        changeQuestState(quest, QuestState.QUEST_BOARD_4);
+                    } else if (!isChecked && quest.getEstado() == QuestState.QUEST_BOARD_4) {
                         if (quest.getEstadoAnterior() != null) {
                             changeQuestState(quest, quest.getEstadoAnterior());
                         }
@@ -128,23 +128,23 @@ public class QuestsFragment extends Fragment {
     private void changeQuestState(@NonNull Quest quest, @NonNull QuestState newState) {
         // Remover de la lista actual
         switch (quest.getEstado()) {
-            case PENDIENTE:   pendientes.remove(quest); break;
-            case EN_PROGRESO: enProgreso.remove(quest); break;
-            case CONGELADA:   congeladas.remove(quest); break;
-            case COMPLETADA:  completadas.remove(quest); break;
+            case QUEST_BOARD_1:   questBoard1.remove(quest); break;
+            case QUEST_BOARD_2: questBoard2.remove(quest); break;
+            case QUEST_BOARD_3:   questBoard3.remove(quest); break;
+            case QUEST_BOARD_4:  questBoard4.remove(quest); break;
         }
         // Guardar estado anterior si será completada
-        if (newState == QuestState.COMPLETADA) {
+        if (newState == QuestState.QUEST_BOARD_4) {
             quest.setEstadoAnterior(quest.getEstado());
         }
         // Actualizar
         quest.setEstado(newState);
         // Agregar a la nueva lista
         switch (newState) {
-            case PENDIENTE:   pendientes.add(quest); break;
-            case EN_PROGRESO: enProgreso.add(quest); break;
-            case CONGELADA:   congeladas.add(quest); break;
-            case COMPLETADA:  completadas.add(quest); break;
+            case QUEST_BOARD_1:   questBoard1.add(quest); break;
+            case QUEST_BOARD_2: questBoard2.add(quest); break;
+            case QUEST_BOARD_3:   questBoard3.add(quest); break;
+            case QUEST_BOARD_4:  questBoard4.add(quest); break;
         }
         updateAdapters();
     }
@@ -175,10 +175,10 @@ public class QuestsFragment extends Fragment {
     }
 
     private void updateAdapters() {
-        adapterPendientes .updateList(new ArrayList<>(pendientes));
-        adapterEnProgreso .updateList(new ArrayList<>(enProgreso));
-        adapterCongeladas .updateList(new ArrayList<>(congeladas));
-        adapterCompletadas.updateList(new ArrayList<>(completadas));
+        adapterBoard1.updateList(new ArrayList<>(questBoard1));
+        adapterBoard2.updateList(new ArrayList<>(questBoard2));
+        adapterBoard3.updateList(new ArrayList<>(questBoard3));
+        adapterBoard4.updateList(new ArrayList<>(questBoard4));
     }
 
     @Override
