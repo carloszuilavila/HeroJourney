@@ -4,24 +4,97 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 
+import dev.carloszuil.herojourney.R;
 import dev.carloszuil.herojourney.databinding.FragmentHeroBinding;
 
 public class HeroFragment extends Fragment {
 
     private FragmentHeroBinding binding;
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
+    private final String[] labels = {
+            "Revelations", "Reflections", "Breathe", "Destiny",
+            "Movements", "Timers", "Listen", "First Aid Kit"
+    };
+
+    private final int[] icons = {
+            R.drawable.ic_launcher_foreground, R.drawable.ic_launcher_foreground,
+            R.drawable.ic_launcher_foreground, R.drawable.ic_launcher_foreground,
+            R.drawable.ic_launcher_foreground, R.drawable.ic_launcher_foreground,
+            R.drawable.ic_launcher_foreground, R.drawable.ic_launcher_foreground
+    };
+
+    @Nullable @Override
+    public View onCreateView(
+            @NonNull LayoutInflater inflater,
+            @Nullable ViewGroup container,
+            @Nullable Bundle savedInstanceState) {
         binding = FragmentHeroBinding.inflate(inflater, container, false);
         return binding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(
+            @NonNull View view,
+            @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        setupButtonGrid();
+    }
+
+    private void setupButtonGrid() {
+        // Ahora es un LinearLayout vertical
+        LinearLayout container = binding.buttonsContainer;
+
+        // Queremos iterar cada fila (LinearLayout) y dentro cada botón (<include>)
+        int rowCount = container.getChildCount();
+
+        int labelIndex = 0;
+        for (int row = 1; row < rowCount; row++) {
+            // row == 0 es el ImageView, saltamos
+            View rowView = container.getChildAt(row);
+            if (!(rowView instanceof LinearLayout)) continue;
+
+            LinearLayout fila = (LinearLayout) rowView;
+            int colCount = fila.getChildCount();
+            for (int col = 0; col < colCount && labelIndex < labels.length; col++) {
+                View cell = fila.getChildAt(col);
+                ImageView iconView = cell.findViewById(R.id.icon);
+                TextView textView = cell.findViewById(R.id.text);
+
+                textView.setText(labels[labelIndex]);
+                iconView.setImageResource(icons[labelIndex]);
+
+                final int idx = labelIndex;
+                cell.setOnClickListener(v -> {
+                    // Reemplaza esto:
+                    // Toast.makeText(requireContext(), "Click en " + labels[idx], Toast.LENGTH_SHORT).show();
+
+                    // Por esto:
+                    NavController navController = NavHostFragment.findNavController(HeroFragment.this);
+                    switch (idx) {
+                        case 0:
+                            navController.navigate(R.id.revelationsFragment);
+                            break;
+                        // Añade más casos según tus destinos
+                        default:
+                            Toast.makeText(requireContext(), "Próximamente: " + labels[idx], Toast.LENGTH_SHORT).show();
+                            break;
+                    }
+                });
+
+                labelIndex++;
+            }
+        }
     }
 
     @Override
