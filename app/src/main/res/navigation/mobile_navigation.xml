@@ -35,4 +35,10 @@
         android:label="Hero"
         tools:layout="@layout/fragment_hero" />
 
+    <fragment
+        android:id="@+id/revelationsFragment"
+        android:name="dev.carloszuil.herojourney.ui.hero.HeroFragment"
+        android:label="Revelations"
+        tools:layout="@layout/fragment_revelations" />
+
 </navigation>
