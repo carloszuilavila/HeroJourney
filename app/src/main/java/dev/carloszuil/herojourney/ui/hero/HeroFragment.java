@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
+import androidx.navigation.NavOptions;
 import androidx.navigation.fragment.NavHostFragment;
 
 import dev.carloszuil.herojourney.R;
@@ -74,18 +75,17 @@ public class HeroFragment extends Fragment {
                 textView.setText(labels[labelIndex]);
                 iconView.setImageResource(icons[labelIndex]);
 
+                NavOptions navOptions = new NavOptions.Builder()
+                        .setPopUpTo(R.id.heroFragment, false) // Mantenemos HeroFragment en el backstack
+                        .build();
+
                 final int idx = labelIndex;
                 cell.setOnClickListener(v -> {
-                    // Reemplaza esto:
-                    // Toast.makeText(requireContext(), "Click en " + labels[idx], Toast.LENGTH_SHORT).show();
-
-                    // Por esto:
-                    NavController navController = NavHostFragment.findNavController(HeroFragment.this);
+                    NavController navController = NavHostFragment.findNavController(this);
                     switch (idx) {
                         case 0:
-                            navController.navigate(R.id.revelationsFragment);
+                            navController.navigate(R.id.revelationsFragment, null, navOptions);
                             break;
-                        // Añade más casos según tus destinos
                         default:
                             Toast.makeText(requireContext(), "Próximamente: " + labels[idx], Toast.LENGTH_SHORT).show();
                             break;
