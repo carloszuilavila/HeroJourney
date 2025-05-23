@@ -1,5 +1,6 @@
 package dev.carloszuil.herojourney.ui.hero;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -81,10 +82,10 @@ public class HeroFragment extends Fragment {
 
                 final int idx = labelIndex;
                 cell.setOnClickListener(v -> {
-                    NavController navController = NavHostFragment.findNavController(this);
                     switch (idx) {
                         case 0:
-                            navController.navigate(R.id.revelationsFragment, null, navOptions);
+                            Intent intent = new Intent(requireContext(), RevelationActivity.class);
+                            startActivity(intent);
                             break;
                         default:
                             Toast.makeText(requireContext(), "Próximamente: " + labels[idx], Toast.LENGTH_SHORT).show();
