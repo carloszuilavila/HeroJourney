@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(
                 this, R.id.nav_host_fragment_activity_main
         );
+        navView.setLabelVisibilityMode(NavigationBarView.LABEL_VISIBILITY_UNLABELED);
 
         // Cada ID de menú es un destino de nivel superior
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
