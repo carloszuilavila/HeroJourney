@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import dev.carloszuil.herojourney.R;
 
-public class RevelationActivity extends AppCompatActivity {
+public class RevelationsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

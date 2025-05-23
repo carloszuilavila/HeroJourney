@@ -13,9 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
 import androidx.navigation.NavOptions;
-import androidx.navigation.fragment.NavHostFragment;
 
 import dev.carloszuil.herojourney.R;
 import dev.carloszuil.herojourney.databinding.FragmentHeroBinding;
@@ -84,7 +82,7 @@ public class HeroFragment extends Fragment {
                 cell.setOnClickListener(v -> {
                     switch (idx) {
                         case 0:
-                            Intent intent = new Intent(requireContext(), RevelationActivity.class);
+                            Intent intent = new Intent(requireContext(), RevelationsActivity.class);
                             startActivity(intent);
                             break;
                         default:
