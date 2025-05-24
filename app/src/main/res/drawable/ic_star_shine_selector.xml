@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Icono cuando está seleccionado -->
+    <item android:drawable="@drawable/star_shine_fill" android:state_checked="true" />
+    <!-- Icono cuando no está seleccionado -->
+    <item android:drawable="@drawable/star_shine_20px_g0_w300" />
+</selector>

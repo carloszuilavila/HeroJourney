@@ -18,4 +18,7 @@
     <color name="beige_grisaceo">#CFCFC4</color>
     <color name="beige_dorado">#E6D8AD</color>
     <color name="beige_terroso">#BFA76F</color>
+    <color name="dark">#1D1D1D</color>
+    <color name="color_selected">#A6000000</color>
+    <color name="color_unselected">#80000000 </color>
 </resources>
