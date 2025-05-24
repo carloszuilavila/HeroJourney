@@ -3,27 +3,27 @@
 
     <item
         android:id="@+id/navigation_home"
-        android:icon="@drawable/routine_24px"
+        android:icon="@drawable/ic_routine_selector"
         android:title="@string/title_home" />
 
     <item
         android:id="@+id/questsFragment"
-        android:icon="@drawable/pinboard_24px"
+        android:icon="@drawable/ic_pinboard_selector"
         android:title="Quests" />
 
     <item
         android:id="@+id/journeyFragment"
-        android:icon="@drawable/forest_24px"
+        android:icon="@drawable/ic_forest_selector"
         android:title="Viaje" />
 
     <item
         android:id="@+id/valuesFragment"
-        android:icon="@drawable/castle_24px"
+        android:icon="@drawable/ic_castle_selector"
         android:title="Values" />
 
     <item
         android:id="@+id/heroFragment"
-        android:icon="@drawable/star_shine_24px"
+        android:icon="@drawable/ic_star_shine_selector"
         android:title="Hero" />
 
 </menu>
