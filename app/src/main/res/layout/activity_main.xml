@@ -15,7 +15,7 @@
         app:itemRippleColor="@android:color/transparent"
         app:itemIconTint="@color/nav_icon_color"
         app:itemTextColor="@color/nav_icon_color"
-        app:itemIconSize="32dp"
+        app:itemIconSize="35dp"
         android:background="?android:attr/windowBackground"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
