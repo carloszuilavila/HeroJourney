@@ -7,107 +7,88 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Transformations;
 
 import java.util.List;
+
 import dev.carloszuil.herojourney.data.local.AppDatabase;
 import dev.carloszuil.herojourney.data.local.dao.HabitDao;
 import dev.carloszuil.herojourney.data.local.entities.Habit;
 import dev.carloszuil.herojourney.util.PrefsHelper;
 
 public class SharedViewModel extends AndroidViewModel {
+    private static final int GOAL = 3;
 
     private final HabitDao habitDao;
-    private final MutableLiveData<Integer> tareasCompletadas = new MutableLiveData<>(0);
-    private final MutableLiveData<Boolean> enViaje = new MutableLiveData<>(false);
+    private final LiveData<List<Habit>> allHabits;
+    private final LiveData<Integer> tareasCompletadas;
+    private final MutableLiveData<Boolean> enViaje = new MutableLiveData<>();
     private long inicioViaje;
 
     public SharedViewModel(@NonNull Application application) {
         super(application);
         habitDao = AppDatabase.getInstance(application).habitDao();
 
-        // Observar cambios en la lista de hábitos y actualizar solo los completados
-        habitDao.getAllHabits().observeForever(habits -> {
-            if (habits != null) {
-                int count = 0;
-                for (Habit h : habits) {
-                    if (h.isFinished()) count++;
-                }
-                tareasCompletadas.setValue(count);
-            }
+        // Restaurar estado persistente
+        boolean viaje = PrefsHelper.loadIsTraveling(application);
+        long inicio = PrefsHelper.loadJourneyStartTime(application);
+        inicioViaje = inicio;
+        enViaje.setValue(viaje);
+
+        // Obtener todos los hábitos
+        allHabits = habitDao.getAllHabits();
+
+        // Mapear hábitos a número de completados
+        tareasCompletadas = Transformations.map(allHabits, list -> {
+            int c = 0;
+            for (Habit h : list) if (h.isFinished()) c++;
+            return c;
         });
+
+        // Observación permanente para detectar cambios y reaccionar
+        tareasCompletadas.observeForever(this::onTasksChanged);
     }
 
-    /**
-     * LiveData del número de tareas completadas.
-     */
-    public LiveData<Integer> tareasCompletadas() {
+    private void onTasksChanged(int done) {
+        if (done >= GOAL) {
+            onGoalReached();
+        } else {
+            onGoalLost();
+        }
+    }
+
+    private void onGoalReached() {
+        Boolean ya = enViaje.getValue();
+        if (!Boolean.TRUE.equals(ya)) {
+            long now = System.currentTimeMillis();
+            inicioViaje = now;
+            PrefsHelper.saveJourneyStartTime(getApplication(), now);
+            PrefsHelper.saveIsTraveling(getApplication(), true);
+            enViaje.setValue(true);
+        }
+    }
+
+    private void onGoalLost() {
+        Boolean ya = enViaje.getValue();
+        if (Boolean.TRUE.equals(ya)) {
+            PrefsHelper.saveIsTraveling(getApplication(), false);
+            enViaje.setValue(false);
+        }
+    }
+
+    public LiveData<Integer> getTareasCompletadas() {
         return tareasCompletadas;
     }
 
-    /**
-     * LiveData que indica si el usuario está en viaje.
-     */
     public LiveData<Boolean> getEnViaje() {
         return enViaje;
     }
 
-    /**
-     * Timestamp de inicio del viaje.
-     */
     public long getInicioViaje() {
         return inicioViaje;
     }
 
-    /**
-     * Carga el estado de viaje desde SharedPreferences.
-     */
-    public void cargarEstado() {
-        // 1) Leer primero de Prefs
-        boolean viaje = PrefsHelper.loadIsTraveling(getApplication());
-        long inicio = PrefsHelper.loadJourneyStartTime(getApplication());
-
-        Log.d("HJDebug", "cargarEstado → viaje=" + viaje + ", inicio=" + inicio);
-
-        // 2) Actualizar campos internos y LiveData
-        inicioViaje = inicio;
-        enViaje.setValue(viaje);
-    }
-
-
-    /**
-     * Guarda el estado de viaje en SharedPreferences y notifica LiveData.
-     */
-    public void guardarEstadoViaje(boolean viaje) {
-        PrefsHelper.saveIsTraveling(getApplication(), viaje);
-        enViaje.setValue(viaje);
-    }
-
-    /**
-     * Guarda el timestamp de inicio de viaje en SharedPreferences.
-     */
-    public void guardarInicioViaje(long timestamp) {
-        inicioViaje = timestamp;
-        PrefsHelper.saveJourneyStartTime(getApplication(), timestamp);
-    }
-
-    public void onGoalReached() {
-        Boolean yaEnViaje = enViaje.getValue();
-        Log.d("HJDebug", "onGoalReached → yaEnViaje=" + yaEnViaje);
-        if (!Boolean.TRUE.equals(yaEnViaje)) {
-            long now = System.currentTimeMillis();
-            guardarInicioViaje(now);
-            guardarEstadoViaje(true);
-            Log.d("HJDebug", "onGoalReached → yaEnViaje=" + yaEnViaje);
-        }
-    }
-
-    /** Llamar cuando se baje de la meta después de haberla alcanzado */
-    public void onGoalLost() {
-        Boolean yaEnViaje = enViaje.getValue();
-        Log.d("HJDebug", "onGoalLost → yaEnViaje=" + yaEnViaje);
-        if (Boolean.TRUE.equals(yaEnViaje)) {
-            guardarEstadoViaje(false);
-            Log.d("HJDebug", "SharedViewModel → viaje cancelado");
-        }
+    public int getGoal() {
+        return GOAL;
     }
 }

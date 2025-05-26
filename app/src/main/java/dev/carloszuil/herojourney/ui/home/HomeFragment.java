@@ -28,53 +28,42 @@ import dev.carloszuil.herojourney.ui.viewmodel.SharedViewModel;
 public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
-    private SharedViewModel sharedViewModel;
     private HomeViewModel vm;
+    private SharedViewModel sharedViewModel;
     private HabitExpandableAdapter adapter;
 
     private boolean pendientesExpanded = true;
     private boolean completadasExpanded = false;
-    private static final int GOAL = 3;
 
-    @Nullable @Override
-    public View onCreateView(
-            @NonNull LayoutInflater inflater,
-            @Nullable ViewGroup container,
-            @Nullable Bundle savedInstanceState) {
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
 
-        vm = new ViewModelProvider(this)
-                .get(HomeViewModel.class);
-
-        sharedViewModel = new ViewModelProvider(requireActivity())
-                .get(SharedViewModel.class);
-
-        Log.d("HJDebug", "HomeFragment.onCreateView: antes de cargarEstado, enViaje="
-                + sharedViewModel.getEnViaje().getValue());
+        vm = new ViewModelProvider(this).get(HomeViewModel.class);
+        sharedViewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
 
         adapter = new HabitExpandableAdapter(
-                habit -> {                 // aquí recibo el habit que cambió
-                    vm.updateHabit(habit);
-                },
-                (title, expanded) -> onSectionToggled(title, expanded),
-                habit -> showDetail(habit)
+                habit -> vm.updateHabit(habit),
+                this::onSectionToggled,
+                this::showDetail
         );
 
-        binding.recyclerHabits.setLayoutManager(
-                new LinearLayoutManager(requireContext()));
+        binding.recyclerHabits.setLayoutManager(new LinearLayoutManager(requireContext()));
         binding.recyclerHabits.setAdapter(adapter);
 
-        // restaurar el estado antes de suscribirse a la lista de habitos
-        sharedViewModel.cargarEstado();
-
-        Log.d("HJDebug", "HomeFragment.onCreateView: después de cargarEstado, enViaje="
-                + sharedViewModel.getEnViaje().getValue());
-
         vm.getHabits().observe(getViewLifecycleOwner(), list -> {
-            Log.d("HJDebug", "HomeFragment.vm.getHabits: list recibida, enViaje="
-                    + sharedViewModel.getEnViaje().getValue());
-            renderHabits(list);
+            adapter.submitHabits(list, pendientesExpanded, completadasExpanded);
+        });
+
+        sharedViewModel.getTareasCompletadas().observe(getViewLifecycleOwner(), done -> {
+            final int GOAL = 3;
+            binding.barraProgreso.setMax(GOAL);
+            binding.barraProgreso.setProgress(Math.min(done, GOAL));
+            binding.textoProgreso.setText(done + "/" + GOAL + " tareas");
         });
 
         binding.buttonAddHabit.setOnClickListener(v -> showAddDialog());
@@ -82,48 +71,25 @@ public class HomeFragment extends Fragment {
         return binding.getRoot();
     }
 
-    private void renderHabits(List<Habit> list) {
-        adapter.submitHabits(list, pendientesExpanded, completadasExpanded);
-        updateProgress(list);
-    }
-
-    private void updateProgress(List<Habit> list) {
-        long done = list.stream().filter(Habit::isFinished).count();
-        Log.d("HJDebug", "updateProgress → done=" + done + ", enViaje=" + sharedViewModel.getEnViaje());
-
-        if (done >= GOAL) {
-            sharedViewModel.onGoalReached();
-        } else {
-            sharedViewModel.onGoalLost();
-        }
-
-        // Finalmente actualizamos la barra de progreso
-        binding.barraProgreso.setMax(GOAL);
-        binding.barraProgreso.setProgress((int)Math.min(done, GOAL));
-        binding.textoProgreso.setText(done + "/" + GOAL + " tareas");
-    }
-
-
-    private void onSectionToggled(String title, boolean exp) {
-        if ("📌 Pendientes".equals(title)) pendientesExpanded = exp;
-        else if ("✅ Completadas".equals(title)) completadasExpanded = exp;
+    private void onSectionToggled(String title, boolean expanded) {
+        if ("📌 Pendientes".equals(title)) pendientesExpanded = expanded;
+        else if ("✅ Completadas".equals(title)) completadasExpanded = expanded;
         adapter.notifyDataSetChanged();
     }
 
     private void showAddDialog() {
-        View dv = LayoutInflater.from(requireContext())
-                .inflate(R.layout.dialog_add_habit, null);
+        View dv = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_add_habit, null);
         EditText etName = dv.findViewById(R.id.inputHabitName);
         EditText etDesc = dv.findViewById(R.id.inputHabitDesc);
 
         new AlertDialog.Builder(requireContext())
                 .setTitle("Añadir tarea")
                 .setView(dv)
-                .setPositiveButton("Guardar", (DialogInterface d, int w) -> {
-                    String n = etName.getText().toString().trim();
-                    String des = etDesc.getText().toString().trim();
-                    if (!n.isEmpty()) {
-                        vm.addHabit(new Habit(0, n, des, false));
+                .setPositiveButton("Guardar", (d, w) -> {
+                    String name = etName.getText().toString().trim();
+                    String desc = etDesc.getText().toString().trim();
+                    if (!name.isEmpty()) {
+                        vm.addHabit(new Habit(0, name, desc, false));
                     }
                     d.dismiss();
                 })
@@ -132,8 +98,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void showDetail(Habit h) {
-        View dv = LayoutInflater.from(requireContext())
-                .inflate(R.layout.dialog_habit_detail, null);
+        View dv = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_habit_detail, null);
         TextView tvTitle = dv.findViewById(R.id.dialogTitle);
         TextView tvDesc  = dv.findViewById(R.id.dialogDescription);
         tvTitle.setText(h.getName());
@@ -149,8 +114,10 @@ public class HomeFragment extends Fragment {
                 .show();
     }
 
-    @Override public void onDestroyView() {
+    @Override
+    public void onDestroyView() {
         super.onDestroyView();
         binding = null;
     }
 }
+
