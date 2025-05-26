@@ -9,18 +9,19 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import dev.carloszuil.herojourney.databinding.FragmentFortBinding;
 import dev.carloszuil.herojourney.databinding.FragmentValuesBinding;
 
 public class FortFragment extends Fragment {
 
-    private FragmentValuesBinding binding;
+    private FragmentFortBinding binding;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        binding = FragmentValuesBinding.inflate(inflater, container, false);
+        binding = FragmentFortBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 
