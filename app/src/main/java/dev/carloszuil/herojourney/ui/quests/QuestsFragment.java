@@ -17,9 +17,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dev.carloszuil.herojourney.adapter.QuestAdapter;
-import dev.carloszuil.herojourney.databinding.FragmentQuestsBinding;
 import dev.carloszuil.herojourney.data.local.entities.Quest;
 import dev.carloszuil.herojourney.data.local.entities.QuestState;
+import dev.carloszuil.herojourney.databinding.FragmentQuestsBinding;
 
 public class QuestsFragment extends Fragment {
 
