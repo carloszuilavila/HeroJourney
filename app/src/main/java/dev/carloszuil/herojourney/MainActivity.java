@@ -14,6 +14,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
 import dev.carloszuil.herojourney.databinding.ActivityMainBinding;
+import dev.carloszuil.herojourney.system.ResetScheduler;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -48,5 +49,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Conectar BottomNavigationView con NavController
         NavigationUI.setupWithNavController(navView, navController);
+
+        ResetScheduler.programarResetDiario(this);
     }
 }
