@@ -10,7 +10,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import dev.carloszuil.herojourney.databinding.FragmentFortBinding;
-import dev.carloszuil.herojourney.databinding.FragmentValuesBinding;
 
 public class FortFragment extends Fragment {
 
