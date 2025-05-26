@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.DiffUtil;
 
 import java.util.List;
 
-import dev.carloszuil.herojourney.model.Quest;
+import dev.carloszuil.herojourney.data.local.entities.Quest;
 
 public class QuestDiffCallback extends DiffUtil.Callback {
 

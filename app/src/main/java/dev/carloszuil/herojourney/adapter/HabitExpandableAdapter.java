@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 import dev.carloszuil.herojourney.R;
-import dev.carloszuil.herojourney.model.Habit;
+import dev.carloszuil.herojourney.data.local.entities.Habit;
 
 public class HabitExpandableAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 

@@ -1,4 +1,4 @@
-package dev.carloszuil.herojourney.network;
+package dev.carloszuil.herojourney.data.remote;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;

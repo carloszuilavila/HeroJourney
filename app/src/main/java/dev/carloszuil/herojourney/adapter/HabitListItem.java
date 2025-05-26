@@ -1,7 +1,7 @@
 package dev.carloszuil.herojourney.adapter;
 
 
-import dev.carloszuil.herojourney.model.Habit;
+import dev.carloszuil.herojourney.data.local.entities.Habit;
 
 public abstract class HabitListItem {
 

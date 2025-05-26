@@ -25,7 +25,7 @@ import dev.carloszuil.herojourney.R;
 import dev.carloszuil.herojourney.adapter.HabitExpandableAdapter;
 import dev.carloszuil.herojourney.databinding.FragmentHomeBinding;
 import dev.carloszuil.herojourney.helper.PrefsHelper;
-import dev.carloszuil.herojourney.model.Habit;
+import dev.carloszuil.herojourney.data.local.entities.Habit;
 import dev.carloszuil.herojourney.ui.viewmodel.SharedViewModel;
 
 public class HomeFragment extends Fragment {

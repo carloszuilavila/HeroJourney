@@ -14,9 +14,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import dev.carloszuil.herojourney.R;
-import dev.carloszuil.herojourney.model.Revelation;
-import dev.carloszuil.herojourney.network.ApiService;
-import dev.carloszuil.herojourney.network.RetrofitClient;
+import dev.carloszuil.herojourney.data.local.entities.Revelation;
+import dev.carloszuil.herojourney.data.remote.ApiService;
+import dev.carloszuil.herojourney.data.remote.RetrofitClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

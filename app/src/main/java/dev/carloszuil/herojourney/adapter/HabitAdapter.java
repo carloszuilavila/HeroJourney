@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import dev.carloszuil.herojourney.R;
-import dev.carloszuil.herojourney.model.Habit;
+import dev.carloszuil.herojourney.data.local.entities.Habit;
 
 public class HabitAdapter extends RecyclerView.Adapter<HabitAdapter.TareaViewHolder> {
 

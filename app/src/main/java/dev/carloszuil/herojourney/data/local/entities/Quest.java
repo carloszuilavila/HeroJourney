@@ -1,4 +1,4 @@
-package dev.carloszuil.herojourney.model;
+package dev.carloszuil.herojourney.data.local.entities;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;

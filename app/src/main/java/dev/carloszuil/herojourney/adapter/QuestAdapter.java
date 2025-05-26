@@ -16,8 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dev.carloszuil.herojourney.R;
-import dev.carloszuil.herojourney.model.Quest;
-import dev.carloszuil.herojourney.model.QuestState;
+import dev.carloszuil.herojourney.data.local.entities.Quest;
+import dev.carloszuil.herojourney.data.local.entities.QuestState;
 
 public class QuestAdapter extends RecyclerView.Adapter<QuestAdapter.QuestViewHolder> {
 
