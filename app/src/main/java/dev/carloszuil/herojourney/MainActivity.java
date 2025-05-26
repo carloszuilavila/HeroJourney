@@ -46,9 +46,6 @@ public class MainActivity extends AppCompatActivity {
                 R.id.fortFragment
         ).build();
 
-        // Si quieres mostrar el título en la ActionBar, descomenta:
-        // NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-
         // Conectar BottomNavigationView con NavController
         NavigationUI.setupWithNavController(navView, navController);
     }
