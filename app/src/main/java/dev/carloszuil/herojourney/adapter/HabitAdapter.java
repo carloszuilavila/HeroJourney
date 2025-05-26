@@ -49,18 +49,18 @@ public class HabitAdapter extends RecyclerView.Adapter<HabitAdapter.TareaViewHol
         Habit tarea = habits.get(position);
 
         // Texto y estado inicial
-        holder.texto.setText(tarea.getNombre());
-        holder.checkBox.setChecked(tarea.isCompletada());
+        holder.texto.setText(tarea.getName());
+        holder.checkBox.setChecked(tarea.isFinished());
 
         // Evitar que el listener anterior se dispare al reciclar la vista
         holder.checkBox.setOnCheckedChangeListener(null);
-        holder.checkBox.setChecked(tarea.isCompletada());
+        holder.checkBox.setChecked(tarea.isFinished());
 
         // Nuevo listener
         holder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                tarea.setCompletada(isChecked);
+                tarea.setFinished(isChecked);
                 onTareaCambiada.run();
             }
         });
