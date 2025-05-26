@@ -25,4 +25,7 @@ public interface HabitDao {
 
     @Delete
     void delete(Habit habit);
+
+    @Query("UPDATE habit SET finished = 0")
+    void resetAllHabits();
 }
