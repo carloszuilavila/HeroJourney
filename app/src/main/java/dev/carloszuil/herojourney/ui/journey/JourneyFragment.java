@@ -2,6 +2,7 @@ package dev.carloszuil.herojourney.ui.journey;
 
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,22 +11,22 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import dev.carloszuil.herojourney.R;
 import dev.carloszuil.herojourney.databinding.FragmentJourneyBinding;
-import dev.carloszuil.herojourney.helper.PrefsHelper;
 import dev.carloszuil.herojourney.ui.viewmodel.SharedViewModel;
 
 public class JourneyFragment extends Fragment {
+
+    private static final int GOAL = 3;
+    private static final long DURACION = 60 * 60 * 1000L; // 4 horas
 
     private FragmentJourneyBinding binding;
     private SharedViewModel sharedViewModel;
     private CountDownTimer countDownTimer;
 
-    @Nullable
-    @Override
+    @Nullable @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
@@ -34,108 +35,105 @@ public class JourneyFragment extends Fragment {
         sharedViewModel = new ViewModelProvider(requireActivity())
                 .get(SharedViewModel.class);
 
-        // Inicializar ImageSwitcher
+        // ImageSwitcher
         binding.imageSwitcher.setFactory(() -> {
             ImageView iv = new ImageView(requireContext());
             iv.setScaleType(ImageView.ScaleType.CENTER_CROP);
             return iv;
         });
 
-        // Cargar y notificar estado inicial de tareas completadas
-        int savedCompleted = PrefsHelper.loadCompletedHabits(requireContext()).size();
-        sharedViewModel.actualizarTareasCompletadas(savedCompleted);
+        // 1) Restaurar flag + timestamp desde prefs
+        sharedViewModel.cargarEstado();
 
-        // Observar cambios y actualizar imagen
-        sharedViewModel.tareasCompletadas().observe(getViewLifecycleOwner(), new Observer<Integer>() {
-            @Override
-            public void onChanged(Integer completadas) {
-                if (completadas >= 3) {
-                    binding.imageSwitcher.setImageResource(R.drawable.journey);
-                } else {
-                    binding.imageSwitcher.setImageResource(R.drawable.rest);
-                }
-            }
+        // 2) Inicializar texto del timer
+        binding.textTimer.setText("00:00");
+
+        // 3) Observer de completadas
+        sharedViewModel.tareasCompletadas().observe(getViewLifecycleOwner(), completadas -> {
+            Log.d("HJDebug", "Observer tareasCompletadas → completadas=" + completadas +
+                    ", enViaje=" + sharedViewModel.getEnViaje().getValue());
+            onTareasCompletadasChanged(completadas);
         });
+
 
         return binding.getRoot();
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view,
-                              @Nullable Bundle savedInstanceState) {
+    @Override public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // Restaurar estado de viaje y arrancar temporizador si corresponde
-        restaurarViaje();
-
-        // Observar de nuevo para actualizar UI sin re-grabar prefs
-        sharedViewModel.tareasCompletadas().observe(getViewLifecycleOwner(), new Observer<Integer>() {
-            @Override
-            public void onChanged(Integer completadas) {
-                if (completadas >= 3) {
-                    binding.imageSwitcher.setImageResource(R.drawable.journey);
-                } else {
-                    binding.imageSwitcher.setImageResource(R.drawable.rest);
-                    if (countDownTimer != null) {
-                        countDownTimer.cancel();
-                    }
-                    binding.textTimer.setText("00:00");
-                }
-            }
-        });
-    }
-
-    private void restaurarViaje() {
-        boolean enViaje = PrefsHelper.loadIsTraveling(requireContext());
-        long inicio   = PrefsHelper.loadJourneyStartTime(requireContext());
-        long duracion = 1 * 60 * 1000L;
-        long ahora    = System.currentTimeMillis();
-
-        if (enViaje && (ahora - inicio) < duracion) {
+        // Si ya estabas en viaje, restaurar temporizador
+        if (Boolean.TRUE.equals(sharedViewModel.getEnViaje().getValue())) {
             binding.imageSwitcher.setImageResource(R.drawable.journey);
-            iniciarTemporizador(inicio, duracion);
+            startOrRestoreTimer();
         } else {
             binding.imageSwitcher.setImageResource(R.drawable.rest);
-            binding.textTimer.setText("00:00");
-            PrefsHelper.saveIsTraveling(requireContext(), false);
         }
     }
 
-    private void iniciarTemporizador(long inicio, long duracion) {
-        long restante = duracion - (System.currentTimeMillis() - inicio);
+    private void onTareasCompletadasChanged(int completadas) {
+        Boolean enViaje = sharedViewModel.getEnViaje().getValue();
+
+        if (Boolean.TRUE.equals(enViaje)) {
+            // Ya estabas en viaje: solo restauramos o cancelamos si bajan de meta
+            if (completadas < GOAL) {
+                stopTimerAndReset();
+            } else {
+                // si sigues >= GOAL, aseguramos imagen y timer
+                binding.imageSwitcher.setImageResource(R.drawable.journey);
+                startOrRestoreTimer();
+            }
+        } else {
+            // No estabas en viaje: decide iniciar o no
+            if (completadas >= GOAL) {
+                long now = System.currentTimeMillis();
+                sharedViewModel.guardarInicioViaje(now);
+                sharedViewModel.guardarEstadoViaje(true);
+                binding.imageSwitcher.setImageResource(R.drawable.journey);
+                startOrRestoreTimer();
+            }
+            // si completadas < GOAL y enViaje=false, no hacemos nada
+        }
+    }
+
+    private void startOrRestoreTimer() {
+        long inicio = sharedViewModel.getInicioViaje();
+        long elapsed = System.currentTimeMillis() - inicio;
+        long restante = DURACION - elapsed;
+        Log.d("HJDebug", "startOrRestoreTimer → inicio=" + inicio +
+                ", elapsed=" + elapsed + ", restante=" + restante);
+
         if (restante <= 0) {
-            binding.textTimer.setText("00:00");
-            PrefsHelper.saveIsTraveling(requireContext(), false);
+            stopTimerAndReset();
             return;
         }
-        if (countDownTimer != null) {
-            countDownTimer.cancel();
-        }
-        countDownTimer = new CountDownTimer(restante, 1000) {
-            @Override
-            public void onTick(long ms) {
-                long min = (ms / 1000) / 60;
-                long sec = (ms / 1000) % 60;
-                binding.textTimer.setText(
-                        String.format("%02d:%02d", min, sec)
-                );
+        if (countDownTimer != null) countDownTimer.cancel();
+        countDownTimer = new CountDownTimer(restante, 1_000) {
+            @Override public void onTick(long ms) {
+                long min = (ms / 1_000) / 60;
+                long sec = (ms / 1_000) % 60;
+                binding.textTimer.setText(String.format("%02d:%02d", min, sec));
             }
-            @Override
-            public void onFinish() {
-                binding.textTimer.setText("00:00");
-                binding.imageSwitcher.setImageResource(R.drawable.rest);
-                PrefsHelper.saveIsTraveling(requireContext(), false);
+            @Override public void onFinish() {
+                stopTimerAndReset();
             }
         }.start();
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
+    private void stopTimerAndReset() {
+        Log.d("HJDebug", "stopTimerAndReset → cancelando viaje y timer");
         if (countDownTimer != null) {
             countDownTimer.cancel();
+            countDownTimer = null;
         }
+        binding.textTimer.setText("00:00");
+        binding.imageSwitcher.setImageResource(R.drawable.rest);
+        sharedViewModel.guardarEstadoViaje(false);
+    }
+
+    @Override public void onDestroyView() {
+        super.onDestroyView();
+        if (countDownTimer != null) countDownTimer.cancel();
         binding = null;
     }
 }
-
