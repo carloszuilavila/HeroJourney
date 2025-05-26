@@ -1,13 +1,14 @@
+// ui/home/HomeFragment.java
 package dev.carloszuil.herojourney.ui.home;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,204 +17,140 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import dev.carloszuil.herojourney.R;
 import dev.carloszuil.herojourney.adapter.HabitExpandableAdapter;
-import dev.carloszuil.herojourney.databinding.FragmentHomeBinding;
-import dev.carloszuil.herojourney.helper.PrefsHelper;
 import dev.carloszuil.herojourney.data.local.entities.Habit;
+import dev.carloszuil.herojourney.databinding.FragmentHomeBinding;
 import dev.carloszuil.herojourney.ui.viewmodel.SharedViewModel;
 
 public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
-    private HabitExpandableAdapter habitAdapter;
     private SharedViewModel sharedViewModel;
+    private HomeViewModel vm;
+    private HabitExpandableAdapter adapter;
 
-    // Lista de tareas con persistencia
-    private final List<Habit> habitsList = new ArrayList<>();
+    private boolean pendientesExpanded = true;
+    private boolean completadasExpanded = false;
+    private static final int GOAL = 3;
 
-    private boolean pendientesExpandido = true;
-    private boolean completadasExpandido = false;
-    private boolean goalReached = false;
+    @Nullable @Override
+    public View onCreateView(
+            @NonNull LayoutInflater inflater,
+            @Nullable ViewGroup container,
+            @Nullable Bundle savedInstanceState) {
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
+
+        vm = new ViewModelProvider(this)
+                .get(HomeViewModel.class);
+
         sharedViewModel = new ViewModelProvider(requireActivity())
                 .get(SharedViewModel.class);
 
-        habitsList.clear();
+        Log.d("HJDebug", "HomeFragment.onCreateView: antes de cargarEstado, enViaje="
+                + sharedViewModel.getEnViaje().getValue());
 
-        // Cargar nombres guardados o preset si vacío
-        List<Habit> habits = PrefsHelper.loadHabits(requireContext());
-        if (habits.isEmpty()) {
-            habits.add(new Habit("Elaborar pociones"));
-            habits.add(new Habit("Afilar la espada"));
-            habits.add(new Habit("Meditar"));
-            habits.add(new Habit("Entrenar el cuerpo"));
-            habits.add(new Habit("Encontrar un herrero"));
-            PrefsHelper.saveHabits(requireContext(), habits);
-        }
-        // Cargar completadas y asignar al modelo
-        Set<String> completedSet = PrefsHelper.loadCompletedHabits(requireContext());
-        for (Habit h : habits) {
-            h.setCompletada(completedSet.contains(h.getNombre()));
-        }
-        habitsList.addAll(habits);
-
-        // Cargar estados de secciones y flag
-        PrefsHelper.Pair<Boolean, Boolean> sections = PrefsHelper.loadSectionsExpanded(requireContext());
-        pendientesExpandido   = sections.first;
-        completadasExpandido  = sections.second;
-        goalReached = countCompleted() >= 3;
-
-        habitAdapter = new HabitExpandableAdapter(
-                () -> onHabitCheckToggled(),
+        adapter = new HabitExpandableAdapter(
+                habit -> {                 // aquí recibo el habit que cambió
+                    vm.updateHabit(habit);
+                },
                 (title, expanded) -> onSectionToggled(title, expanded),
-                habit -> showDetailHabit(habit)
+                habit -> showDetail(habit)
         );
-        binding.recyclerHabits.setLayoutManager(new LinearLayoutManager(requireContext()));
-        binding.recyclerHabits.setAdapter(habitAdapter);
 
-        binding.buttonAddHabit.setOnClickListener(v -> showAddHabitDialog());
+        binding.recyclerHabits.setLayoutManager(
+                new LinearLayoutManager(requireContext()));
+        binding.recyclerHabits.setAdapter(adapter);
 
-        actualizarListaYProgreso();
+        // restaurar el estado antes de suscribirse a la lista de habitos
+        sharedViewModel.cargarEstado();
+
+        Log.d("HJDebug", "HomeFragment.onCreateView: después de cargarEstado, enViaje="
+                + sharedViewModel.getEnViaje().getValue());
+
+        vm.getHabits().observe(getViewLifecycleOwner(), list -> {
+            Log.d("HJDebug", "HomeFragment.vm.getHabits: list recibida, enViaje="
+                    + sharedViewModel.getEnViaje().getValue());
+            renderHabits(list);
+        });
+
+        binding.buttonAddHabit.setOnClickListener(v -> showAddDialog());
+
         return binding.getRoot();
     }
 
-    private int countCompleted() {
-        int count = 0;
-        for (Habit h : habitsList) {
-            if (h.isCompletada()) count++;
-        }
-        return count;
+    private void renderHabits(List<Habit> list) {
+        adapter.submitHabits(list, pendientesExpanded, completadasExpanded);
+        updateProgress(list);
     }
 
-    private void removeHabit(Habit habit) {
-        List<Habit> updated = new ArrayList<>();
-        for (Habit h : habitsList) {
-            if (!h.equals(habit)) updated.add(h);
-        }
-        habitsList.clear();
-        habitsList.addAll(updated);
-        PrefsHelper.saveHabits(requireContext(), habitsList);
-        habitAdapter.submitHabits(habitsList, true, false);
-    }
+    private void updateProgress(List<Habit> list) {
+        long done = list.stream().filter(Habit::isFinished).count();
+        Log.d("HJDebug", "updateProgress → done=" + done + ", enViaje=" + sharedViewModel.getEnViaje());
 
-    private void showDetailHabit(Habit habit) {
-        View dialogView = LayoutInflater.from(requireContext())
-                .inflate(R.layout.dialog_habit_detail, null);
-        TextView titleView = dialogView.findViewById(R.id.dialogTitle);
-        TextView descView  = dialogView.findViewById(R.id.dialogDescription);
-
-        titleView.setText(habit.getNombre());
-        descView.setText(habit.getDescripcion());
-
-        AlertDialog dialog = new AlertDialog.Builder(requireContext())
-                .setView(dialogView)
-                .create();
-        if (dialog.getWindow() != null) {
-            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        if (done >= GOAL) {
+            sharedViewModel.onGoalReached();
+        } else {
+            sharedViewModel.onGoalLost();
         }
 
-        View deleteBtn = dialogView.findViewById(R.id.btnDelete);
-        View closeBtn  = dialogView.findViewById(R.id.btnClose);
-        deleteBtn.setOnClickListener(v -> {
-            removeHabit(habit);
-            dialog.dismiss();
-        });
-        closeBtn.setOnClickListener(v -> dialog.dismiss());
-
-        dialog.show();
+        // Finalmente actualizamos la barra de progreso
+        binding.barraProgreso.setMax(GOAL);
+        binding.barraProgreso.setProgress((int)Math.min(done, GOAL));
+        binding.textoProgreso.setText(done + "/" + GOAL + " tareas");
     }
 
-    private void showAddHabitDialog() {
-        View dialogView = LayoutInflater.from(requireContext())
+
+    private void onSectionToggled(String title, boolean exp) {
+        if ("📌 Pendientes".equals(title)) pendientesExpanded = exp;
+        else if ("✅ Completadas".equals(title)) completadasExpanded = exp;
+        adapter.notifyDataSetChanged();
+    }
+
+    private void showAddDialog() {
+        View dv = LayoutInflater.from(requireContext())
                 .inflate(R.layout.dialog_add_habit, null);
-        EditText inputName = dialogView.findViewById(R.id.inputHabitName);
-        EditText inputDesc = dialogView.findViewById(R.id.inputHabitDesc);
+        EditText etName = dv.findViewById(R.id.inputHabitName);
+        EditText etDesc = dv.findViewById(R.id.inputHabitDesc);
 
         new AlertDialog.Builder(requireContext())
                 .setTitle("Añadir tarea")
-                .setView(dialogView)
-                .setPositiveButton("Guardar", (DialogInterface dialog, int which) -> {
-                    String name = inputName.getText().toString().trim();
-                    String desc = inputDesc.getText().toString().trim();
-                    if (!name.isEmpty() &&
-                            habitsList.stream().noneMatch(h -> h.getNombre().equals(name))) {
-                        habitsList.add(new Habit(name, desc, false));
-                        PrefsHelper.saveHabits(requireContext(), habitsList);
-                        habitAdapter.submitHabits(habitsList,
-                                pendientesExpandido, completadasExpandido);
+                .setView(dv)
+                .setPositiveButton("Guardar", (DialogInterface d, int w) -> {
+                    String n = etName.getText().toString().trim();
+                    String des = etDesc.getText().toString().trim();
+                    if (!n.isEmpty()) {
+                        vm.addHabit(new Habit(0, n, des, false));
                     }
-                    dialog.dismiss();
+                    d.dismiss();
                 })
                 .setNegativeButton("Cancelar", (d, w) -> d.dismiss())
                 .show();
     }
 
-    private void onHabitCheckToggled() {
-        Set<String> completed = new HashSet<>();
-        for (Habit h : habitsList) {
-            if (h.isCompletada()) completed.add(h.getNombre());
-        }
-        PrefsHelper.saveCompletedHabits(requireContext(), completed);
-        actualizarProgreso();
+    private void showDetail(Habit h) {
+        View dv = LayoutInflater.from(requireContext())
+                .inflate(R.layout.dialog_habit_detail, null);
+        TextView tvTitle = dv.findViewById(R.id.dialogTitle);
+        TextView tvDesc  = dv.findViewById(R.id.dialogDescription);
+        tvTitle.setText(h.getName());
+        tvDesc.setText(h.getDescription());
+
+        new AlertDialog.Builder(requireContext())
+                .setView(dv)
+                .setPositiveButton("Eliminar", (d, w) -> {
+                    vm.removeHabit(h);
+                    d.dismiss();
+                })
+                .setNegativeButton("Cerrar", null)
+                .show();
     }
 
-    private void onSectionToggled(String title, boolean expanded) {
-        if ("📌 Pendientes".equals(title)) {
-            pendientesExpandido = expanded;
-        } else if ("✅ Completadas".equals(title)) {
-            completadasExpandido = expanded;
-        }
-        PrefsHelper.saveSectionsExpanded(
-                requireContext(), pendientesExpandido, completadasExpandido);
-        habitAdapter.submitHabits(
-                habitsList, pendientesExpandido, completadasExpandido);
-    }
-
-    private void actualizarProgreso() {
-        int completadasCount = countCompleted();
-        int requeridas = 3;
-        int progresoVisual = Math.min(completadasCount, requeridas);
-
-        binding.barraProgreso.setProgress(progresoVisual);
-        binding.textoProgreso.setText(
-                completadasCount + "/" + requeridas + " tareas");
-        sharedViewModel.actualizarTareasCompletadas(completadasCount);
-
-        if (!goalReached && completadasCount >= requeridas) {
-            PrefsHelper.saveJourneyStartTime(
-                    requireContext(), System.currentTimeMillis());
-            PrefsHelper.saveIsTraveling(requireContext(), true);
-            Toast.makeText(requireContext(),
-                    "El Viaje del Héroe continúa...", Toast.LENGTH_LONG).show();
-            goalReached = true;
-        } else if (completadasCount < requeridas) {
-            goalReached = false;
-            PrefsHelper.saveIsTraveling(requireContext(), false);
-        }
-    }
-
-    private void actualizarListaYProgreso() {
-        habitAdapter.submitHabits(
-                habitsList, pendientesExpandido, completadasExpandido);
-        actualizarProgreso();
-    }
-
-    @Override
-    public void onDestroyView() {
+    @Override public void onDestroyView() {
         super.onDestroyView();
         binding = null;
     }
 }
-
