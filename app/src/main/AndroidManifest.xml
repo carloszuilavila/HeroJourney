@@ -28,6 +28,10 @@
             android:name=".ui.hero.RevelationsActivity"
             android:theme="@style/Theme.HeroJourney"
         />
+        <receiver
+            android:name=".receiver.ResetReceiver"
+            android:exported="true"/>
+
     </application>
 
 </manifest>
