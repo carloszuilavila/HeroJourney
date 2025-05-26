@@ -17,7 +17,7 @@
         android:title="Viaje" />
 
     <item
-        android:id="@+id/valuesFragment"
+        android:id="@+id/fortFragment"
         android:icon="@drawable/ic_castle_selector"
         android:title="Values" />
 

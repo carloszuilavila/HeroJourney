@@ -1,14 +1,11 @@
 package dev.carloszuil.herojourney;
 
 import android.os.Bundle;
-import android.view.MenuItem;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.splashscreen.SplashScreen;
 import androidx.navigation.NavController;
-import androidx.navigation.NavOptions;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
@@ -46,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
                 R.id.journeyFragment,
                 R.id.questsFragment,
                 R.id.heroFragment,
-                R.id.valuesFragment
+                R.id.fortFragment
         ).build();
 
         // Si quieres mostrar el título en la ActionBar, descomenta:

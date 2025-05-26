@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment;
 
 import dev.carloszuil.herojourney.databinding.FragmentValuesBinding;
 
-public class ValuesFragment extends Fragment {
+public class FortFragment extends Fragment {
 
     private FragmentValuesBinding binding;
 

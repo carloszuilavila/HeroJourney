@@ -24,10 +24,10 @@
         tools:layout="@layout/fragment_journey" />
 
     <fragment
-        android:id="@+id/valuesFragment"
-        android:name="dev.carloszuil.herojourney.ui.values.ValuesFragment"
+        android:id="@+id/fortFragment"
+        android:name="dev.carloszuil.herojourney.ui.values.FortFragment"
         android:label="Values"
-        tools:layout="@layout/fragment_values" />
+        tools:layout="@layout/fragment_fort" />
 
     <fragment
         android:id="@+id/heroFragment"
