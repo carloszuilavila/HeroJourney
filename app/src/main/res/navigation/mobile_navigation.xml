@@ -25,7 +25,7 @@
 
     <fragment
         android:id="@+id/fortFragment"
-        android:name="dev.carloszuil.herojourney.ui.values.FortFragment"
+        android:name="dev.carloszuil.herojourney.ui.fort.FortFragment"
         android:label="Values"
         tools:layout="@layout/fragment_fort" />
 
@@ -37,7 +37,7 @@
 
     <fragment
         android:id="@+id/revelationsFragment"
-        android:name="dev.carloszuil.herojourney.ui.hero.RevelationsFragment"
+        android:name="dev.carloszuil.herojourney.ui.fort.RevelationsFragment"
         android:label="Revelations"
         tools:layout="@layout/fragment_revelations" />
 
