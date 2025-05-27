@@ -25,7 +25,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.hero.RevelationsActivity"
+            android:name=".ui.fort.RevelationsActivity"
             android:theme="@style/Theme.HeroJourney"
         />
         <receiver
