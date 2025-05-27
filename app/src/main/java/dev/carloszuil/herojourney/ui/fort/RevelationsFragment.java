@@ -1,4 +1,4 @@
-package dev.carloszuil.herojourney.ui.hero;
+package dev.carloszuil.herojourney.ui.fort;
 
 import android.os.Bundle;
 import android.util.Log;
