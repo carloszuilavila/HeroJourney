@@ -1,30 +1,39 @@
 package dev.carloszuil.herojourney.ui.hero;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavOptions;
 
 import dev.carloszuil.herojourney.R;
 import dev.carloszuil.herojourney.databinding.FragmentHeroBinding;
+import dev.carloszuil.herojourney.ui.fort.RevelationsActivity;
+import dev.carloszuil.herojourney.ui.viewmodel.SharedViewModel;
+import dev.carloszuil.herojourney.ui.viewmodel.ThemeViewModel;
 
 public class HeroFragment extends Fragment {
 
     private FragmentHeroBinding binding;
 
     private final String[] labels = {
-            "Revelations", "Reflections", "Breathe", "Destiny",
-            "Movements", "Timers", "Listen", "First Aid Kit"
+            "Rewards", "Pet", "Breathe", "Destiny",
+            "Movements", "Timers", "Listen", "Statistics"
     };
 
     private final int[] icons = {
@@ -48,7 +57,12 @@ public class HeroFragment extends Fragment {
             @NonNull View view,
             @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        SwitchCompat themeSwitch = binding.getRoot().findViewById(R.id.themeSwitch);
         setupButtonGrid();
+        ThemeViewModel themeViewModel = new ViewModelProvider(requireActivity()).get(ThemeViewModel.class);
+        binding.themeSwitch.setOnCheckedChangeListener((btn, checked) -> {
+            themeViewModel.setDarkMode(checked);
+        });
     }
 
     private void setupButtonGrid() {
