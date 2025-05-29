@@ -15,7 +15,10 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
 
-        <item name="android:fontFamily">@font/imfellenglishregular</item>
+        <item name="android:windowBackground">@color/windowBackground</item>
+
+
+        <item name="android:fontFamily">@font/jersey25regular</item>
 
     </style>
     <style name="Theme.HeroJourney.Splash" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
