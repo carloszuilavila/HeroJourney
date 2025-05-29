@@ -24,7 +24,6 @@
             android:gravity="center"
             android:text="Section"
             android:textSize="30sp"
-            android:textStyle="bold"
             android:textColor="@color/palette_flax"/>
 
         <ImageSwitcher

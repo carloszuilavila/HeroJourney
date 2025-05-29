@@ -13,7 +13,7 @@
         android:orientation="horizontal"
         android:padding="16dp"
         android:gravity="center_vertical"
-        android:background="@color/palette_flax">
+        android:background="@color/item_habit_background">
 
         <TextView
             android:id="@+id/textoTarea"
@@ -22,8 +22,7 @@
             android:layout_marginStart="12dp"
             android:layout_weight="1"
             android:text="Tarea de ejemplo"
-            android:textSize="22sp"
-            android:textStyle="bold" />
+            android:textSize="22sp" />
 
         <CheckBox
             android:id="@+id/checkboxTarea"

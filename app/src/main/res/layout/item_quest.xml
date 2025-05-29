@@ -34,7 +34,6 @@
             android:layout_weight="1"
             android:text="Tarea de ejemplo"
             android:textSize="22sp"
-            android:textStyle="bold"
             android:textColor="@color/palette_flax"/>
 
         <CheckBox
