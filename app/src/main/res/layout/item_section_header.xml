@@ -13,8 +13,8 @@
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:padding="16dp"
-        android:background="@drawable/section_rpg_bg">
+        android:padding="12dp"
+        android:background="@color/palette_dark_purple">
 
         <TextView
             android:id="@+id/sectionTitle"
@@ -22,10 +22,10 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="Sección"
-            android:textSize="22sp"
+            android:text="Section"
+            android:textSize="30sp"
             android:textStyle="bold"
-            android:textColor="@color/beige_claro"/>
+            android:textColor="@color/palette_flax"/>
 
         <ImageSwitcher
             android:id="@+id/expandSwitcher"
