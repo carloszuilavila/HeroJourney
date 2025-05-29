@@ -50,8 +50,12 @@
     <color name="raisin_black_3">#272937</color>
     <color name="outer_space">#43454b</color>
     <color name="flax_alt">#f2dc95</color>
+    <color name="Ivory">#fefdf1</color>
 
     <color name="dark">#1D1D1D</color>
+
+    <color name="windowBackground">@color/Ivory</color>
+    <color name="bottom_nav_background">@color/Ivory</color>
     <color name="color_selected">#A6000000</color>
-    <color name="color_unselected">#80000000 </color>
+    <color name="color_unselected">#80000000</color>
 </resources>
