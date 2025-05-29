@@ -16,7 +16,7 @@
         app:itemIconTint="@color/nav_icon_color"
         app:itemTextColor="@color/nav_icon_color"
         app:itemIconSize="35dp"
-        android:background="?android:attr/windowBackground"
+        android:background="@color/bottom_nav_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
