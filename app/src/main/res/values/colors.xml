@@ -19,13 +19,29 @@
     <color name="beige_dorado">#E6D8AD</color>
     <color name="beige_terroso">#BFA76F</color>
 
-    <color name="palette_dark">#1e282e</color>
-    <color name="palette_dark_brown">#8f5f2b</color>
-    <color name="palette_brown">#b37a00</color>
-    <color name="palette_light_brown">#d6a604</color>
-    <color name="palette_mostaza">#e5cb42</color>
+    <color name="hj_dark">#1e282e</color>
+    <color name="hj_dark_brown">#8f5f2b</color>
+    <color name="hj_brown">#b37a00</color>
+    <color name="hj_light_brown">#d6a604</color>
+    <color name="hj_mostaza">#e5cb42</color>
+    <color name="hj_soft_blue">#168BA8</color>
 
-    <color name="palette_soft_blue">#168BA8</color>
+    <color name="palette_dark_purple">#372242</color>
+    <color name="palette_violet_jtc">#612a45</color>
+    <color name="palette_wine">#713c47</color>
+    <color name="palette_redwood">#9f5054</color>
+    <color name="palette_sandy_brown">#e89a59</color>
+    <color name="palette_flax">#f0dd94</color>
+    <color name="palette_jasper">#d45343</color>
+
+    <color name="palette_raisin_black">#191d29</color>
+    <color name="palette_dark_purple_alt">#362240</color>
+    <color name="palette_violet_jtc_alt">#552a45</color>
+    <color name="palette_wenge">#6d6265</color>
+    <color name="palette_wheat">#eddaa7</color>
+
+    <color name="palette_bottom_gradient">#5e2b44</color>
+    <color name="palette_top_gradient">#0d131e</color>
 
     <color name="dark">#1D1D1D</color>
     <color name="color_selected">#A6000000</color>

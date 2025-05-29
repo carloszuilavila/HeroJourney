@@ -1,6 +1,6 @@
 <resources>
     <style name="Theme.HeroJourney.Splash" parent="Theme.SplashScreen">
-        <item name="android:windowSplashScreenBackground">@color/palette_dark</item>
+        <item name="android:windowSplashScreenBackground">@color/palette_dark_purple_alt</item>
         <item name="android:windowSplashScreenAnimatedIcon">@drawable/logo_gold</item>
         <item name="postSplashScreenTheme">@style/Theme.HeroJourney</item>
     </style>
