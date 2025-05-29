@@ -26,6 +26,7 @@
     <color name="hj_mostaza">#e5cb42</color>
     <color name="hj_soft_blue">#168BA8</color>
 
+    <!-- Paleta principal de colores -->
     <color name="palette_dark_purple">#372242</color>
     <color name="palette_violet_jtc">#612a45</color>
     <color name="palette_wine">#713c47</color>
@@ -42,6 +43,13 @@
 
     <color name="palette_bottom_gradient">#5e2b44</color>
     <color name="palette_top_gradient">#0d131e</color>
+
+    <!-- Nuevas variantes para ajustes -->
+    <color name="raisin_black_1">#1a1d2a</color>
+    <color name="raisin_black_2">#21222f</color>
+    <color name="raisin_black_3">#272937</color>
+    <color name="outer_space">#43454b</color>
+    <color name="flax_alt">#f2dc95</color>
 
     <color name="dark">#1D1D1D</color>
     <color name="color_selected">#A6000000</color>
