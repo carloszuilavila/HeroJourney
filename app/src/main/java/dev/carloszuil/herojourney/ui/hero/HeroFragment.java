@@ -110,10 +110,6 @@ public class HeroFragment extends Fragment {
                 final int idx = labelIndex;
                 cell.setOnClickListener(v -> {
                     switch (idx) {
-                        case 0:
-                            Intent intent = new Intent(requireContext(), RevelationsActivity.class);
-                            startActivity(intent);
-                            break;
                         default:
                             Toast.makeText(requireContext(), "Próximamente: " + labels[idx], Toast.LENGTH_SHORT).show();
                             break;
