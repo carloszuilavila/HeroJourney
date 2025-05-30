@@ -8,19 +8,6 @@
     tools:context=".ui.home.HomeFragment"
     android:padding="18dp">
 
-    <!-- Título -->
-    <TextView
-        android:id="@+id/habitsTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Habits"
-        android:textSize="34sp"
-        android:textStyle="bold"
-        android:layout_marginTop="16dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
     <!-- Etiqueta "Next Adventure:" -->
     <TextView
         android:id="@+id/labelNextAdventure"
@@ -29,7 +16,9 @@
         android:text="Next Adventure:"
         android:textSize="19sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/habitsTitle"
+        android:textColor="@color/marron_tierra_medieval"
+        android:layout_marginTop="20sp"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <!-- Contenedor de la barra de progreso -->
@@ -50,7 +39,7 @@
             android:max="3"
             android:progress="0"
             android:progressDrawable="@drawable/progress_bar_custom"
-            android:progressTint="#FFA827" />
+            android:progressTint="@color/progressBar" />
 
         <TextView
             android:id="@+id/textoProgreso"
@@ -68,8 +57,8 @@
         android:id="@+id/recyclerHabits"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="18dp"
-        android:layout_marginBottom="18dp"
+        android:layout_marginTop="40sp"
+        android:layout_marginBottom="18sp"
         app:layout_constraintTop_toBottomOf="@id/contenedorProgreso"
         app:layout_constraintBottom_toTopOf="@id/buttonAddHabit"
         app:layout_constraintStart_toStartOf="parent"
@@ -82,10 +71,12 @@
         android:layout_height="wrap_content"
         android:background="@drawable/btn_habit_rpg"
         android:text="New Habit"
-        android:textColor="@color/white"
-        android:textSize="16sp"
+        android:textColor="@color/Ivory"
+        android:textSize="18sp"
         android:textStyle="bold"
         android:layout_marginBottom="60dp"
+        android:layout_marginStart="30sp"
+        android:layout_marginEnd="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
