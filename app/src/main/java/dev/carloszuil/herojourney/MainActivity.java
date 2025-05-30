@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.splashscreen.SplashScreen;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -15,6 +16,7 @@ import com.google.android.material.navigation.NavigationBarView;
 
 import dev.carloszuil.herojourney.databinding.ActivityMainBinding;
 import dev.carloszuil.herojourney.system.ResetScheduler;
+import dev.carloszuil.herojourney.util.PrefsHelper;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,6 +26,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         SplashScreen.installSplashScreen(this);
         super.onCreate(savedInstanceState);
+
+        boolean dark = PrefsHelper.isDarkMode(this);
+        AppCompatDelegate.setDefaultNightMode(dark ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO);
 
         // Inflar el layout con ViewBinding
         binding = ActivityMainBinding.inflate(getLayoutInflater());

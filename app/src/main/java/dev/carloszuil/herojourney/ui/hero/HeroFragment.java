@@ -2,6 +2,7 @@ package dev.carloszuil.herojourney.ui.hero;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
@@ -57,12 +58,26 @@ public class HeroFragment extends Fragment {
             @NonNull View view,
             @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        SwitchCompat themeSwitch = binding.getRoot().findViewById(R.id.themeSwitch);
-        setupButtonGrid();
+
         ThemeViewModel themeViewModel = new ViewModelProvider(requireActivity()).get(ThemeViewModel.class);
+
+        SwitchCompat themeSwitch = binding.getRoot().findViewById(R.id.themeSwitch);
+
+        themeViewModel.getIsDarkMode().observe(getViewLifecycleOwner(), isDark -> {
+            // desconecta momentáneamente el listener
+            themeSwitch.setOnCheckedChangeListener(null);
+            themeSwitch.setChecked(isDark);
+            // vuelve a conectar el listener
+            themeSwitch.setOnCheckedChangeListener((btn, checked) -> {
+                themeViewModel.setDarkMode(checked);
+            });
+        });
+
         binding.themeSwitch.setOnCheckedChangeListener((btn, checked) -> {
             themeViewModel.setDarkMode(checked);
         });
+
+        setupButtonGrid();
     }
 
     private void setupButtonGrid() {

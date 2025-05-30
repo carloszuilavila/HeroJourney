@@ -29,9 +29,11 @@ public class ThemeViewModel extends AndroidViewModel {
     }
 
     public void setDarkMode(boolean dark){
-        isDarkMode.setValue(dark);
-        PrefsHelper.setDarkMode(getApplication(), dark);
-
-        AppCompatDelegate.setDefaultNightMode(dark ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO);
+        Boolean current = isDarkMode.getValue();
+        if(current!=null && current!=dark){
+            isDarkMode.setValue(dark);
+            PrefsHelper.setDarkMode(getApplication(), dark);
+            AppCompatDelegate.setDefaultNightMode(dark ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO);
+        }
     }
 }
