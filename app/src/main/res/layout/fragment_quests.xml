@@ -7,19 +7,6 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <TextView
-        android:id="@+id/questsTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="16dp"
-        android:text="Quests"
-        android:textSize="34sp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
     <HorizontalScrollView
         android:id="@+id/hsv"
         android:layout_width="match_parent"
@@ -44,7 +31,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="16dp"
                 android:layout_marginBottom="60dp"
-                android:background="@color/beige_claro">
+                android:background="@color/ivory_alt">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -52,7 +39,8 @@
                     android:layout_margin="16dp"
                     android:text="@string/questBoard1"
                     android:textSize="28sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:textColor="@color/outer_space_alt"/>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_board_1"
@@ -82,7 +70,7 @@
                 android:padding="8dp"
                 android:layout_marginRight="16dp"
                 android:layout_marginBottom="60dp"
-                android:background="@color/beige_claro">
+                android:background="@color/ivory_alt">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -90,7 +78,8 @@
                     android:layout_margin="16dp"
                     android:text="@string/questBoard2"
                     android:textSize="28sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:textColor="@color/outer_space_alt"/>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_board_2"
@@ -120,7 +109,7 @@
                 android:padding="8dp"
                 android:layout_marginRight="16dp"
                 android:layout_marginBottom="60dp"
-                android:background="@color/beige_claro">
+                android:background="@color/ivory_alt">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -128,7 +117,8 @@
                     android:layout_margin="16dp"
                     android:text="@string/questBoard3"
                     android:textSize="28sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:textColor="@color/outer_space_alt"/>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_board_3"
@@ -158,7 +148,7 @@
                 android:padding="8dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginBottom="60dp"
-                android:background="@color/beige_claro">
+                android:background="@color/ivory_alt">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -166,7 +156,8 @@
                     android:layout_margin="16dp"
                     android:text="@string/questBoard4"
                     android:textSize="28sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:textColor="@color/outer_space_alt"/>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_board_4"

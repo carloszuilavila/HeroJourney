@@ -26,6 +26,8 @@
     <color name="hj_mostaza">#e5cb42</color>
     <color name="hj_soft_blue">#168BA8</color>
 
+    <color name="progressBar">#FFA827</color>
+
     <!-- Paleta principal de colores -->
     <color name="palette_dark_purple">#372242</color>
     <color name="palette_violet_jtc">#612a45</color>
@@ -34,6 +36,14 @@
     <color name="palette_sandy_brown">#e89a59</color>
     <color name="palette_flax">#f0dd94</color>
     <color name="palette_jasper">#d45343</color>
+    <color name="palette_warm_sunset">#E99B58</color>
+
+
+
+    <color name="palette_warm_sunset_alt">#BC6B25</color>
+    <color name="palette_warm_sunset_darker">#8A4F1C</color>
+
+
 
     <color name="palette_raisin_black">#191d29</color>
     <color name="palette_dark_purple_alt">#362240</color>
@@ -49,8 +59,10 @@
     <color name="raisin_black_2">#21222f</color>
     <color name="raisin_black_3">#272937</color>
     <color name="outer_space">#43454b</color>
+    <color name="outer_space_alt">#4D4E52</color>
     <color name="flax_alt">#f2dc95</color>
     <color name="Ivory">#fefdf1</color>
+    <color name="ivory_alt">#FAF5DF</color>
 
     <color name="dark">#1D1D1D</color>
 
@@ -59,5 +71,5 @@
     <color name="color_selected">#A6000000</color>
     <color name="color_unselected">#80000000</color>
 
-    <color name="item_habit_background">@color/palette_flax</color>
+    <color name="item_habit_background">@color/ivory_alt</color>
 </resources>

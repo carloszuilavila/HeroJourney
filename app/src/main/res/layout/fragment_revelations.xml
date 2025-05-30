@@ -18,14 +18,16 @@
             android:layout_gravity="center_horizontal"
             android:layout_margin="160dp"
             android:textSize="18sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            android:textColor="@color/outer_space_alt"/>
 
         <Button
             android:id="@+id/buttonGetRevelation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Revelation" />
+            android:text="Revelation"
+            android:background="@drawable/btn_habit_rpg"/>
 
     </FrameLayout>
 

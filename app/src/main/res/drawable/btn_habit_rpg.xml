@@ -1,15 +1,15 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_pressed="true">
         <shape android:shape="rectangle">
-            <solid android:color="#7F32ED"/> <!-- Presionado -->
-            <stroke android:width="2dp" android:color="#8D6E63"/>
+            <solid android:color="@color/palette_warm_sunset_alt"/> <!-- Presionado -->
+            <stroke android:width="1dp" android:color="@color/palette_warm_sunset"/>
             <corners android:radius="10dp"/>
         </shape>
     </item>
     <item>
         <shape android:shape="rectangle">
-            <solid android:color="#7F32ED"/> <!-- Nuevo fondo más oscuro -->
-            <stroke android:width="2dp" android:color="#8D6E63"/>
+            <solid android:color="@color/palette_warm_sunset_alt"/> <!-- Nuevo fondo más oscuro -->
+            <stroke android:width="1dp" android:color="@color/palette_warm_sunset"/>
             <corners android:radius="10dp"/>
         </shape>
     </item>

@@ -1,10 +1,10 @@
 <!-- res/layout/btn_hero_section.xml -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="0dp"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:gravity="left"
-    android:background="@drawable/btn_background"
+    android:background="@color/palette_warm_sunset_alt"
     android:padding="12dp"
     android:layout_margin="8dp">
 
@@ -20,6 +20,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:text="Label"
-        android:textStyle="bold"
-        android:textSize="20sp"/>
+        android:textSize="20sp"
+        android:textColor="@color/ivory_alt"/>
 </LinearLayout>
