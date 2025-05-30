@@ -13,8 +13,8 @@
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:padding="12dp"
-        android:background="@color/palette_dark_purple">
+        android:padding="8dp"
+        android:background="@color/palette_warm_sunset_alt">
 
         <TextView
             android:id="@+id/sectionTitle"
@@ -22,16 +22,15 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="Section"
-            android:textSize="30sp"
-            android:textColor="@color/palette_flax"/>
+            android:text="HABITS"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:textColor="@color/Ivory"/>
 
         <ImageSwitcher
             android:id="@+id/expandSwitcher"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inAnimation="@android:anim/fade_in"
-            android:outAnimation="@android:anim/fade_out" />
+            android:layout_height="wrap_content"/>
 
     </LinearLayout>
 

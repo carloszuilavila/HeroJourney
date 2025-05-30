@@ -6,7 +6,7 @@
     android:background="@color/palette_violet_jtc"
     android:layout_margin="8dp"
     card_view:cardElevation="4dp"
-    card_view:cardCornerRadius="8dp">
+    card_view:cardCornerRadius="12dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,7 +14,7 @@
         android:orientation="horizontal"
         android:padding="16dp"
         android:gravity="center_vertical"
-        android:background="@color/palette_violet_jtc">
+        android:background="@color/Ivory">
 
         <ImageButton
             android:id="@+id/btnMoveQuest"
@@ -34,7 +34,7 @@
             android:layout_weight="1"
             android:text="Tarea de ejemplo"
             android:textSize="24sp"
-            android:textColor="@color/palette_flax"/>
+            android:textColor="@color/outer_space_alt"/>
 
         <CheckBox
             android:id="@+id/questCheckbox"

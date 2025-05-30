@@ -22,7 +22,9 @@
             android:layout_marginStart="12dp"
             android:layout_weight="1"
             android:text="Tarea de ejemplo"
-            android:textSize="25sp" />
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="@color/outer_space_alt"/>
 
         <CheckBox
             android:id="@+id/checkboxTarea"
