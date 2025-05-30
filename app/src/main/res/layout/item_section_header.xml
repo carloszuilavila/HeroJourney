@@ -14,7 +14,7 @@
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:padding="8dp"
-        android:background="@color/palette_warm_sunset_alt">
+        android:background="?attr/colorPrimary">
 
         <TextView
             android:id="@+id/sectionTitle"
@@ -25,7 +25,7 @@
             android:text="HABITS"
             android:textSize="25sp"
             android:textStyle="bold"
-            android:textColor="@color/Ivory"/>
+            android:textColor="?attr/colorOnPrimary"/>
 
         <ImageSwitcher
             android:id="@+id/expandSwitcher"

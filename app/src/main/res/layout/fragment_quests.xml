@@ -31,7 +31,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="16dp"
                 android:layout_marginBottom="60dp"
-                android:background="@color/ivory_alt">
+                android:background="?attr/colorSecondary">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -40,7 +40,7 @@
                     android:text="@string/questBoard1"
                     android:textSize="28sp"
                     android:textStyle="bold"
-                    android:textColor="@color/outer_space_alt"/>
+                    android:textColor="?attr/colorOnSecondary"/>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_board_1"
@@ -55,7 +55,7 @@
                     android:layout_margin="8dp"
                     android:background="@drawable/btn_habit_rpg"
                     android:text="New Quest"
-                    android:textColor="@color/white"
+                    android:textColor="?attr/colorOnPrimary"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -70,7 +70,7 @@
                 android:padding="8dp"
                 android:layout_marginRight="16dp"
                 android:layout_marginBottom="60dp"
-                android:background="@color/ivory_alt">
+                android:background="?attr/colorSecondary">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -79,7 +79,7 @@
                     android:text="@string/questBoard2"
                     android:textSize="28sp"
                     android:textStyle="bold"
-                    android:textColor="@color/outer_space_alt"/>
+                    android:textColor="?attr/colorOnSecondary"/>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_board_2"
@@ -94,7 +94,7 @@
                     android:layout_margin="8dp"
                     android:background="@drawable/btn_habit_rpg"
                     android:text="New Quest"
-                    android:textColor="@color/white"
+                    android:textColor="?attr/colorOnPrimary"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -109,7 +109,7 @@
                 android:padding="8dp"
                 android:layout_marginRight="16dp"
                 android:layout_marginBottom="60dp"
-                android:background="@color/ivory_alt">
+                android:background="?attr/colorSecondary">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -118,7 +118,7 @@
                     android:text="@string/questBoard3"
                     android:textSize="28sp"
                     android:textStyle="bold"
-                    android:textColor="@color/outer_space_alt"/>
+                    android:textColor="?attr/colorOnSecondary"/>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_board_3"
@@ -133,7 +133,7 @@
                     android:layout_margin="8dp"
                     android:background="@drawable/btn_habit_rpg"
                     android:text="New Quest"
-                    android:textColor="@color/white"
+                    android:textColor="?attr/colorOnPrimary"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -148,7 +148,7 @@
                 android:padding="8dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginBottom="60dp"
-                android:background="@color/ivory_alt">
+                android:background="?attr/colorSecondary">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -157,7 +157,7 @@
                     android:text="@string/questBoard4"
                     android:textSize="28sp"
                     android:textStyle="bold"
-                    android:textColor="@color/outer_space_alt"/>
+                    android:textColor="?attr/colorOnSecondary"/>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_board_4"

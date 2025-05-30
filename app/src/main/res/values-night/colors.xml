@@ -4,4 +4,6 @@
     <color name="bottom_nav_background">@color/raisin_black_1</color>
     <color name="color_selected">@color/palette_flax</color>
     <color name="color_unselected">@color/palette_flax</color>
+
+    <color name="item_habit_background">@color/raisin_black_3</color>
 </resources>

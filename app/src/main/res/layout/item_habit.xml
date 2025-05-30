@@ -13,7 +13,7 @@
         android:orientation="horizontal"
         android:padding="16dp"
         android:gravity="center_vertical"
-        android:background="@color/item_habit_background">
+        android:background="?attr/colorSecondary">
 
         <TextView
             android:id="@+id/textoTarea"
@@ -24,13 +24,14 @@
             android:text="Tarea de ejemplo"
             android:textSize="22sp"
             android:textStyle="bold"
-            android:textColor="@color/outer_space_alt"/>
+            android:textColor="?attr/colorOnSecondary"/>
 
         <CheckBox
             android:id="@+id/checkboxTarea"
             style="@style/Widget.AppCompat.CompoundButton.CheckBox"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textColor="?attr/colorOnSecondary"/>
 
     </LinearLayout>
 
