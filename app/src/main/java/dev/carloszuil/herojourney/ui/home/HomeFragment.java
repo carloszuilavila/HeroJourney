@@ -68,8 +68,8 @@ public class HomeFragment extends Fragment {
     }
 
     private void onSectionToggled(String title, boolean expanded) {
-        if ("📌 Pendientes".equals(title)) pendientesExpanded = expanded;
-        else if ("✅ Completadas".equals(title)) completadasExpanded = expanded;
+        if ("Pendientes".equals(title)) pendientesExpanded = expanded;
+        else if ("Completadas".equals(title)) completadasExpanded = expanded;
         adapter.notifyDataSetChanged();
     }
 

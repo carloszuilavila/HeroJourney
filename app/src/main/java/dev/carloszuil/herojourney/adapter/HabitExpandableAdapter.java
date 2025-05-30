@@ -46,8 +46,8 @@ public class HabitExpandableAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                              boolean pendientesExpanded,
                              boolean completadasExpanded) {
         this.allHabits = new ArrayList<>(habits);
-        sectionExpandedState.put("📌 Pendientes", pendientesExpanded);
-        sectionExpandedState.put("✅ Completadas", completadasExpanded);
+        sectionExpandedState.put("Pendientes", pendientesExpanded);
+        sectionExpandedState.put("Completadas", completadasExpanded);
         rebuildItems();
     }
 
@@ -60,13 +60,13 @@ public class HabitExpandableAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         }
 
         items.clear();
-        boolean pendExp = sectionExpandedState.getOrDefault("📌 Pendientes", true);
-        items.add(new HabitListItem.SectionHeader("📌 Pendientes", pendExp));
+        boolean pendExp = sectionExpandedState.getOrDefault("Pendientes", true);
+        items.add(new HabitListItem.SectionHeader("Pendientes", pendExp));
         if (pendExp) {
             for (Habit h : pendientes) items.add(new HabitListItem.HabitItem(h));
         }
-        boolean compExp = sectionExpandedState.getOrDefault("✅ Completadas", false);
-        items.add(new HabitListItem.SectionHeader("✅ Completadas", compExp));
+        boolean compExp = sectionExpandedState.getOrDefault("Completadas", false);
+        items.add(new HabitListItem.SectionHeader("Completadas", compExp));
         if (compExp) {
             for (Habit h : completadas) items.add(new HabitListItem.HabitItem(h));
         }
@@ -118,6 +118,10 @@ public class HabitExpandableAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                 iv.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
                 return iv;
             });
+
+            switcher.setInAnimation(null);
+            switcher.setOutAnimation(null);
+
         }
 
         void bind(HabitListItem.SectionHeader header) {
