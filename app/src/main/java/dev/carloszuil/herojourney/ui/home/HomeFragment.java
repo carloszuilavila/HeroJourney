@@ -59,7 +59,7 @@ public class HomeFragment extends Fragment {
             final int GOAL = 3;
             binding.barraProgreso.setMax(GOAL);
             binding.barraProgreso.setProgress(Math.min(done, GOAL));
-            binding.textoProgreso.setText(done + "/" + GOAL + " tareas");
+            binding.textoProgreso.setText(done + "/" + GOAL);
         });
 
         binding.buttonAddHabit.setOnClickListener(v -> showAddDialog());
@@ -68,8 +68,8 @@ public class HomeFragment extends Fragment {
     }
 
     private void onSectionToggled(String title, boolean expanded) {
-        if ("Pendientes".equals(title)) pendientesExpanded = expanded;
-        else if ("Completadas".equals(title)) completadasExpanded = expanded;
+        if ("HABITS".equals(title)) pendientesExpanded = expanded;
+        else if ("DONE".equals(title)) completadasExpanded = expanded;
         adapter.notifyDataSetChanged();
     }
 
@@ -79,9 +79,9 @@ public class HomeFragment extends Fragment {
         EditText etDesc = dv.findViewById(R.id.inputHabitDesc);
 
         new AlertDialog.Builder(requireContext())
-                .setTitle("Añadir tarea")
+                .setTitle("Add Habit")
                 .setView(dv)
-                .setPositiveButton("Guardar", (d, w) -> {
+                .setPositiveButton("Save", (d, w) -> {
                     String name = etName.getText().toString().trim();
                     String desc = etDesc.getText().toString().trim();
                     if (!name.isEmpty()) {
@@ -89,7 +89,7 @@ public class HomeFragment extends Fragment {
                     }
                     d.dismiss();
                 })
-                .setNegativeButton("Cancelar", (d, w) -> d.dismiss())
+                .setNegativeButton("Cancel", (d, w) -> d.dismiss())
                 .show();
     }
 
@@ -102,11 +102,11 @@ public class HomeFragment extends Fragment {
 
         new AlertDialog.Builder(requireContext())
                 .setView(dv)
-                .setPositiveButton("Eliminar", (d, w) -> {
+                .setPositiveButton("Delete", (d, w) -> {
                     vm.removeHabit(h);
                     d.dismiss();
                 })
-                .setNegativeButton("Cerrar", null)
+                .setNegativeButton("Close", null)
                 .show();
     }
 
