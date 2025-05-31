@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -15,6 +16,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import java.util.Objects;
+
 import dev.carloszuil.herojourney.R;
 import dev.carloszuil.herojourney.adapter.HabitExpandableAdapter;
 import dev.carloszuil.herojourney.data.local.entities.Habit;
@@ -24,7 +27,7 @@ import dev.carloszuil.herojourney.ui.viewmodel.SharedViewModel;
 public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
-    private HomeViewModel vm;
+    private HomeViewModel homeViewModel;
     private SharedViewModel sharedViewModel;
     private HabitExpandableAdapter adapter;
 
@@ -39,11 +42,11 @@ public class HomeFragment extends Fragment {
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
 
-        vm = new ViewModelProvider(this).get(HomeViewModel.class);
+        homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         sharedViewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
 
         adapter = new HabitExpandableAdapter(
-                habit -> vm.updateHabit(habit),
+                habit -> homeViewModel.updateHabit(habit),
                 this::onSectionToggled,
                 this::showDetail
         );
@@ -51,7 +54,7 @@ public class HomeFragment extends Fragment {
         binding.recyclerHabits.setLayoutManager(new LinearLayoutManager(requireContext()));
         binding.recyclerHabits.setAdapter(adapter);
 
-        vm.getHabits().observe(getViewLifecycleOwner(), list -> {
+        homeViewModel.getHabits().observe(getViewLifecycleOwner(), list -> {
             adapter.submitHabits(list, pendientesExpanded, completadasExpanded);
         });
 
@@ -74,40 +77,74 @@ public class HomeFragment extends Fragment {
     }
 
     private void showAddDialog() {
-        View dv = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_add_habit, null);
-        EditText etName = dv.findViewById(R.id.inputHabitName);
-        EditText etDesc = dv.findViewById(R.id.inputHabitDesc);
 
-        new AlertDialog.Builder(requireContext())
-                .setTitle("Add Habit")
-                .setView(dv)
-                .setPositiveButton("Save", (d, w) -> {
-                    String name = etName.getText().toString().trim();
-                    String desc = etDesc.getText().toString().trim();
-                    if (!name.isEmpty()) {
-                        vm.addHabit(new Habit(0, name, desc, false));
-                    }
-                    d.dismiss();
-                })
-                .setNegativeButton("Cancel", (d, w) -> d.dismiss())
-                .show();
+        View dialogView = LayoutInflater.from(requireContext())
+                .inflate(R.layout.dialog_add_habit, null);
+
+        EditText etName = dialogView.findViewById(R.id.inputHabitName);
+        EditText etDesc = dialogView.findViewById(R.id.inputHabitDesc);
+        Button cancelButton = dialogView.findViewById(R.id.buttonCancel_habit);
+        Button saveButton = dialogView.findViewById(R.id.buttonSave_habit);
+
+
+        AlertDialog alertDialog = new AlertDialog.Builder(requireContext())
+                .setView(dialogView)
+                .create();
+
+        Objects.requireNonNull(alertDialog.getWindow()).setBackgroundDrawableResource(android.R.color.transparent);
+
+        cancelButton.setOnClickListener(v -> {
+            alertDialog.dismiss();
+        });
+
+        saveButton.setOnClickListener(v -> {
+            String habitName = etName.getText().toString().trim();
+            String habitDesc = etDesc.getText().toString().trim();
+
+            if(habitName.isEmpty()){
+                etName.setError("The new Habit needs a name.");
+                etName.requestFocus();
+                return;
+            }
+
+            Habit newHabit = new Habit(0, habitName, habitDesc, false);
+            homeViewModel.addHabit(newHabit);
+
+            alertDialog.dismiss();
+        });
+
+        alertDialog.show();
+
     }
 
-    private void showDetail(Habit h) {
-        View dv = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_habit_detail, null);
-        TextView tvTitle = dv.findViewById(R.id.dialogTitle);
-        TextView tvDesc  = dv.findViewById(R.id.dialogDescription);
-        tvTitle.setText(h.getName());
-        tvDesc.setText(h.getDescription());
+    private void showDetail(Habit habitDetailed) {
+        View dialogView = LayoutInflater.from(requireContext())
+                .inflate(R.layout.dialog_habit_detail, null);
 
-        new AlertDialog.Builder(requireContext())
-                .setView(dv)
-                .setPositiveButton("Delete", (d, w) -> {
-                    vm.removeHabit(h);
-                    d.dismiss();
-                })
-                .setNegativeButton("Close", null)
-                .show();
+        TextView tvTitle = dialogView.findViewById(R.id.dialogTitle);
+        TextView tvDesc  = dialogView.findViewById(R.id.dialogDescription);
+        Button closeButton = dialogView.findViewById(R.id.buttonClose_detail);
+        Button deleteButton = dialogView.findViewById(R.id.buttonDelete_detail);
+
+        tvTitle.setText(habitDetailed.getName());
+        tvDesc.setText(habitDetailed.getDescription());
+
+        AlertDialog alertDialog = new AlertDialog.Builder(requireContext())
+                .setView(dialogView)
+                .create();
+
+        Objects.requireNonNull(alertDialog.getWindow()).setBackgroundDrawableResource(android.R.color.transparent);
+
+        closeButton.setOnClickListener(v -> {
+            alertDialog.dismiss();
+        });
+
+        deleteButton.setOnClickListener(v -> {
+            homeViewModel.removeHabit(habitDetailed);
+            alertDialog.dismiss();
+        });
+
+        alertDialog.show();
     }
 
     @Override
