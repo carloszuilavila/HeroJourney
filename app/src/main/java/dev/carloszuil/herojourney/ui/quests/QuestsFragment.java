@@ -1,12 +1,11 @@
 package dev.carloszuil.herojourney.ui.quests;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
-import android.text.InputType;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
@@ -19,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import java.util.ArrayList;
 import java.util.List;
 
+import dev.carloszuil.herojourney.R;
 import dev.carloszuil.herojourney.adapter.QuestAdapter;
 import dev.carloszuil.herojourney.data.local.entities.Quest;
 import dev.carloszuil.herojourney.data.local.entities.QuestState;
@@ -164,31 +164,44 @@ public class QuestsFragment extends Fragment {
         });
     }
 
-    /**
-     * Muestra un AlertDialog con un EditText en el que el usuario escribe el nombre de la nueva Quest.
-     * Cuando pulsa “Guardar”, se inserta la Quest en Room con el estado indicado.
-     *
-     * @param initialState el estado (BOARD_1, BOARD_2 o BOARD_3) para la nueva Quest
-     */
-    private void showAddQuestDialog(QuestState initialState){
-        // Construimos un EditText para que el usuario escriba el nombre
-        EditText input = new EditText(requireContext());
-        input.setHint("Quest Name");
-        input.setInputType(InputType.TYPE_CLASS_TEXT);
 
-        new AlertDialog.Builder(requireContext())
-                .setTitle("New Quest")
-                .setView(input)
-                .setPositiveButton("Save", (DialogInterface dialog, int which) ->{
-                    String text = input.getText().toString().trim();
-                    if(!text.isEmpty()){
-                        Quest newQuest = new Quest(text, initialState);
-                        questViewModel.addQuest(newQuest);
-                    }
-                    dialog.dismiss();
-                })
-                .setNegativeButton("Cancel", (d, w) -> d.dismiss())
-                .show();
+    private void showAddQuestDialog(QuestState initialState){
+
+        View dialogView = LayoutInflater.from(requireContext())
+                .inflate(R.layout.dialog_add_quest, null);
+
+        EditText editText = dialogView.findViewById(R.id.inputQuestName);
+        Button cancelButton = dialogView.findViewById(R.id.buttonCancel_quest);
+        Button saveButton = dialogView.findViewById(R.id.buttonSave_quest);
+
+        AlertDialog alertDialog = new AlertDialog.Builder(requireContext())
+                .setView(dialogView)
+                .create();
+
+        alertDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+
+
+        cancelButton.setOnClickListener(v -> {
+            alertDialog.dismiss();
+        });
+
+        saveButton.setOnClickListener(v -> {
+            String questName = editText.getText().toString().trim();
+
+            if (questName.isEmpty()){
+                editText.setError("The new Quest needs a name.");
+                editText.requestFocus();
+                return;
+            }
+
+            Quest newQuest = new Quest(questName, initialState, null);
+
+            questViewModel.addQuest(newQuest);
+
+            alertDialog.dismiss();
+        });
+
+        alertDialog.show();
     }
 
     /**
