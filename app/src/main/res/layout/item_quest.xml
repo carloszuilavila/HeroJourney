@@ -31,7 +31,7 @@
             android:layout_marginStart="12dp"
             android:layout_marginEnd="12dp"
             android:layout_weight="1"
-            android:text="Tarea de ejemplo"
+            android:text="Example Quest"
             android:textSize="24sp"
             android:textColor="?attr/colorOnSecondary"/>
 
@@ -40,7 +40,9 @@
             style="@style/Widget.AppCompat.CompoundButton.CheckBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:button="?android:attr/listChoiceIndicatorSingle" />
+            android:buttonTint="?attr/colorPrimary"
+            android:scaleX="1.3"
+            android:scaleY="1.3"/>
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>
