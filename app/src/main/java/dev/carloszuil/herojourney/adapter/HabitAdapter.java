@@ -31,8 +31,8 @@ public class HabitAdapter extends RecyclerView.Adapter<HabitAdapter.TareaViewHol
 
         public TareaViewHolder(@NonNull View view) {
             super(view);
-            checkBox = view.findViewById(R.id.checkboxTarea);
-            texto   = view.findViewById(R.id.textoTarea);
+            checkBox = view.findViewById(R.id.habitCheckbox);
+            texto   = view.findViewById(R.id.habitText);
         }
     }
 
