@@ -2,34 +2,45 @@ package dev.carloszuil.herojourney.data.local.entities;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
 
 import java.util.Objects;
 
+@Entity(tableName = "quest")
+@TypeConverters(QuestStateConverter.class)
 public class Quest {
+
+    @PrimaryKey(autoGenerate = true)
     private int id;
+
     @NonNull
     private String nombre;
+
     @NonNull
     private QuestState estado;
-    @Nullable
+
+
     private QuestState estadoAnterior;
 
-    /** Constructor completo */
-    public Quest(int id,
-                 @NonNull String nombre,
+    public Quest(@NonNull String nombre,
                  @NonNull QuestState estado,
-                 @Nullable QuestState estadoAnterior) {
-        this.id = id;
+                 QuestState estadoAnterior) {
         this.nombre = nombre;
         this.estado = estado;
         this.estadoAnterior = estadoAnterior;
     }
 
-    /** Constructor sin estadoAnterior (por defecto null) */
-    public Quest(int id,
-                 @NonNull String nombre,
+    /**
+     * Constructor secundario para uso en código (por ejemplo, a la hora de crear una nueva Quest
+     * sin estadoAnterior). Lo ignoramos para Room, ya que solo usará el constructor de arriba.
+     */
+    @Ignore
+    public Quest(@NonNull String nombre,
                  @NonNull QuestState estado) {
-        this(id, nombre, estado, null);
+        this(nombre, estado, null);
     }
 
     // Getters y setters
@@ -60,34 +71,30 @@ public class Quest {
         this.estado = estado;
     }
 
-    @Nullable
     public QuestState getEstadoAnterior() {
         return estadoAnterior;
     }
 
-    public void setEstadoAnterior(@Nullable QuestState estadoAnterior) {
+    public void setEstadoAnterior(QuestState estadoAnterior) {
         this.estadoAnterior = estadoAnterior;
     }
 
-    // equals y hashCode
-
+    // equals, hashCode y toString
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Quest)) return false;
         Quest quest = (Quest) o;
-        return id == quest.id
-                && nombre.equals(quest.nombre)
-                && estado == quest.estado
-                && Objects.equals(estadoAnterior, quest.estadoAnterior);
+        return id == quest.id &&
+                nombre.equals(quest.nombre) &&
+                estado == quest.estado &&
+                Objects.equals(estadoAnterior, quest.estadoAnterior);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(id, nombre, estado, estadoAnterior);
     }
-
-    // toString
 
     @NonNull
     @Override
