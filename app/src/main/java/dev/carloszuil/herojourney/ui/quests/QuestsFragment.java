@@ -2,10 +2,12 @@ package dev.carloszuil.herojourney.ui.quests;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -81,6 +83,9 @@ public class QuestsFragment extends Fragment {
         // Observamos la lista de Quest desde Room
         questViewModel.getAllQuests().observe(getViewLifecycleOwner(), this::onQuestChanged);
 
+        // Lógica para los botones “New Quest” en los tableros 1, 2 y 3
+        setupAddButtons();
+
         return binding.getRoot();
     }
 
@@ -141,11 +146,56 @@ public class QuestsFragment extends Fragment {
                         }
                     }
                 },
-                quest -> mostrarDialogoMoverQuest(quest)
+                quest -> showMoveQuestDialog(quest)
         );
     }
 
-    private void mostrarDialogoMoverQuest(@NonNull Quest quest){
+    private void setupAddButtons(){
+        binding.buttonAddQuest1.setOnClickListener(v -> {
+            showAddQuestDialog(QuestState.QUEST_BOARD_1);
+        });
+
+        binding.buttonAddQuest2.setOnClickListener(v -> {
+            showAddQuestDialog(QuestState.QUEST_BOARD_2);
+        });
+
+        binding.buttonAddQuest3.setOnClickListener(v -> {
+            showAddQuestDialog(QuestState.QUEST_BOARD_3);
+        });
+    }
+
+    /**
+     * Muestra un AlertDialog con un EditText en el que el usuario escribe el nombre de la nueva Quest.
+     * Cuando pulsa “Guardar”, se inserta la Quest en Room con el estado indicado.
+     *
+     * @param initialState el estado (BOARD_1, BOARD_2 o BOARD_3) para la nueva Quest
+     */
+    private void showAddQuestDialog(QuestState initialState){
+        // Construimos un EditText para que el usuario escriba el nombre
+        EditText input = new EditText(requireContext());
+        input.setHint("Quest Name");
+        input.setInputType(InputType.TYPE_CLASS_TEXT);
+
+        new AlertDialog.Builder(requireContext())
+                .setTitle("New Quest")
+                .setView(input)
+                .setPositiveButton("Save", (DialogInterface dialog, int which) ->{
+                    String text = input.getText().toString().trim();
+                    if(!text.isEmpty()){
+                        Quest newQuest = new Quest(text, initialState);
+                        questViewModel.addQuest(newQuest);
+                    }
+                    dialog.dismiss();
+                })
+                .setNegativeButton("Cancel", (d, w) -> d.dismiss())
+                .show();
+    }
+
+    /**
+     * Muestra un AlertDialog para mover manualmente la Quest a otro tablero (1→2→3→4).
+     * Este método es invocado desde el adapter cuando el usuario pulsa el botón “Mover”.
+     */
+    private void showMoveQuestDialog(@NonNull Quest quest){
         // Armar la lista de posibles estados (excluyendo el actual)
         List<QuestState> listOtherBoards = new ArrayList<>();
         List<String> labelsList = new ArrayList<>();
