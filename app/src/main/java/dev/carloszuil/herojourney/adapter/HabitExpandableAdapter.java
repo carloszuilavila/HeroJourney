@@ -144,8 +144,8 @@ public class HabitExpandableAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
         HabitViewHolder(@NonNull View view) {
             super(view);
-            check = view.findViewById(R.id.checkboxTarea);
-            text = view.findViewById(R.id.textoTarea);
+            check = view.findViewById(R.id.habitCheckbox);
+            text = view.findViewById(R.id.habitText);
         }
 
         void bind(Habit habit) {
