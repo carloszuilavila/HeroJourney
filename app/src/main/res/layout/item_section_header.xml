@@ -23,7 +23,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="HABITS"
-            android:textSize="25sp"
+            android:textSize="20sp"
             android:textStyle="bold"
             android:textColor="?attr/colorOnPrimary"/>
 
