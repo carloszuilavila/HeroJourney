@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:gravity="left"
-    android:background="?attr/colorPrimary"
+    android:background="@drawable/rounded_btn"
     android:padding="12dp"
     android:layout_margin="8dp">
 
