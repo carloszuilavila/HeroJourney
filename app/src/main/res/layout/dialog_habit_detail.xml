@@ -1,77 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/dialogRoot"
+    android:id="@+id/dialog_root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/dialog_background"
     android:orientation="vertical"
-    android:padding="24dp">
+    android:padding="24dp"
+    android:background="@drawable/rounded_dialog">
 
     <TextView
         android:id="@+id/dialogTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Nombre del hábito"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textStyle="bold"
-        android:paddingBottom="8dp" />
+        android:text="Habit"
+        android:textAppearance="?attr/textAppearanceHeadline6"
+        android:layout_marginBottom="16dp"
+    />
 
     <TextView
         android:id="@+id/dialogDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Descripción del hábito"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:paddingBottom="16dp" />
+        android:text="Habit Description"
+        android:textAppearance="?attr/textAppearanceBody1"
+        android:layout_marginBottom="16dp"
+        />
 
+    <!-- Botones al final -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="end">
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnDelete"
+        <Button
+            android:id="@+id/buttonDelete_detail"
+            style="?attr/materialButtonOutlinedStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/btn_delete_rpg"
-            android:backgroundTint="@null"
-            android:insetLeft="0dp"
-            android:insetTop="0dp"
-            android:insetRight="0dp"
-            android:insetBottom="0dp"
-            android:minWidth="0dp"
-            android:minHeight="0dp"
-            android:paddingStart="16dp"
-            android:paddingTop="8dp"
-            android:paddingEnd="16dp"
-            android:paddingBottom="8dp"
-            android:text="Eliminar"
-            android:textColor="@android:color/white"
-            android:textSize="14sp" />
+            android:text="Delete"/>
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnClose"
+        <Button
+            android:id="@+id/buttonClose_detail"
+            style="?attr/materialButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:minWidth="0dp"
-            android:minHeight="0dp"
-            android:insetLeft="0dp"
-            android:insetTop="0dp"
-            android:insetRight="0dp"
-            android:insetBottom="0dp"
-            android:text="Cerrar"
-            android:textSize="14sp"
-            android:textColor="@android:color/white"
-            android:background="@drawable/btn_close_rpg"
-            android:backgroundTint="@null"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp" />
-
+            android:text="Close"
+            android:layout_marginStart="16dp"/>
 
     </LinearLayout>
-
 </LinearLayout>
+
+
