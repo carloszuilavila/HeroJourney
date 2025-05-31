@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import java.util.ArrayList;
@@ -24,63 +25,32 @@ import dev.carloszuil.herojourney.databinding.FragmentQuestsBinding;
 public class QuestsFragment extends Fragment {
 
     private FragmentQuestsBinding binding;
+    private QuestViewModel questViewModel;
 
-    private final List<Quest> exampleQuests = new ArrayList<Quest>() {{
-        add(new Quest(0, "Derrotar al dragón", QuestState.QUEST_BOARD_1));
-        add(new Quest(1, "Recolectar hierbas", QuestState.QUEST_BOARD_1));
-        add(new Quest(2, "Construir el refugio", QuestState.QUEST_BOARD_2));
-        add(new Quest(3, "Aprender hechizo de fuego", QuestState.QUEST_BOARD_3));
-        add(new Quest(4, "Rescatar al sabio", QuestState.QUEST_BOARD_4));
-    }};
-
-    private final List<Quest> questBoard1 = new ArrayList<>();
-    private final List<Quest> questBoard2 = new ArrayList<>();
-    private final List<Quest> questBoard3 = new ArrayList<>();
-    private final List<Quest> questBoard4 = new ArrayList<>();
-
+    // Adaptadores para cada columna (tableros)
     private QuestAdapter adapterBoard1;
     private QuestAdapter adapterBoard2;
     private QuestAdapter adapterBoard3;
     private QuestAdapter adapterBoard4;
 
-    private void inicializarQuestsDeEjemplo() {
-        questBoard1.clear();
-        questBoard2.clear();
-        questBoard3.clear();
-        questBoard4.clear();
-        for (Quest q : exampleQuests) {
-            switch (q.getEstado()) {
-                case QUEST_BOARD_1:
-                    questBoard1.add(q);
-                    break;
-                case QUEST_BOARD_2:
-                    questBoard2.add(q);
-                    break;
-                case QUEST_BOARD_3:
-                    questBoard3.add(q);
-                    break;
-                case QUEST_BOARD_4:
-                    questBoard4.add(q);
-                    break;
-            }
-        }
-    }
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-        inicializarQuestsDeEjemplo();
+                             @Nullable Bundle savedInstanceState){
         binding = FragmentQuestsBinding.inflate(inflater, container, false);
 
-        // Adaptadores con listas inmutables
-        adapterBoard1 = getGenericQuestAdapter(new ArrayList<>(questBoard1));
-        adapterBoard2 = getGenericQuestAdapter(new ArrayList<>(questBoard2));
-        adapterBoard3 = getGenericQuestAdapter(new ArrayList<>(questBoard3));
-        adapterBoard4 = getGenericQuestAdapter(new ArrayList<>(questBoard4));
+        // Conseguir el ViewModel
+        questViewModel = new ViewModelProvider(this)
+                .get(QuestViewModel.class);
 
-        // RecyclerViews
+        // Crear adaptadores con listas inicialmente vacías
+        adapterBoard1 = getGenericQuestAdapter(new ArrayList<>());
+        adapterBoard2 = getGenericQuestAdapter(new ArrayList<>());
+        adapterBoard3 = getGenericQuestAdapter(new ArrayList<>());
+        adapterBoard4 = getGenericQuestAdapter(new ArrayList<>());
+
+        // Asignar LayoutManager y Adapter a los RecyclerViews
         binding.recyclerBoard1.setLayoutManager(new LinearLayoutManager(requireContext()));
         binding.recyclerBoard1.setAdapter(adapterBoard1);
 
@@ -93,31 +63,81 @@ public class QuestsFragment extends Fragment {
         binding.recyclerBoard4.setLayoutManager(new LinearLayoutManager(requireContext()));
         binding.recyclerBoard4.setAdapter(adapterBoard4);
 
-        // Ajustar ancho de columnas
-        DisplayMetrics dm = getResources().getDisplayMetrics();
-        int screenWidth = dm.widthPixels;
+        // Ajustar dimensión de columnas
+        DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+        int screenWidth = displayMetrics.widthPixels;
         int columnWidth = (int) (screenWidth * 0.8f);
-        binding.questBoard1 .getLayoutParams().width = columnWidth;
-        binding.questBoard2   .getLayoutParams().width = columnWidth;
-        binding.questBoard3 .getLayoutParams().width = columnWidth;
+
+        binding.questBoard1.getLayoutParams().width = columnWidth;
+        binding.questBoard2.getLayoutParams().width = columnWidth;
+        binding.questBoard3.getLayoutParams().width = columnWidth;
         binding.questBoard4.getLayoutParams().width = columnWidth;
-        binding.questBoard1 .requestLayout();
-        binding.questBoard2   .requestLayout();
-        binding.questBoard3 .requestLayout();
+
+        binding.questBoard1.requestLayout();
+        binding.questBoard2.requestLayout();
+        binding.questBoard3.requestLayout();
         binding.questBoard4.requestLayout();
+
+        // Observamos la lista de Quest desde Room
+        questViewModel.getAllQuests().observe(getViewLifecycleOwner(), this::onQuestChanged);
 
         return binding.getRoot();
     }
 
-    private QuestAdapter getGenericQuestAdapter(@NonNull List<Quest> list) {
+    /**
+     * Este método se llama cada vez que cambia la lista entera de quests en la BD.
+     * Separa las quests por estado (1/2/3/4) y notifica a cada adaptador.
+     */
+    private void onQuestChanged(List<Quest> allQuests){
+        List<Quest> board1 = new ArrayList<>();
+        List<Quest> board2 = new ArrayList<>();
+        List<Quest> board3 = new ArrayList<>();
+        List<Quest> board4 = new ArrayList<>();
+
+        for(Quest quest : allQuests){
+            switch (quest.getEstado()){
+                case QUEST_BOARD_1:
+                    board1.add(quest);
+                    break;
+                case QUEST_BOARD_2:
+                    board2.add(quest);
+                    break;
+                case QUEST_BOARD_3:
+                    board3.add(quest);
+                    break;
+                case QUEST_BOARD_4:
+                    board4.add(quest);
+                    break;
+            }
+        }
+
+        // Actualiza cada adaptador usando DiffUtil internamente
+        adapterBoard1.updateList(board1);
+        adapterBoard2.updateList(board2);
+        adapterBoard3.updateList(board3);
+        adapterBoard4.updateList(board4);
+    }
+
+    /**
+     * Crea un QuestAdapter que, al hacer check, cambia el estado a COMPLETADA (“BOARD_4”),
+     * y al desmarcarlo lo regresa a su estado anterior.
+     */
+    private QuestAdapter getGenericQuestAdapter(@NonNull List<Quest> initialList){
         return new QuestAdapter(
-                list,
+
+                initialList,
+
                 (quest, isChecked) -> {
-                    if (isChecked && quest.getEstado() != QuestState.QUEST_BOARD_4) {
-                        changeQuestState(quest, QuestState.QUEST_BOARD_4);
+                    if(isChecked && quest.getEstado() != QuestState.QUEST_BOARD_4){
+                        // Guardar el estado anterior
+                        quest.setEstadoAnterior(quest.getEstado());
+                        quest.setEstado(QuestState.QUEST_BOARD_4);
+                        questViewModel.updateQuest(quest);
                     } else if (!isChecked && quest.getEstado() == QuestState.QUEST_BOARD_4) {
+                        // Restaurar el estado anterior si existe
                         if (quest.getEstadoAnterior() != null) {
-                            changeQuestState(quest, quest.getEstadoAnterior());
+                            quest.setEstado(quest.getEstadoAnterior());
+                            questViewModel.updateQuest(quest);
                         }
                     }
                 },
@@ -125,64 +145,38 @@ public class QuestsFragment extends Fragment {
         );
     }
 
-    private void changeQuestState(@NonNull Quest quest, @NonNull QuestState newState) {
-        // Remover de la lista actual
-        switch (quest.getEstado()) {
-            case QUEST_BOARD_1:   questBoard1.remove(quest); break;
-            case QUEST_BOARD_2: questBoard2.remove(quest); break;
-            case QUEST_BOARD_3:   questBoard3.remove(quest); break;
-            case QUEST_BOARD_4:  questBoard4.remove(quest); break;
-        }
-        // Guardar estado anterior si será completada
-        if (newState == QuestState.QUEST_BOARD_4) {
-            quest.setEstadoAnterior(quest.getEstado());
-        }
-        // Actualizar
-        quest.setEstado(newState);
-        // Agregar a la nueva lista
-        switch (newState) {
-            case QUEST_BOARD_1:   questBoard1.add(quest); break;
-            case QUEST_BOARD_2: questBoard2.add(quest); break;
-            case QUEST_BOARD_3:   questBoard3.add(quest); break;
-            case QUEST_BOARD_4:  questBoard4.add(quest); break;
-        }
-        updateAdapters();
-    }
-
-    private void mostrarDialogoMoverQuest(@NonNull Quest quest) {
-        // Opciones de estados distintos al actual
-        List<QuestState> disponibles = new ArrayList<>();
-        List<String> labels = new ArrayList<>();
-        for (QuestState st : QuestState.values()) {
-            if (st != quest.getEstado()) {
-                disponibles.add(st);
-                String label = st.name().replace("_", " ")
-                        .toLowerCase();
+    private void mostrarDialogoMoverQuest(@NonNull Quest quest){
+        // Armar la lista de posibles estados (excluyendo el actual)
+        List<QuestState> listOtherBoards = new ArrayList<>();
+        List<String> labelsList = new ArrayList<>();
+        for(QuestState state : QuestState.values()){
+            if(state != quest.getEstado()){
+                listOtherBoards.add(state);
+                String label = state.name().replace("_", " ").toLowerCase();
                 label = Character.toUpperCase(label.charAt(0)) + label.substring(1);
-                labels.add(label);
+                labelsList.add(label);
             }
         }
-        String[] opciones = labels.toArray(new String[0]);
-        QuestState[] estadosArray = disponibles.toArray(new QuestState[0]);
+        String[] options = labelsList.toArray(new String[0]);
+        QuestState[] statesArray = listOtherBoards.toArray(new QuestState[0]);
 
         new AlertDialog.Builder(requireContext())
-                .setTitle("Mover a:")
-                .setItems(opciones, (DialogInterface dialog, int which) -> {
-                    changeQuestState(quest, estadosArray[which]);
+                .setTitle("Move to: ")
+                .setItems(options, (dialog, which) -> {
+                    QuestState newState = statesArray[which];
+                    // Guardar estado anterior si está completado
+                    if (newState == QuestState.QUEST_BOARD_4){
+                        quest.setEstadoAnterior(quest.getEstado());
+                    }
+                    quest.setEstado(newState);
+                    questViewModel.updateQuest(quest);
                 })
-                .setNegativeButton("Cancelar", null)
+                .setNegativeButton("Cancel", null)
                 .show();
     }
 
-    private void updateAdapters() {
-        adapterBoard1.updateList(new ArrayList<>(questBoard1));
-        adapterBoard2.updateList(new ArrayList<>(questBoard2));
-        adapterBoard3.updateList(new ArrayList<>(questBoard3));
-        adapterBoard4.updateList(new ArrayList<>(questBoard4));
-    }
-
     @Override
-    public void onDestroyView() {
+    public void onDestroyView(){
         super.onDestroyView();
         binding = null;
     }
