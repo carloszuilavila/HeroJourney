@@ -16,8 +16,8 @@ android:layout_height="match_parent">
     <!-- Ilustración superior -->
     <ImageView
         android:id="@+id/castleImage"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
+        android:layout_width="350dp"
+        android:layout_height="350dp"
         android:src="@drawable/castle"
         android:contentDescription="Fort"
         android:layout_gravity="center"
@@ -30,21 +30,23 @@ android:layout_height="match_parent">
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:weightSum="2"
-        android:layout_marginBottom="20dp">
+        android:layout_marginBottom="30dp">
 
         <include
             layout="@layout/btn_castle_section"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_marginEnd="4dp"/>
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"/>
 
         <include
             layout="@layout/btn_castle_section"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_marginStart="4dp"/>
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"/>
     </LinearLayout>
 
     <!-- Fila 2 -->
@@ -53,21 +55,23 @@ android:layout_height="match_parent">
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:weightSum="2"
-        android:layout_marginBottom="20dp">
+        android:layout_marginBottom="30dp">
 
         <include
             layout="@layout/btn_castle_section"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_marginEnd="4dp"/>
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"/>
 
         <include
             layout="@layout/btn_castle_section"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_marginStart="4dp"/>
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"/>
     </LinearLayout>
 
     <!-- Fila 3 -->
@@ -76,21 +80,23 @@ android:layout_height="match_parent">
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:weightSum="2"
-        android:layout_marginBottom="20dp">
+        android:layout_marginBottom="30dp">
 
         <include
             layout="@layout/btn_castle_section"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_marginEnd="4dp"/>
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"/>
 
         <include
             layout="@layout/btn_castle_section"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_marginStart="4dp"/>
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"/>
     </LinearLayout>
 
     <!-- Fila 4 -->
@@ -99,21 +105,23 @@ android:layout_height="match_parent">
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:weightSum="2"
-        android:layout_marginBottom="20dp">
+        android:layout_marginBottom="30dp">
 
         <include
             layout="@layout/btn_castle_section"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_marginEnd="4dp"/>
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"/>
 
         <include
             layout="@layout/btn_castle_section"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_marginStart="4dp"/>
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"/>
     </LinearLayout>
 
 </LinearLayout>

@@ -23,13 +23,16 @@
 
         <ImageView
             android:id="@+id/heroImage"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
+            android:layout_width="370dp"
+            android:layout_height="370dp"
             android:src="@drawable/heroe"
             android:contentDescription="Hero"
             android:layout_gravity="center"
             android:layout_marginBottom="60dp"
-            android:layout_marginTop="40dp"/>
+            android:layout_marginTop="30dp"
+            android:background="?attr/colorSecondary"
+            android:paddingTop="25dp"
+            android:paddingBottom="25dp"/>
 
         <!-- Fila 1 -->
         <LinearLayout
@@ -44,14 +47,16 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_marginEnd="4dp"/>
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"/>
 
             <include
                 layout="@layout/btn_hero_section"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_marginStart="4dp"/>
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"/>
         </LinearLayout>
 
         <!-- Fila 2 -->
@@ -67,14 +72,16 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_marginEnd="4dp"/>
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"/>
 
             <include
                 layout="@layout/btn_hero_section"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_marginStart="4dp"/>
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"/>
         </LinearLayout>
 
         <!-- Fila 3 -->
@@ -90,14 +97,16 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_marginEnd="4dp"/>
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"/>
 
             <include
                 layout="@layout/btn_hero_section"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_marginStart="4dp"/>
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"/>
         </LinearLayout>
 
         <!-- Fila 4 -->
@@ -113,14 +122,16 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_marginEnd="4dp"/>
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"/>
 
             <include
                 layout="@layout/btn_hero_section"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_marginStart="4dp"/>
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"/>
         </LinearLayout>
 
     </LinearLayout>
