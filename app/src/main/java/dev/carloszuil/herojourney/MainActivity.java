@@ -14,6 +14,7 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
+import dev.carloszuil.herojourney.audio.SoundManager;
 import dev.carloszuil.herojourney.databinding.ActivityMainBinding;
 import dev.carloszuil.herojourney.system.ResetScheduler;
 import dev.carloszuil.herojourney.util.PrefsHelper;
@@ -26,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         SplashScreen.installSplashScreen(this);
         super.onCreate(savedInstanceState);
+
+        SoundManager.getInstance(this);
 
         boolean dark = PrefsHelper.isDarkMode(this);
         AppCompatDelegate.setDefaultNightMode(dark ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO);
@@ -57,4 +60,11 @@ public class MainActivity extends AppCompatActivity {
 
         ResetScheduler.programarResetDiario(this);
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        SoundManager.getInstance(this).release();
+    }
+
 }
