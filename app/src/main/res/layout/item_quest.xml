@@ -19,10 +19,12 @@
             android:id="@+id/btnMoveQuest"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_dashboard_black_24dp"
+            android:src="@drawable/swap_20px_g0_w300"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/move_quest"
-            android:padding="8dp" />
+            android:padding="12dp"
+            android:scaleX="2"
+            android:scaleY="2"/>
 
         <TextView
             android:id="@+id/questText"
