@@ -25,7 +25,7 @@ public class HeroFragment extends Fragment {
     private FragmentHeroBinding binding;
 
     private final String[] labels = {
-            "Rewards", "Shop"
+            "Story", "Settings"
     };
 
     private final int[] icons = {
