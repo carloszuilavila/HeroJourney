@@ -1,7 +1,6 @@
 package dev.carloszuil.herojourney.data.local.entities;
 
 import androidx.room.TypeConverter;
-import androidx.room.TypeConverters;
 
 public class QuestStateConverter {
 
