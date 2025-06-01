@@ -24,15 +24,21 @@
         tools:layout="@layout/fragment_journey" />
 
     <fragment
-        android:id="@+id/valuesFragment"
-        android:name="dev.carloszuil.herojourney.ui.values.ValuesFragment"
+        android:id="@+id/fortFragment"
+        android:name="dev.carloszuil.herojourney.ui.fort.FortFragment"
         android:label="Values"
-        tools:layout="@layout/fragment_values" />
+        tools:layout="@layout/fragment_fort" />
 
     <fragment
         android:id="@+id/heroFragment"
         android:name="dev.carloszuil.herojourney.ui.hero.HeroFragment"
         android:label="Hero"
         tools:layout="@layout/fragment_hero" />
+
+    <fragment
+        android:id="@+id/revelationsFragment"
+        android:name="dev.carloszuil.herojourney.ui.fort.RevelationsFragment"
+        android:label="Revelations"
+        tools:layout="@layout/fragment_revelations" />
 
 </navigation>

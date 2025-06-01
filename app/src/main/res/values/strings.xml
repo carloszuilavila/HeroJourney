@@ -5,4 +5,8 @@
     <string name="title_notifications">Notifications</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="move_quest">Move</string>
+    <string name="questBoard1">Urgent</string>
+    <string name="questBoard2">Accepted</string>
+    <string name="questBoard3">Available</string>
+    <string name="questBoard4">Completed</string>
 </resources>

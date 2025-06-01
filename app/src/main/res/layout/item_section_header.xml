@@ -13,8 +13,8 @@
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:padding="16dp"
-        android:background="@drawable/section_rpg_bg">
+        android:padding="8dp"
+        android:background="?attr/colorPrimary">
 
         <TextView
             android:id="@+id/sectionTitle"
@@ -22,17 +22,15 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="Sección"
-            android:textSize="22sp"
+            android:text="HABITS"
+            android:textSize="20sp"
             android:textStyle="bold"
-            android:textColor="@color/beige_claro"/>
+            android:textColor="?attr/colorOnPrimary"/>
 
         <ImageSwitcher
             android:id="@+id/expandSwitcher"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inAnimation="@android:anim/fade_in"
-            android:outAnimation="@android:anim/fade_out" />
+            android:layout_height="wrap_content"/>
 
     </LinearLayout>
 

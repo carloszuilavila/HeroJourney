@@ -7,26 +7,13 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <TextView
-        android:id="@+id/questsTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="16dp"
-        android:text="Quests"
-        android:textSize="34sp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
     <HorizontalScrollView
         android:id="@+id/hsv"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
-        android:fillViewport="true"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:fillViewport="true">
 
         <LinearLayout
             android:id="@+id/columnsContainer"
@@ -36,104 +23,147 @@
 
             <!-- Pendientes -->
             <LinearLayout
-                android:id="@+id/columnaPendientes"
+                android:id="@+id/questBoard1"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:padding="8dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="16dp"
                 android:layout_marginBottom="60dp"
-                android:background="@color/beige_claro">
+                android:background="?attr/colorSecondary">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
-                    android:text="Pendientes"
+                    android:text="@string/questBoard1"
                     android:textSize="28sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:textColor="?attr/colorOnSecondary"/>
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerPendientes"
+                    android:id="@+id/recycler_board_1"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="0dp"
+                    android:layout_weight="1"/>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/buttonAddQuest1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/rounded_btn"
+                    android:text="New Quest"
+                    android:textColor="?attr/colorOnPrimary"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
             <!-- En Progreso -->
             <LinearLayout
-                android:id="@+id/columnaProgreso"
+                android:id="@+id/questBoard2"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:padding="8dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
                 android:layout_marginBottom="60dp"
-                android:background="@color/beige_claro">
+                android:background="?attr/colorSecondary">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
-                    android:text="En Progreso"
+                    android:text="@string/questBoard2"
                     android:textSize="28sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:textColor="?attr/colorOnSecondary"/>
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerProgreso"
+                    android:id="@+id/recycler_board_2"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="0dp"
+                    android:layout_weight="1"/>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/buttonAddQuest2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/rounded_btn"
+                    android:text="New Quest"
+                    android:textColor="?attr/colorOnPrimary"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
             <!-- Congeladas -->
             <LinearLayout
-                android:id="@+id/columnaCongeladas"
+                android:id="@+id/questBoard3"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:padding="8dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
                 android:layout_marginBottom="60dp"
-                android:background="@color/beige_claro">
+                android:background="?attr/colorSecondary">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
-                    android:text="Congeladas"
+                    android:text="@string/questBoard3"
                     android:textSize="28sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:textColor="?attr/colorOnSecondary"/>
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerCongeladas"
+                    android:id="@+id/recycler_board_3"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="0dp"
+                    android:layout_weight="1"/>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/buttonAddQuest3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/rounded_btn"
+                    android:text="New Quest"
+                    android:textColor="?attr/colorOnPrimary"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
             <!-- Completadas -->
             <LinearLayout
-                android:id="@+id/columnaCompletadas"
+                android:id="@+id/questBoard4"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:padding="8dp"
+                android:layout_marginRight="10dp"
                 android:layout_marginBottom="60dp"
-                android:background="@color/beige_claro">
+                android:background="?attr/colorSecondary">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
-                    android:text="Completadas"
+                    android:text="@string/questBoard4"
                     android:textSize="28sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:textColor="?attr/colorOnSecondary"/>
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerCompletadas"
+                    android:id="@+id/recycler_board_4"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="0dp"
+                    android:layout_weight="1"/>
 
             </LinearLayout>
 

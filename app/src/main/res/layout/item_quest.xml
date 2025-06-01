@@ -3,26 +3,28 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/section_rpg_bg"
     android:layout_margin="8dp"
     card_view:cardElevation="4dp"
-    card_view:cardCornerRadius="8dp">
+    card_view:cardCornerRadius="12dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="16dp"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        android:background="?attr/colorOnPrimary">
 
         <ImageButton
             android:id="@+id/btnMoveQuest"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_dashboard_black_24dp"
+            android:src="@drawable/swap_20px_g0_w300"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/move_quest"
-            android:padding="8dp" />
+            android:padding="12dp"
+            android:scaleX="2"
+            android:scaleY="2"/>
 
         <TextView
             android:id="@+id/questText"
@@ -31,16 +33,20 @@
             android:layout_marginStart="12dp"
             android:layout_marginEnd="12dp"
             android:layout_weight="1"
-            android:text="Tarea de ejemplo"
-            android:textSize="22sp"
-            android:textStyle="bold" />
+            android:text="Example Quest"
+            android:textSize="24sp"
+            android:textColor="?attr/colorOnSecondary"/>
 
         <CheckBox
             android:id="@+id/questCheckbox"
             style="@style/Widget.AppCompat.CompoundButton.CheckBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:button="?android:attr/listChoiceIndicatorSingle" />
+            android:buttonTint="?attr/colorPrimary"
+            android:scaleX="1.3"
+            android:scaleY="1.3"
+            android:soundEffectsEnabled="false"
+            android:hapticFeedbackEnabled="true"/>
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>
