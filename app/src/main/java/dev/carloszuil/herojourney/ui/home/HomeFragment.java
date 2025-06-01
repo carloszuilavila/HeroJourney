@@ -2,6 +2,7 @@
 package dev.carloszuil.herojourney.ui.home;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ import java.util.Objects;
 
 import dev.carloszuil.herojourney.R;
 import dev.carloszuil.herojourney.adapter.HabitExpandableAdapter;
+import dev.carloszuil.herojourney.audio.SoundManager;
 import dev.carloszuil.herojourney.data.local.entities.Habit;
 import dev.carloszuil.herojourney.databinding.FragmentHomeBinding;
 import dev.carloszuil.herojourney.ui.viewmodel.SharedViewModel;
@@ -45,14 +47,41 @@ public class HomeFragment extends Fragment {
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         sharedViewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
 
+        SoundManager.getInstance(requireContext());
+
         adapter = new HabitExpandableAdapter(
-                habit -> homeViewModel.updateHabit(habit),
+                habit -> {
+                    // 1) Actualiza el estado del hábito en la BD
+                    homeViewModel.updateHabit(habit);
+                    // 2) Reproduce el sonido de "check" en la capa de UI
+                    if (habit.isFinished()) {
+                        sharedViewModel.playSound(SharedViewModel.SoundEffect.CHECK);
+                    }
+                },
                 this::onSectionToggled,
                 this::showDetail
         );
 
         binding.recyclerHabits.setLayoutManager(new LinearLayoutManager(requireContext()));
         binding.recyclerHabits.setAdapter(adapter);
+
+        sharedViewModel.getSoundEvent().observe(getViewLifecycleOwner(), event -> {
+            SharedViewModel.SoundEffect effect = event.getContentIfNotHandled();
+            if (effect == null) return;
+
+            // La UI decide qué sonido reproducir
+            switch (effect) {
+                case CHECK:
+                    SoundManager.getInstance(requireContext()).playCheck();
+                    break;
+                case SAVE:
+                    SoundManager.getInstance(requireContext()).playSave();
+                    break;
+                case ERROR:
+                    SoundManager.getInstance(requireContext()).playError();
+                    break;
+            }
+        });
 
         homeViewModel.getHabits().observe(getViewLifecycleOwner(), list -> {
             adapter.submitHabits(list, pendientesExpanded, completadasExpanded);
@@ -102,6 +131,7 @@ public class HomeFragment extends Fragment {
             String habitDesc = etDesc.getText().toString().trim();
 
             if(habitName.isEmpty()){
+                sharedViewModel.playSound(SharedViewModel.SoundEffect.ERROR);
                 etName.setError("The new Habit needs a name.");
                 etName.requestFocus();
                 return;
@@ -109,6 +139,8 @@ public class HomeFragment extends Fragment {
 
             Habit newHabit = new Habit(0, habitName, habitDesc, false);
             homeViewModel.addHabit(newHabit);
+
+            sharedViewModel.playSound(SharedViewModel.SoundEffect.SAVE);
 
             alertDialog.dismiss();
         });
@@ -140,11 +172,32 @@ public class HomeFragment extends Fragment {
         });
 
         deleteButton.setOnClickListener(v -> {
-            homeViewModel.removeHabit(habitDetailed);
-            alertDialog.dismiss();
+            showDeleteConfirmationDialog(habitDetailed, alertDialog);
         });
 
         alertDialog.show();
+    }
+
+    private void showDeleteConfirmationDialog(Habit habit, AlertDialog detailDialog) {
+
+        AlertDialog.Builder confirmBuilder = new AlertDialog.Builder(requireContext());
+        confirmBuilder.setTitle("Delete Habit");
+        confirmBuilder.setMessage("Are you sure you want to delete: " + habit.getName() + "? This action is permanent.");
+
+        // Botón “Sí, eliminar”
+        confirmBuilder.setPositiveButton("Delete", (dialog, which) -> {
+            // Aquí ejecutas tu lógica real de borrado
+            homeViewModel.removeHabit(habit);
+            dialog.dismiss();
+            detailDialog.dismiss();
+        });
+
+        // Botón “Cancelar”
+        confirmBuilder.setNegativeButton("Cancel", (dialog, which) -> {
+            dialog.dismiss();
+        });
+
+        confirmBuilder.show();
     }
 
     @Override
