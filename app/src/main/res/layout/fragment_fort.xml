@@ -75,54 +75,8 @@ android:layout_height="match_parent">
     </LinearLayout>
 
     <!-- Fila 3 -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="2"
-        android:layout_marginBottom="30dp">
-
-        <include
-            layout="@layout/btn_castle_section"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"/>
-
-        <include
-            layout="@layout/btn_castle_section"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"/>
-    </LinearLayout>
 
     <!-- Fila 4 -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="2"
-        android:layout_marginBottom="30dp">
-
-        <include
-            layout="@layout/btn_castle_section"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"/>
-
-        <include
-            layout="@layout/btn_castle_section"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"/>
-    </LinearLayout>
 
 </LinearLayout>
 </ScrollView>
