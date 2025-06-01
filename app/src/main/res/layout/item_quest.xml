@@ -44,7 +44,9 @@
             android:layout_height="wrap_content"
             android:buttonTint="?attr/colorPrimary"
             android:scaleX="1.3"
-            android:scaleY="1.3"/>
+            android:scaleY="1.3"
+            android:soundEffectsEnabled="false"
+            android:hapticFeedbackEnabled="true"/>
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>
