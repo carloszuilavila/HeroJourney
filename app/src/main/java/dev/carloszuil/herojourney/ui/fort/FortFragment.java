@@ -23,13 +23,11 @@ public class FortFragment extends Fragment {
     private FragmentFortBinding binding;
 
     private final String[] labels = {
-            "Revelations", "Reflections", "Breathe", "Destiny",
-            "Movements", "Timers", "Listen", "First Aid Kit"
+            "Revelations", "Reflect",
+            "Destiny", "Victories"
     };
 
     private final int[] icons = {
-            R.drawable.ic_launcher_foreground, R.drawable.ic_launcher_foreground,
-            R.drawable.ic_launcher_foreground, R.drawable.ic_launcher_foreground,
             R.drawable.ic_launcher_foreground, R.drawable.ic_launcher_foreground,
             R.drawable.ic_launcher_foreground, R.drawable.ic_launcher_foreground
     };

@@ -25,11 +25,10 @@ public class HeroFragment extends Fragment {
     private FragmentHeroBinding binding;
 
     private final String[] labels = {
-            "Rewards", "Pet", "Breathe", "Destiny"
+            "Rewards", "Shop"
     };
 
     private final int[] icons = {
-            R.drawable.ic_launcher_foreground, R.drawable.ic_launcher_foreground,
             R.drawable.ic_launcher_foreground, R.drawable.ic_launcher_foreground
     };
 
