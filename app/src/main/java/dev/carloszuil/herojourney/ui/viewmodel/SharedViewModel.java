@@ -13,6 +13,7 @@ import java.util.List;
 import dev.carloszuil.herojourney.data.local.AppDatabase;
 import dev.carloszuil.herojourney.data.local.dao.HabitDao;
 import dev.carloszuil.herojourney.data.local.entities.Habit;
+import dev.carloszuil.herojourney.util.Event;
 import dev.carloszuil.herojourney.util.PrefsHelper;
 
 public class SharedViewModel extends AndroidViewModel {
@@ -23,6 +24,23 @@ public class SharedViewModel extends AndroidViewModel {
     private final LiveData<Integer> tareasCompletadas;
     private final MutableLiveData<Boolean> enViaje = new MutableLiveData<>();
     private long inicioViaje;
+
+    public enum SoundEffect{
+        CHECK,
+        SAVE,
+        ERROR
+    }
+
+    /** LiveData de “evento único” para pedir a la UI que reproduzca un sonido */
+    private final MutableLiveData<Event<SoundEffect>> _soundEvent = new MutableLiveData<>();
+    public LiveData<Event<SoundEffect>> getSoundEvent() {
+        return _soundEvent;
+    }
+
+    /** Método que el VM llamará cuando quiera disparar un sonido */
+    public void playSound(SoundEffect effect) {
+        _soundEvent.setValue(new Event<>(effect));
+    }
 
     public SharedViewModel(@NonNull Application application) {
         super(application);
@@ -90,4 +108,5 @@ public class SharedViewModel extends AndroidViewModel {
     public int getGoal() {
         return GOAL;
     }
+
 }
