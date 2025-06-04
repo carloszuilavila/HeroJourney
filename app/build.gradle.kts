@@ -60,5 +60,7 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation("androidx.arch.core:core-testing:2.1.0")
+    androidTestImplementation("androidx.room:room-testing:2.5.0")
     androidTestImplementation("androidx.test.espresso:espresso-contrib:3.4.0")
 }
