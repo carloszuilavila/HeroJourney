@@ -19,7 +19,7 @@ import dev.carloszuil.herojourney.util.TimeUtils;
 
 public class JourneyFragment extends Fragment {
 
-    private static final long DURACION = 60 * 60 * 1000L; // 1 hora
+    private static final long JOURNEY_DURATION = 60 * 60 * 1000L; // 1 hora
     private FragmentJourneyBinding binding;
     private SharedViewModel sharedViewModel;
     private CountDownTimer countDownTimer;
@@ -59,7 +59,7 @@ public class JourneyFragment extends Fragment {
         long inicio = sharedViewModel.getInicioViaje();
         long now = System.currentTimeMillis();
         long elapsed = now - inicio;
-        long restante = DURACION - elapsed;
+        long restante = JOURNEY_DURATION - elapsed;
 
         if (restante <= 0) {
             stopTimerAndReset();
