@@ -19,7 +19,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="right"
             android:text="Theme"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:textColor="?attr/colorPrimary"/>
 
         <ImageView
             android:id="@+id/heroImage"
