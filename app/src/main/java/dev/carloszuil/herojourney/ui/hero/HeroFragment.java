@@ -19,7 +19,6 @@ import androidx.navigation.NavOptions;
 
 import dev.carloszuil.herojourney.R;
 import dev.carloszuil.herojourney.databinding.FragmentHeroBinding;
-import dev.carloszuil.herojourney.ui.fort.RevelationsActivity;
 import dev.carloszuil.herojourney.ui.viewmodel.ThemeViewModel;
 
 public class HeroFragment extends Fragment {

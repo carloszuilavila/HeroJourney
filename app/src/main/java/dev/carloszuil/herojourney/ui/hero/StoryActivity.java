@@ -6,7 +6,6 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import dev.carloszuil.herojourney.R;
-import dev.carloszuil.herojourney.ui.fort.VictoriesFragment;
 
 public class StoryActivity extends AppCompatActivity {
     @Override

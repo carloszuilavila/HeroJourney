@@ -10,15 +10,10 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.textfield.TextInputEditText;
 
-import java.util.Objects;
-
 import dev.carloszuil.herojourney.R;
-import dev.carloszuil.herojourney.audio.SoundManager;
-import dev.carloszuil.herojourney.ui.viewmodel.SharedViewModel;
 
 public class DestinyFragment extends Fragment {
 
