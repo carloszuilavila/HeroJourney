@@ -28,6 +28,18 @@
             android:name=".ui.fort.RevelationsActivity"
             android:theme="@style/Theme.HeroJourney"
         />
+        <activity
+            android:name=".ui.fort.ReflectionsActivity"
+            android:theme="@style/Theme.HeroJourney"
+            />
+        <activity
+            android:name=".ui.fort.VictoriesActivity"
+            android:theme="@style/Theme.HeroJourney"
+            />
+        <activity
+            android:name=".ui.fort.DestinyActivity"
+            android:theme="@style/Theme.HeroJourney"
+            />
         <receiver
             android:name=".receiver.ResetReceiver"
             android:exported="true"/>
