@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/victoriesTextArea"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Commend your efforts or describe a victory here."
+            app:boxStrokeWidthFocused="2dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:padding="20dp"
+            android:lines="20"
+            android:maxLines="10"
+            android:gravity="top"
+            android:scrollbars="vertical"
+            android:textSize="18dp"/>
+
+        <TextView
+            android:id="@+id/victoriesTip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="When you're done, you will feel victorious."
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:textSize="20sp"
+            android:textColor="?attr/colorPrimary"
+            android:gravity="center"/>
+
+        <Button
+            android:id="@+id/victoriesButtonClear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Celebrate"
+            android:textStyle="bold"
+            android:background="@drawable/rounded_btn"
+            android:scaleY="1.2"
+            android:scaleX="1.2"
+            android:layout_marginTop="30dp"/>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
