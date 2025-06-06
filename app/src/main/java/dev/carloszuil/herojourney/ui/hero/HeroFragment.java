@@ -1,5 +1,6 @@
 package dev.carloszuil.herojourney.ui.hero;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +19,7 @@ import androidx.navigation.NavOptions;
 
 import dev.carloszuil.herojourney.R;
 import dev.carloszuil.herojourney.databinding.FragmentHeroBinding;
+import dev.carloszuil.herojourney.ui.fort.RevelationsActivity;
 import dev.carloszuil.herojourney.ui.viewmodel.ThemeViewModel;
 
 public class HeroFragment extends Fragment {
@@ -98,8 +100,12 @@ public class HeroFragment extends Fragment {
                 final int idx = labelIndex;
                 cell.setOnClickListener(v -> {
                     switch (idx) {
+                        case 0:
+                            Intent intentStory = new Intent(requireContext(), StoryActivity.class);
+                            startActivity(intentStory);
+                            break;
                         default:
-                            Toast.makeText(requireContext(), "Próximamente: " + labels[idx], Toast.LENGTH_SHORT).show();
+                            Toast.makeText(requireContext(), "Cooming soon: " + labels[idx], Toast.LENGTH_SHORT).show();
                             break;
                     }
                 });
