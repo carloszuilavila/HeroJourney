@@ -36,7 +36,7 @@ public class RevelationsFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_revelations, container, false);
 
         buttonGetRevelation = root.findViewById(R.id.buttonGetRevelation);
-        textRevelation      = root.findViewById(R.id.textRevelation);
+        textRevelation = root.findViewById(R.id.textRevelation);
 
         buttonGetRevelation.setOnClickListener(v -> {
             Log.d("RevelationsFragment", "Botón clicado");

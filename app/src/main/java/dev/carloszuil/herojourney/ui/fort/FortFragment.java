@@ -73,15 +73,27 @@ public class FortFragment extends Fragment {
                 iconView.setImageResource(icons[labelIndex]);
 
                 NavOptions navOptions = new NavOptions.Builder()
-                        .setPopUpTo(R.id.heroFragment, false) // Mantenemos HeroFragment en el backstack
+                        .setPopUpTo(R.id.fortFragment, false) // Mantenemos HeroFragment en el backstack
                         .build();
 
                 final int idx = labelIndex;
                 cell.setOnClickListener(v -> {
                     switch (idx) {
                         case 0:
-                            Intent intent = new Intent(requireContext(), RevelationsActivity.class);
-                            startActivity(intent);
+                            Intent intentRevelations = new Intent(requireContext(), RevelationsActivity.class);
+                            startActivity(intentRevelations);
+                            break;
+                        case 1:
+                            Intent intentReflections = new Intent(requireContext(), ReflectionsActivity.class);
+                            startActivity(intentReflections);
+                            break;
+                        case 2:
+                            Intent intentDestiny = new Intent(requireContext(), DestinyActivity.class);
+                            startActivity(intentDestiny);
+                            break;
+                        case 3:
+                            Intent intentVictories = new Intent(requireContext(), VictoriesActivity.class);
+                            startActivity(intentVictories);
                             break;
                         default:
                             Toast.makeText(requireContext(), "Próximamente: " + labels[idx], Toast.LENGTH_SHORT).show();
