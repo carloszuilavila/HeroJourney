@@ -96,7 +96,7 @@ public class FortFragment extends Fragment {
                             startActivity(intentVictories);
                             break;
                         default:
-                            Toast.makeText(requireContext(), "Próximamente: " + labels[idx], Toast.LENGTH_SHORT).show();
+                            Toast.makeText(requireContext(), "Coming soon: " + labels[idx], Toast.LENGTH_SHORT).show();
                             break;
                     }
                 });
