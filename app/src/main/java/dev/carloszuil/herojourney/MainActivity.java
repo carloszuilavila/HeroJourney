@@ -17,8 +17,6 @@ import com.google.android.material.navigation.NavigationBarView;
 
 import dev.carloszuil.herojourney.audio.SoundManager;
 import dev.carloszuil.herojourney.databinding.ActivityMainBinding;
-import dev.carloszuil.herojourney.system.ResetScheduler;
-import dev.carloszuil.herojourney.util.PrefsHelper;
 
 public class MainActivity extends AppCompatActivity {
 

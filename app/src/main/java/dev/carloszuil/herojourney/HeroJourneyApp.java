@@ -1,18 +1,22 @@
 package dev.carloszuil.herojourney;
 
 import android.app.Application;
-import java.util.Calendar;
-import java.util.concurrent.TimeUnit;
+
 import androidx.work.Constraints;
 import androidx.work.ExistingPeriodicWorkPolicy;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
+
+import java.util.Calendar;
+import java.util.concurrent.TimeUnit;
+
 import dev.carloszuil.herojourney.worker.DailyResetWorker;
 
 public class HeroJourneyApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
         scheduleDailyResetAt4AM();
     }
 
@@ -44,8 +48,8 @@ public class HeroJourneyApp extends Application {
 
         WorkManager.getInstance(this)
                 .enqueueUniquePeriodicWork(
-                        "daily_reset",
-                        ExistingPeriodicWorkPolicy.REPLACE,
+                        "daily_reset_work",
+                        ExistingPeriodicWorkPolicy.UPDATE,
                         resetRequest
                 );
     }
