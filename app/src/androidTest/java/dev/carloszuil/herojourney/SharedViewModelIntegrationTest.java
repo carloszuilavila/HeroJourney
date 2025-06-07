@@ -1,7 +1,6 @@
 package dev.carloszuil.herojourney;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 import android.app.Application;
 
@@ -14,9 +13,7 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 import dev.carloszuil.herojourney.data.local.AppDatabase;
