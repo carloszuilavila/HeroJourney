@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <SwitchPreferenceCompat
+        android:key="pref_dark_mode"
+        android:title="Dark Mode"
+        android:summary="Toggle light/dark theme" />
+
+    <SwitchPreferenceCompat
+        android:key="pref_sound_effects"
+        android:title="Sound Effects"
+        android:summary="Enable or disable UI sound cues" />
+
+    <!--
+    <SwitchPreferenceCompat
+        app:key="notifications"
+        app:title="Enable message notifications"/>
+
+    <SwitchPreferenceCompat
+        android:key="pref_daily_reset"
+        android:title="Daily Reset"
+        android:summary="Automatically reset habits every day" />
+
+    <Preference
+        android:key="pref_reset_time"
+        android:title="Reset Time"
+        android:summary="What time to perform the daily reset"
+        android:dependency="pref_daily_reset" />
+
+    <Preference
+        app:key="feedback"
+        app:title="Send feedback"
+        app:summary="Report technical issues or suggest new features"/>
+    -->
+</PreferenceScreen>
