@@ -23,6 +23,7 @@ import retrofit2.Response;
 
 public class RevelationsFragment extends Fragment {
 
+    private boolean errorShown = false;
     private Button buttonGetRevelation;
     private TextView textRevelation;
     private String selectedCategorie;
@@ -69,9 +70,13 @@ public class RevelationsFragment extends Fragment {
             @Override
             public void onFailure(Call<Revelation> call, Throwable t) {
                 if (!isAdded()) return;
-                Log.e("RevelationsFragment", "onFailure: " + t.getMessage() + " ", t);
-                showToast(getString(R.string.no_communication));
-                textRevelation.setText(R.string.no_communication);
+                if(!errorShown){
+                    errorShown = true;
+                    Log.e("RevelationsFragment", "onFailure: " + t.getMessage() + " ", t);
+                    showToast(getString(R.string.no_communication));
+                    textRevelation.setText(R.string.no_communication);
+                    buttonGetRevelation.setEnabled(false);
+                }
             }
 
         });
