@@ -12,14 +12,11 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavOptions;
 
 import dev.carloszuil.herojourney.R;
 import dev.carloszuil.herojourney.databinding.FragmentHeroBinding;
-import dev.carloszuil.herojourney.ui.viewmodel.ThemeViewModel;
 
 public class HeroFragment extends Fragment {
 
@@ -47,24 +44,6 @@ public class HeroFragment extends Fragment {
             @NonNull View view,
             @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        ThemeViewModel themeViewModel = new ViewModelProvider(requireActivity()).get(ThemeViewModel.class);
-
-        SwitchCompat themeSwitch = binding.getRoot().findViewById(R.id.themeSwitch);
-
-        themeViewModel.getIsDarkMode().observe(getViewLifecycleOwner(), isDark -> {
-            // desconecta momentáneamente el listener
-            themeSwitch.setOnCheckedChangeListener(null);
-            themeSwitch.setChecked(isDark);
-            // vuelve a conectar el listener
-            themeSwitch.setOnCheckedChangeListener((btn, checked) -> {
-                themeViewModel.setDarkMode(checked);
-            });
-        });
-
-        binding.themeSwitch.setOnCheckedChangeListener((btn, checked) -> {
-            themeViewModel.setDarkMode(checked);
-        });
 
         setupButtonGrid();
     }
@@ -102,6 +81,10 @@ public class HeroFragment extends Fragment {
                         case 0:
                             Intent intentStory = new Intent(requireContext(), StoryActivity.class);
                             startActivity(intentStory);
+                            break;
+                        case 1:
+                            Intent intentSettings = new Intent(requireContext(), SettingsActivity.class);
+                            startActivity(intentSettings);
                             break;
                         default:
                             Toast.makeText(requireContext(), "Cooming soon: " + labels[idx], Toast.LENGTH_SHORT).show();
