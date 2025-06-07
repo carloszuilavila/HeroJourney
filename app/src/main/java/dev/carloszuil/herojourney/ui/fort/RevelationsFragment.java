@@ -55,21 +55,32 @@ public class RevelationsFragment extends Fragment {
             @Override
             public void onResponse(Call<Revelation> call, Response<Revelation> response) {
                 Log.d("RevelationsFragment", "onResponse: " + response.code());
+                if (!isAdded()) return;
                 if (response.isSuccessful() && response.body() != null) {
                     Log.d("RevelationsFragment", "Cuerpo: " + response.body().getContent());
                     textRevelation.setText(response.body().getContent());
                 } else {
                     Log.d("RevelationsFragment", "Respuesta no exitosa");
-                    Toast.makeText(requireContext(), "No hay revelación", Toast.LENGTH_SHORT).show();
+                    showToast(getString(R.string.no_revelation));
+                    textRevelation.setText(R.string.no_revelation);
                 }
             }
 
             @Override
             public void onFailure(Call<Revelation> call, Throwable t) {
-                Log.e("RevelationsFragment", "onFailure: ", t);
-                Toast.makeText(requireContext(), "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                if (!isAdded()) return;
+                Log.e("RevelationsFragment", "onFailure: " + t.getMessage() + " ", t);
+                showToast(getString(R.string.no_communication));
+                textRevelation.setText(R.string.no_communication);
             }
 
         });
+    }
+
+    private void showToast(String msg) {
+        // 2) Contexto seguro: usar getActivity() si existe
+        if (getActivity() != null) {
+            Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
+        }
     }
 }
