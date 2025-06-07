@@ -10,4 +10,6 @@
     <string name="questBoard3">Available</string>
     <string name="questBoard4">Completed</string>
     <string name="lorem_story">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse erat ante, malesuada malesuada rhoncus at, pretium sed risus. Nam vitae porta justo. Integer nec risus erat. Ut ligula sapien, eleifend vitae sem vitae, suscipit pretium eros. Cras sit amet velit ut metus tincidunt cursus in ac elit. Mauris at blandit massa, vel accumsan nisl. Pellentesque ipsum urna, dictum sed elementum et, bibendum vitae orci. Cras mattis mauris velit, in egestas ex mattis et. Duis fringilla tincidunt fermentum.\n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse erat ante, malesuada malesuada rhoncus at, pretium sed risus. Nam vitae porta justo. Integer nec risus erat. Ut ligula sapien, eleifend vitae sem vitae, suscipit pretium eros. Cras sit amet velit ut metus tincidunt cursus in ac elit. Mauris at blandit massa, vel accumsan nisl. Pellentesque ipsum urna, dictum sed elementum et, bibendum vitae orci. Cras mattis mauris velit, in egestas ex mattis et. Duis fringilla tincidunt fermentum.</string>
+    <string name="no_revelation">You have not had any revelation.</string>
+    <string name="no_communication">You have not been able to communicate with the gods...</string>
 </resources>
