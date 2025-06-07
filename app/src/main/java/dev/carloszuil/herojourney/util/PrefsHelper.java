@@ -9,6 +9,8 @@ public class PrefsHelper {
     private static final String KEY_IS_TRAVELING = "is_traveling";
     private static final String KEY_JOURNEY_START = "journey_start";
     private static final String PREF_DARK_MODE = "dark_mode";
+    private static final String KEY_LAST_RESET = "last_reset_date";
+
 
     private static SharedPreferences getPrefs(Context context) {
         return context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
@@ -37,4 +39,17 @@ public class PrefsHelper {
     public static void setDarkMode(Context context, boolean dark){
         getPrefs(context).edit().putBoolean(PREF_DARK_MODE, dark).apply();
     }
+
+    public static void setLastResetDate(Context context, String dateString) {
+        getPrefs(context)
+                .edit()
+                .putString(KEY_LAST_RESET, dateString)
+                .apply();
+    }
+
+    public static String getLastResetDate(Context context) {
+        return getPrefs(context)
+                .getString(KEY_LAST_RESET, "");
+    }
+
 }
