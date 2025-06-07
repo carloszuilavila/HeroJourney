@@ -13,14 +13,6 @@
         android:padding="16dp">
 
         <!-- Ilustración superior -->
-        <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/themeSwitch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:text="Theme"
-            android:textSize="20sp"
-            android:textColor="?attr/colorPrimary"/>
 
         <ImageView
             android:id="@+id/heroImage"
