@@ -30,7 +30,7 @@ public class HeroFragment extends Fragment {
     };
 
     private final int[] icons = {
-            R.drawable.ic_launcher_foreground, R.drawable.ic_launcher_foreground
+            R.drawable.contract_20px_g0_w400, R.drawable.settings_20px_g0_w400
     };
 
     @Nullable @Override

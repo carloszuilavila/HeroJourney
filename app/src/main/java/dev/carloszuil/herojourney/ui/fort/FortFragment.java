@@ -28,8 +28,8 @@ public class FortFragment extends Fragment {
     };
 
     private final int[] icons = {
-            R.drawable.ic_launcher_foreground, R.drawable.ic_launcher_foreground,
-            R.drawable.ic_launcher_foreground, R.drawable.ic_launcher_foreground
+            R.drawable.visibility_20px_g0_w400, R.drawable.history_edu_20px_g0_w400,
+            R.drawable.strategy_20px_g0_w400, R.drawable.person_play_20px_g0_w400
     };
 
     @Nullable @Override
