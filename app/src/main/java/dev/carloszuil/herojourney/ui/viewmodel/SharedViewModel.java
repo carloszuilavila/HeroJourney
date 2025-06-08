@@ -3,6 +3,7 @@ package dev.carloszuil.herojourney.ui.viewmodel;
 import android.app.Application;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.VisibleForTesting;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -107,6 +108,23 @@ public class SharedViewModel extends AndroidViewModel {
 
     public int getGoal() {
         return GOAL;
+    }
+
+    @VisibleForTesting
+    public SharedViewModel(@NonNull Application application, HabitDao dao) {
+        super(application);
+        this.habitDao = dao;
+
+        // Inicializamos allHabits usando el DAO de pruebas:
+        this.allHabits = habitDao.getAllHabits();
+
+        this.tareasCompletadas = Transformations.map(
+                this.allHabits,
+                list -> {
+                    int count = 0;
+                    for (Habit h : list) if (h.isFinished()) count++;
+                    return count;
+                });
     }
 
 }

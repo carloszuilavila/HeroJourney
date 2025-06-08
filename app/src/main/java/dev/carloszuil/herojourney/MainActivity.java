@@ -10,14 +10,13 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+import androidx.preference.PreferenceManager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
 import dev.carloszuil.herojourney.audio.SoundManager;
 import dev.carloszuil.herojourney.databinding.ActivityMainBinding;
-import dev.carloszuil.herojourney.system.ResetScheduler;
-import dev.carloszuil.herojourney.util.PrefsHelper;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,8 +29,15 @@ public class MainActivity extends AppCompatActivity {
 
         SoundManager.getInstance(this);
 
-        boolean dark = PrefsHelper.isDarkMode(this);
-        AppCompatDelegate.setDefaultNightMode(dark ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO);
+        boolean dark = PreferenceManager
+                .getDefaultSharedPreferences(this)
+                .getBoolean("pref_dark_mode", false);
+        AppCompatDelegate.setDefaultNightMode(
+                dark
+                        ? AppCompatDelegate.MODE_NIGHT_YES
+                        : AppCompatDelegate.MODE_NIGHT_NO
+        );
+
 
         // Inflar el layout con ViewBinding
         binding = ActivityMainBinding.inflate(getLayoutInflater());
@@ -57,8 +63,6 @@ public class MainActivity extends AppCompatActivity {
 
         // Conectar BottomNavigationView con NavController
         NavigationUI.setupWithNavController(navView, navController);
-
-        ResetScheduler.programarResetDiario(this);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package dev.carloszuil.herojourney.ui.hero;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,26 +12,22 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavOptions;
 
 import dev.carloszuil.herojourney.R;
 import dev.carloszuil.herojourney.databinding.FragmentHeroBinding;
-import dev.carloszuil.herojourney.ui.viewmodel.ThemeViewModel;
 
 public class HeroFragment extends Fragment {
 
     private FragmentHeroBinding binding;
 
     private final String[] labels = {
-            "Rewards", "Pet", "Breathe", "Destiny"
+            "Story", "Settings"
     };
 
     private final int[] icons = {
-            R.drawable.ic_launcher_foreground, R.drawable.ic_launcher_foreground,
-            R.drawable.ic_launcher_foreground, R.drawable.ic_launcher_foreground
+            R.drawable.contract_20px_g0_w400, R.drawable.settings_20px_g0_w400
     };
 
     @Nullable @Override
@@ -47,24 +44,6 @@ public class HeroFragment extends Fragment {
             @NonNull View view,
             @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        ThemeViewModel themeViewModel = new ViewModelProvider(requireActivity()).get(ThemeViewModel.class);
-
-        SwitchCompat themeSwitch = binding.getRoot().findViewById(R.id.themeSwitch);
-
-        themeViewModel.getIsDarkMode().observe(getViewLifecycleOwner(), isDark -> {
-            // desconecta momentáneamente el listener
-            themeSwitch.setOnCheckedChangeListener(null);
-            themeSwitch.setChecked(isDark);
-            // vuelve a conectar el listener
-            themeSwitch.setOnCheckedChangeListener((btn, checked) -> {
-                themeViewModel.setDarkMode(checked);
-            });
-        });
-
-        binding.themeSwitch.setOnCheckedChangeListener((btn, checked) -> {
-            themeViewModel.setDarkMode(checked);
-        });
 
         setupButtonGrid();
     }
@@ -99,8 +78,16 @@ public class HeroFragment extends Fragment {
                 final int idx = labelIndex;
                 cell.setOnClickListener(v -> {
                     switch (idx) {
+                        case 0:
+                            Intent intentStory = new Intent(requireContext(), StoryActivity.class);
+                            startActivity(intentStory);
+                            break;
+                        case 1:
+                            Intent intentSettings = new Intent(requireContext(), SettingsActivity.class);
+                            startActivity(intentSettings);
+                            break;
                         default:
-                            Toast.makeText(requireContext(), "Próximamente: " + labels[idx], Toast.LENGTH_SHORT).show();
+                            Toast.makeText(requireContext(), "Cooming soon: " + labels[idx], Toast.LENGTH_SHORT).show();
                             break;
                     }
                 });

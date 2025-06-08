@@ -15,10 +15,11 @@ import androidx.lifecycle.ViewModelProvider;
 import dev.carloszuil.herojourney.R;
 import dev.carloszuil.herojourney.databinding.FragmentJourneyBinding;
 import dev.carloszuil.herojourney.ui.viewmodel.SharedViewModel;
+import dev.carloszuil.herojourney.util.TimeUtils;
 
 public class JourneyFragment extends Fragment {
 
-    private static final long DURACION = 60 * 60 * 1000L; // 1 hora
+    private static final long JOURNEY_DURATION = 60 * 60 * 1000L; // 1 hora
     private FragmentJourneyBinding binding;
     private SharedViewModel sharedViewModel;
     private CountDownTimer countDownTimer;
@@ -56,29 +57,33 @@ public class JourneyFragment extends Fragment {
 
     private void startOrRestoreTimer() {
         long inicio = sharedViewModel.getInicioViaje();
-        long elapsed = System.currentTimeMillis() - inicio;
-        long restante = DURACION - elapsed;
+        long now = System.currentTimeMillis();
+        long elapsed = now - inicio;
+        long restante = JOURNEY_DURATION - elapsed;
 
         if (restante <= 0) {
             stopTimerAndReset();
             return;
         }
 
-        if (countDownTimer != null) countDownTimer.cancel();
+        // Opcional: mostrar de inmediato el valor “restante” antes de que llegue onTick
+        binding.textTimer.setText(TimeUtils.formatMillisToTimer(restante));
+
+        if (countDownTimer != null) {
+            countDownTimer.cancel();
+        }
         countDownTimer = new CountDownTimer(restante, 1_000) {
             @Override
             public void onTick(long ms) {
-                long min = (ms / 1_000) / 60;
-                long sec = (ms / 1_000) % 60;
-                binding.textTimer.setText(String.format("%02d:%02d", min, sec));
+                binding.textTimer.setText(TimeUtils.formatMillisToTimer(ms));
             }
-
             @Override
             public void onFinish() {
                 stopTimerAndReset();
             }
         }.start();
     }
+
 
     private void stopTimerAndReset() {
         if (countDownTimer != null) {

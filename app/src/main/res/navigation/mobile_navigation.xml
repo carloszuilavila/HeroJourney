@@ -41,4 +41,33 @@
         android:label="Revelations"
         tools:layout="@layout/fragment_revelations" />
 
+    <fragment
+        android:id="@+id/reflectionsFragment"
+        android:name="dev.carloszuil.herojourney.ui.fort.ReflectionsFragment"
+        android:label="Reflections"
+        tools:layout="@layout/fragment_reflections" />
+
+    <fragment
+        android:id="@+id/victoriesFragment"
+        android:name="dev.carloszuil.herojourney.ui.fort.VictoriesFragment"
+        android:label="Victories"
+        tools:layout="@layout/fragment_victories" />
+
+    <fragment
+        android:id="@+id/destinyFragment"
+        android:name="dev.carloszuil.herojourney.ui.fort.DestinyFragment"
+        android:label="Destiny"
+        tools:layout="@layout/fragment_destiny" />
+
+    <fragment
+        android:id="@+id/storyFragment"
+        android:name="dev.carloszuil.herojourney.ui.hero.StoryFragment"
+        android:label="Story"
+        tools:layout="@layout/fragment_story" />
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="dev.carloszuil.herojourney.ui.hero.SettingsFragment"
+        android:label="Settings"/>
+
 </navigation>

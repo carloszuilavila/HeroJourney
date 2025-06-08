@@ -53,6 +53,8 @@ dependencies {
     implementation("androidx.core:core-splashscreen:1.0.1")
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("androidx.preference:preference-ktx:1.2.0")
+    implementation ("androidx.work:work-runtime-ktx:2.8.1")
     implementation(libs.androidx.room.common.jvm)
     implementation(libs.androidx.room.runtime.android)
     kapt("androidx.room:room-compiler:2.5.0")
@@ -60,4 +62,7 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation("androidx.arch.core:core-testing:2.1.0")
+    androidTestImplementation("androidx.room:room-testing:2.5.0")
+    androidTestImplementation("androidx.test.espresso:espresso-contrib:3.4.0")
 }

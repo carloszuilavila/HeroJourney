@@ -5,6 +5,7 @@ import android.media.MediaPlayer;
 import android.util.Log;
 
 import dev.carloszuil.herojourney.R;
+import dev.carloszuil.herojourney.util.PrefsHelper;
 
 /**
  * SoundManager centraliza la reproducción de efectos (CHECK, SAVE, ERROR)
@@ -51,8 +52,8 @@ public class SoundManager {
     }
 
     /** Reproduce el efecto CHECK */
-    public void playCheck() {
-        if (mpCheck == null) return;
+    public void playCheck(Context context) {
+        if (mpCheck == null || !PrefsHelper.isSoundEffectsEnabled(context)) return;
         try {
             if (mpCheck.isPlaying()) {
                 // Si está en medio de una reproducción anterior, lo pausamos y lo reposicionamos
@@ -67,8 +68,8 @@ public class SoundManager {
     }
 
     /** Reproduce el efecto SAVE */
-    public void playSave() {
-        if (mpSave == null) return;
+    public void playSave(Context context) {
+        if (mpSave == null || !PrefsHelper.isSoundEffectsEnabled(context)) return;
         try {
             if (mpSave.isPlaying()) {
                 mpSave.pause();
@@ -82,8 +83,8 @@ public class SoundManager {
     }
 
     /** Reproduce el efecto ERROR */
-    public void playError() {
-        if (mpError == null) return;
+    public void playError(Context context) {
+        if (mpError == null || !PrefsHelper.isSoundEffectsEnabled(context)) return;
         try {
             if (mpError.isPlaying()) {
                 mpError.pause();

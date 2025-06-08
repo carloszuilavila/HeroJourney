@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- ========= DISPLAY ========= -->
+    <androidx.preference.PreferenceCategory
+        android:key="cat_display"
+        android:title="Display"/>
+
+    <androidx.preference.SwitchPreferenceCompat
+        android:key="pref_dark_mode"
+        android:icon="@drawable/contrast_20px_g0_w400"
+        android:title="Theme Mode"
+        android:summary="Toggle light/dark theme" />
+
+    <!-- ===== SOUND & FEEDBACK ===== -->
+    <androidx.preference.PreferenceCategory
+        android:key="cat_sound"
+        android:title="Sound and Feedback" />
+
+    <androidx.preference.CheckBoxPreference
+        android:key="pref_sound_effects"
+        android:icon="@drawable/volume_up_20px_g0_w400"
+        android:title="Sound Effects"
+        android:summary="Enable or disable UI sound cues" />
+
+    <!-- ============ ABOUT ============ -->
+    <androidx.preference.PreferenceCategory
+        android:key="cat_about"
+        android:title="About" />
+
+    <androidx.preference.Preference
+        android:key="pref_version"
+        android:icon="@drawable/info_20px_g0_w400"
+        android:title="Version"
+        android:summary="0.2"
+        android:selectable="false" />
+
+    <!--
+    <SwitchPreferenceCompat
+        app:key="notifications"
+        app:title="Enable message notifications"/>
+
+    <SwitchPreferenceCompat
+        android:key="pref_daily_reset"
+        android:title="Daily Reset"
+        android:summary="Automatically reset habits every day" />
+
+    <Preference
+        android:key="pref_reset_time"
+        android:title="Reset Time"
+        android:summary="What time to perform the daily reset"
+        android:dependency="pref_daily_reset" />
+
+    <Preference
+        app:key="feedback"
+        app:title="Send feedback"
+        app:summary="Report technical issues or suggest new features"/>
+    -->
+</androidx.preference.PreferenceScreen>
