@@ -3,10 +3,12 @@ package dev.carloszuil.herojourney.ui.hero;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.preference.CheckBoxPreference;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.SwitchPreferenceCompat;
 
 import dev.carloszuil.herojourney.R;
+import dev.carloszuil.herojourney.util.PrefsHelper;
 
 public class SettingsFragment extends PreferenceFragmentCompat {
     @Override
@@ -27,6 +29,17 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 // guardado automático via PreferenceDataStore o SharedPrefs
                 return true; // aplicar el cambio
             });
+        }
+
+        CheckBoxPreference soundPref = findPreference("pref_sound_effects");
+        if(soundPref != null){
+            soundPref.setChecked(PrefsHelper.isSoundEffectsEnabled(requireContext()));
+
+            soundPref.setOnPreferenceChangeListener(((preference, newValue) -> {
+                boolean enabled = (Boolean) newValue;
+                PrefsHelper.setSoundEffectsEnabled(requireContext(), enabled);
+                return true;
+            }));
         }
     }
 }

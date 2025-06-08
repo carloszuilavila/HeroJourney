@@ -1,16 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.preference.PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <SwitchPreferenceCompat
+    <!-- ========= DISPLAY ========= -->
+    <androidx.preference.PreferenceCategory
+        android:key="cat_display"
+        android:title="Display"/>
+
+    <androidx.preference.SwitchPreferenceCompat
         android:key="pref_dark_mode"
-        android:title="Dark Mode"
+        android:icon="@drawable/contrast_20px_g0_w400"
+        android:title="Theme Mode"
         android:summary="Toggle light/dark theme" />
 
-    <SwitchPreferenceCompat
+    <!-- ===== SOUND & FEEDBACK ===== -->
+    <androidx.preference.PreferenceCategory
+        android:key="cat_sound"
+        android:title="Sound and Feedback" />
+
+    <androidx.preference.CheckBoxPreference
         android:key="pref_sound_effects"
+        android:icon="@drawable/volume_up_20px_g0_w400"
         android:title="Sound Effects"
         android:summary="Enable or disable UI sound cues" />
+
+    <!-- ============ ABOUT ============ -->
+    <androidx.preference.PreferenceCategory
+        android:key="cat_about"
+        android:title="About" />
+
+    <androidx.preference.Preference
+        android:key="pref_version"
+        android:icon="@drawable/info_20px_g0_w400"
+        android:title="Version"
+        android:summary="0.2"
+        android:selectable="false" />
 
     <!--
     <SwitchPreferenceCompat
@@ -33,4 +57,4 @@
         app:title="Send feedback"
         app:summary="Report technical issues or suggest new features"/>
     -->
-</PreferenceScreen>
+</androidx.preference.PreferenceScreen>

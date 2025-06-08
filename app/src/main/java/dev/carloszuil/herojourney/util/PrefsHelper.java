@@ -9,6 +9,7 @@ public class PrefsHelper {
     private static final String KEY_IS_TRAVELING = "is_traveling";
     private static final String KEY_JOURNEY_START = "journey_start";
     private static final String PREF_DARK_MODE = "dark_mode";
+    private static final String PREF_SOUND_EFFECTS = "pref_sound_effects";
     private static final String KEY_LAST_RESET = "last_reset_date";
 
 
@@ -50,6 +51,14 @@ public class PrefsHelper {
     public static String getLastResetDate(Context context) {
         return getPrefs(context)
                 .getString(KEY_LAST_RESET, "");
+    }
+
+    public static boolean isSoundEffectsEnabled(Context context) {
+        return getPrefs(context).getBoolean(PREF_SOUND_EFFECTS, true);
+    }
+
+    public static void setSoundEffectsEnabled(Context context, boolean enabled) {
+        getPrefs(context).edit().putBoolean(PREF_SOUND_EFFECTS, enabled).apply();
     }
 
 }

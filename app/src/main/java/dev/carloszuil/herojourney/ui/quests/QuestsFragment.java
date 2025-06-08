@@ -97,13 +97,13 @@ public class QuestsFragment extends Fragment {
             // La UI decide qué sonido reproducir
             switch (effect) {
                 case CHECK:
-                    SoundManager.getInstance(requireContext()).playCheck();
+                    SoundManager.getInstance(requireContext()).playCheck(requireContext());
                     break;
                 case SAVE:
-                    SoundManager.getInstance(requireContext()).playSave();
+                    SoundManager.getInstance(requireContext()).playSave(requireContext());
                     break;
                 case ERROR:
-                    SoundManager.getInstance(requireContext()).playError();
+                    SoundManager.getInstance(requireContext()).playError(requireContext());
                     break;
             }
         });
