@@ -32,8 +32,10 @@ public class DestinyFragment extends Fragment {
         textArea = root.findViewById(R.id.destinyTextArea);
 
         button.setOnClickListener(v -> {
-            textArea.setText("");
-            Toast.makeText(getContext(), "The page has suddenly burned!", Toast.LENGTH_SHORT).show();
+            if(!textArea.getText().toString().isEmpty()){
+                textArea.setText("");
+                Toast.makeText(getContext(), "The page has suddenly burned!", Toast.LENGTH_SHORT).show();
+            }
         });
 
         return root;
