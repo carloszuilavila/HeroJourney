@@ -21,7 +21,6 @@ public class HeroJourneyApp extends Application {
     }
 
     private void scheduleDailyResetAt4AM() {
-        // Calcula delay hasta las 4 AM
         Calendar now = Calendar.getInstance();
         Calendar firstRun = (Calendar) now.clone();
         firstRun.set(Calendar.HOUR_OF_DAY, 4);
@@ -32,15 +31,15 @@ public class HeroJourneyApp extends Application {
         }
         long initialDelay = firstRun.getTimeInMillis() - now.getTimeInMillis();
 
-        // Restricciones: p.ej. no batería baja
         Constraints constraints = new Constraints.Builder()
                 .setRequiresBatteryNotLow(true)
                 .build();
 
-        // WorkRequest periódico cada 24 h, arrancando a las 4 AM
+        // Aquí añadimos un “flexInterval” de 15 minutos:
         PeriodicWorkRequest resetRequest = new PeriodicWorkRequest.Builder(
                 DailyResetWorker.class,
-                24, TimeUnit.HOURS
+                24, TimeUnit.HOURS,
+                15, TimeUnit.MINUTES
         )
                 .setInitialDelay(initialDelay, TimeUnit.MILLISECONDS)
                 .setConstraints(constraints)
@@ -53,4 +52,5 @@ public class HeroJourneyApp extends Application {
                         resetRequest
                 );
     }
+
 }
