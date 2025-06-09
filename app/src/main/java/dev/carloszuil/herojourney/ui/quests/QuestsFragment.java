@@ -243,22 +243,18 @@ public class QuestsFragment extends Fragment {
         List<QuestState> listOtherBoards = new ArrayList<>();
         List<String> labelsList = new ArrayList<>();
         for (QuestState state : QuestState.values()) {
-            if (state != quest.getEstado()) {
+            if (state != quest.getEstado() && state != QuestState.QUEST_BOARD_4) {
                 listOtherBoards.add(state);
                 labelsList.add(state.getDisplayName());
             }
         }
-        String[]      options     = labelsList.toArray(new String[0]);
+        String[] options = labelsList.toArray(new String[0]);
         QuestState[] statesArray = listOtherBoards.toArray(new QuestState[0]);
 
         new AlertDialog.Builder(requireContext())
-                .setTitle("Move to: ")
+                .setTitle("Move '" + quest.getNombre() + "' to: ")
                 .setItems(options, (dialog, which) -> {
                     QuestState newState = statesArray[which];
-                    // Guardar estado anterior si está completado
-                    if (newState == QuestState.QUEST_BOARD_4){
-                        quest.setEstadoAnterior(quest.getEstado());
-                    }
                     quest.setEstado(newState);
                     questViewModel.updateQuest(quest);
                 })
