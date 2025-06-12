@@ -4,7 +4,6 @@ Documentación oficial de la aplicación.
  
 Hero's Journey es una aplicación que pretende mejorar la productividad de sus usarios de una manera amable y compasiva, adoptando además mecánicas de gamificación propias de los videojuegos RPG de fantasía medieval.
 
-- [Hero’s Journey](#heros-journey)  
 - [Guía de instalación y configuración](#guía-de-instalación-y-configuración)  
   - [Requisitos previos](#requisitos-previos)  
   - [Dependencias clave](#dependencias-clave)  
