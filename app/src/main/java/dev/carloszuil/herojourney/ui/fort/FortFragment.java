@@ -23,7 +23,7 @@ public class FortFragment extends Fragment {
     private FragmentFortBinding binding;
 
     private final String[] labels = {
-            "Revelations", "Reflect",
+            "Reveal", "Reflect",
             "Destiny", "Victories"
     };
 
