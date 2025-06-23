@@ -21,8 +21,8 @@
             android:src="@drawable/heroe"
             android:contentDescription="Hero"
             android:layout_gravity="center"
-            android:layout_marginBottom="60dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginBottom="40dp"
+            android:layout_marginTop="20dp"
             android:background="?attr/colorSecondary"
             android:paddingTop="25dp"
             android:paddingBottom="25dp"/>
@@ -32,16 +32,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:weightSum="2"
+            android:weightSum="1"
             android:layout_marginBottom="12dp">
-
-            <include
-                layout="@layout/btn_hero_section"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"/>
 
             <include
                 layout="@layout/btn_hero_section"
@@ -53,10 +45,55 @@
         </LinearLayout>
 
         <!-- Fila 2 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1"
+            android:layout_marginBottom="12dp">
+
+            <include
+                layout="@layout/btn_hero_section"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"/>
+        </LinearLayout>
 
         <!-- Fila 3 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1"
+            android:layout_marginBottom="12dp">
+
+            <include
+                layout="@layout/btn_hero_section"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"/>
+        </LinearLayout>
 
         <!-- Fila 4 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1"
+            android:layout_marginBottom="12dp">
+
+            <include
+                layout="@layout/btn_hero_section"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"/>
+        </LinearLayout>
 
     </LinearLayout>
 </ScrollView>
