@@ -23,10 +23,12 @@ public class HeroFragment extends Fragment {
     private FragmentHeroBinding binding;
 
     private final String[] labels = {
+            "Stats", "Rewards",
             "Story", "Settings"
     };
 
     private final int[] icons = {
+            R.drawable.star_shine_20px_g0_w300, R.drawable.person_play_20px_g0_w400,
             R.drawable.contract_20px_g0_w400, R.drawable.settings_20px_g0_w400
     };
 
@@ -79,10 +81,16 @@ public class HeroFragment extends Fragment {
                 cell.setOnClickListener(v -> {
                     switch (idx) {
                         case 0:
+                            Toast.makeText(requireContext(), "Cooming soon: " + labels[idx], Toast.LENGTH_SHORT).show();
+                            break;
+                        case 1:
+                            Toast.makeText(requireContext(), "Cooming soon: " + labels[idx], Toast.LENGTH_SHORT).show();
+                            break;
+                        case 2:
                             Intent intentStory = new Intent(requireContext(), StoryActivity.class);
                             startActivity(intentStory);
                             break;
-                        case 1:
+                        case 3:
                             Intent intentSettings = new Intent(requireContext(), SettingsActivity.class);
                             startActivity(intentSettings);
                             break;
